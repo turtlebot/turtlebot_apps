@@ -28,7 +28,7 @@
   <param name="laser_likelihood_max_dist" value="2.0"/>
   <param name="update_min_d" value="0.25"/>
   <param name="update_min_a" value="0.2"/>
-  <param name="odom_frame_id" value="odom_combined"/>
+  <param name="odom_frame_id" value="odom"/>
   <param name="resample_interval" value="1"/>
   <!-- Increase tolerance because the computer can get quite busy -->
   <param name="transform_tolerance" value="1.0"/>

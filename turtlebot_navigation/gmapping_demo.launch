@@ -1,12 +1,12 @@
 <launch>
-  <!--- Run the base -->
+
+  <!--- Run Robot Pose EKF -->
   <include file="$(find turtlebot_bringup)/base.launch" />
 
   <!--- Run gmapping -->
   <include file="$(find turtlebot_navigation)/config/gmapping_turtlebot.launch" />
 
-
-  <!--- Run Move Base and Robot Pose EKF -->
+  <!--- Run Move Base -->
   <include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" />
   
   <!--- Run the kinect -->

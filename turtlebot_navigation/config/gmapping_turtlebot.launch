@@ -1,6 +1,6 @@
 <launch>
     <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-      <param name="odom_frame" value="odom_combined"/>
+      <param name="odom_frame" value="odom"/>
       <param name="map_update_interval" value="30.0"/>
       <param name="maxUrange" value="16.0"/>
       <param name="sigma" value="0.05"/>
