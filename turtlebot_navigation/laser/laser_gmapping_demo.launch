@@ -5,7 +5,7 @@
  
   <!--- Run gmapping -->
   <include file="$(find turtlebot_navigation)/config/gmapping_turtlebot.launch" />
-    <arg name="scan_topic" value=scan_filtered" />
+    <arg name="scan_topic" value="scan_filtered" />
   </include>
 
   <!--- Run Move Base and Robot Pose EKF -->
