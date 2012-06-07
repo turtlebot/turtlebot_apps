@@ -1,7 +1,7 @@
 <launch>
 
   <!-- Run self-filter -->
-  <node pkg="turtlebot_navigation" type="laser_footprint_filter" />
+  <node name="laser_filter" pkg="turtlebot_navigation" type="laser_footprint_filter" />
 
   <!-- Run the map server -->
   <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
@@ -9,7 +9,7 @@
 
   <!--- Run AMCL -->
   <include file="$(find turtlebot_navigation)/config/amcl_turtlebot.launch">
-    <arg name="scan_topic" value=scan_filtered" />
+    <arg name="scan_topic" value="scan_filtered" />
   </include>
 
   <!--- Run Move Base -->

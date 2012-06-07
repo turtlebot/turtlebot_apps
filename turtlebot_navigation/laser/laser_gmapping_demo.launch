@@ -1,10 +1,10 @@
 <launch>
 
   <!-- Run self-filter -->
-  <node pkg="turtlebot_navigation" type="laser_footprint_filter" />
+  <node name="laser_filter"  pkg="turtlebot_navigation" type="laser_footprint_filter" />
  
   <!--- Run gmapping -->
-  <include file="$(find turtlebot_navigation)/config/gmapping_turtlebot.launch" />
+  <include file="$(find turtlebot_navigation)/config/gmapping_turtlebot.launch" >
     <arg name="scan_topic" value="scan_filtered" />
   </include>
 
