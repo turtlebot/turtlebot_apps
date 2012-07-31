@@ -3,5 +3,8 @@ raytrace_range: 3.0
 robot_radius: .18
 footprint_padding: 0.01
 inflation_radius: 0.50
-observation_sources: scan
+observation_sources: scan left_bump right_bump
 scan: {data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+
+left_bump: {data_type: PointCloud2, topic: /bump_sensor_left, marking: true, clearing: true}
+right_bump: {data_type: PointCloud2, topic: /bump_sensor_right, marking: true, clearing: true}
