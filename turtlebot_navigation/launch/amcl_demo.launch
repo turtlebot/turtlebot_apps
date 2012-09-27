@@ -1,4 +1,5 @@
 <launch>
+  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
 
   <!--- Run the kinect -->
   <include file="$(find turtlebot_bringup)/kinect.launch" />
@@ -8,9 +9,12 @@
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--- Run AMCL -->
-  <include file="$(find turtlebot_navigation)/config/amcl_turtlebot.launch" />
+  <include file="$(find turtlebot_navigation)/launch/_amcl.launch" />
 
   <!--- Run Move Base -->
-  <include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" />
+  <include file="$(find turtlebot_navigation)/launch/_move_base.launch">
+    <arg name="base" value="$(arg base)" />
+  </include>
+  
 
 </launch>

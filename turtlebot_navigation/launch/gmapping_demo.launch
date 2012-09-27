@@ -1,0 +1,15 @@
+<launch>
+  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
+
+  <!--- Run the kinect -->
+  <include file="$(find turtlebot_bringup)/kinect.launch" />
+
+  <!--- Run gmapping -->
+  <include file="$(find turtlebot_navigation)/launch/_gmapping.launch" />
+
+  <!--- Run Move Base -->
+  <include file="$(find turtlebot_navigation)/launch/_move_base.launch">
+    <arg name="base" value="$(arg base)" />
+  </include>
+
+</launch>
