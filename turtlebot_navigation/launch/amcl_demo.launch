@@ -1,15 +1,20 @@
 <launch>
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
-
+  
   <!--- Run the kinect -->
-  <include file="$(find turtlebot_bringup)/kinect.launch" />
+  <include file="$(find turtlebot_bringup)/launch/kinect.launch" />
 
   <!-- Run the map server -->
   <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--- Run AMCL -->
-  <include file="$(find turtlebot_navigation)/launch/_amcl.launch" />
+  <arg name="initial_pose_x" value="17.0"/>
+  <arg name="initial_pose_y" value="17.0"/>
+  <include file="$(find turtlebot_navigation)/launch/_amcl.launch">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+  </include>
 
   <!--- Run Move Base -->
   <include file="$(find turtlebot_navigation)/launch/_move_base.launch">
