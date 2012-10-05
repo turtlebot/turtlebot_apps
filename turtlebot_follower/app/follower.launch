@@ -1,7 +1,7 @@
 <launch>
 
   <!-- Kinect -->
-  <include file="$(find turtlebot_bringup)/launch/kinect.launch" />
+  <include file="$(find turtlebot_bringup)/kinect.launch" />
   
   <!-- Follower nodelet -->
   <node pkg="nodelet" type="nodelet" name="turtlebot_follower" args="load turtlebot_follower/TurtlebotFollower openni_manager" respawn="true">
