@@ -11,13 +11,13 @@
   <!--- Run AMCL -->
   <arg name="initial_pose_x" value="17.0"/>
   <arg name="initial_pose_y" value="17.0"/>
-  <include file="$(find turtlebot_navigation)/launch/_amcl.launch">
+  <include file="$(find turtlebot_navigation)/launch/includes/_amcl.launch">
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
   </include>
 
   <!--- Run Move Base -->
-  <include file="$(find turtlebot_navigation)/launch/_move_base.launch">
+  <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch">
     <arg name="base" value="$(arg base)" />
   </include>
   
