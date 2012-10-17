@@ -1,0 +1,26 @@
+<package>
+	<description brief="pano_core">
+
+		pano_core
+
+  </description>
+	<author>Ethan Rublee</author>
+	<license>BSD</license>
+	<review status="unreviewed" notes="" />
+	<url>http://ros.org/wiki/pano_core</url>
+
+
+	<depend package="opencv2" />
+	
+	<!--
+	this is only for logging in the apps
+	-->
+	<depend package="roscpp"></depend>
+	<export>
+		<cpp cflags="-I${prefix}/include" lflags="-L${prefix}/lib -lpano_core" />
+	</export>
+
+
+</package>
+
+
