@@ -35,8 +35,3 @@ find_package(OpenCV REQUIRED)
 
 #rosbuild_add_executable(example examples/example.cpp)
 #link_libraries(example ${PROJECT_NAME})
-rosbuild_add_executable(opencv_camera_driver src/opencv_camera_driver.cpp)
-target_link_libraries(opencv_camera_driver ${OpenCV_LIBS})
-rosbuild_add_executable(pano_core_tracker src/pano_core_tracker.cpp)
-
-
