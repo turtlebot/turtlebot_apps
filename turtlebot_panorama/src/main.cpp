@@ -6,6 +6,7 @@ int main(int argc, char **argv) {
 
   pano_app::PanoApp pano;
   pano.init();
+  ROS_INFO("Panorama application initialized.");
   pano.spin();
 
   return 0;
