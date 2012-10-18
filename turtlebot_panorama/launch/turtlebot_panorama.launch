@@ -1,0 +1,13 @@
+<launch>
+  <arg name="pano_ros_server_name" value="pano_server"/>
+  <arg name="turtlebot_panorama_name" value="turtlebot_panorama"/>
+
+
+  <node name="$(arg pano_ros_server_name)" pkg="pano_ros" type="capture_server.py">
+    <remap from="/$(arg pano_ros_server_name)/" to="$(arg turtlebot_panorama_name)/pano_server/"/>
+    <remap from="/$(arg pano_ros_server_name)/snap" to="$(arg turtlebot_panorama_name)/pano_server/snap"/>
+    <remap from="/$(arg pano_ros_server_name)/stop" to="$(arg turtlebot_panorama_name)/pano_server/stop"/>
+    <remap from="/$(arg pano_ros_server_name)/stitch" to="$(arg turtlebot_panorama_name)/pano_server/stitch"/>
+  </node>
+  <node name="$(arg turtlebot_panorama_name)" pkg="turtlebot_panorama" type="panorama"/>
+</launch>

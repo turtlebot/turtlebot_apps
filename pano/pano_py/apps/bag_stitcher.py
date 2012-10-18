@@ -62,7 +62,7 @@ class StitchJob(object):
         for topic, msg, t in bag.read_messages(topics=['image']):
             if ('image' in topic):
                 try:
-                    cv_image = self.bridge.imgmsg_to_cv(msg, "bgr8")
+                    cv_image = self.bridge.imgmsg_to_cv(msg, "rgb8")
                     b_prob =   blur_detector.checkBlur(cv_image)
                     print "image blur prob = %f" %b_prob         
                     pano_image = pcv.convertCvMat2Mat(cv_image)

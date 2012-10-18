@@ -20,7 +20,6 @@
 	<depend package="image_transport" />
 	<depend package="cv_bridge" />
 
-	<depend package="pano_core" />
 	<depend package="pano_py" />
 	<!-- DOH
 	<depend package="warehouse" />

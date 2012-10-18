@@ -287,7 +287,7 @@ class StitchCapture(CaptureInterface):
         self.bridge = CvBridge()
         self._bag_capture = BagCapture()
         self._bag_capture.start(pano_id, goal)
-        self.img_pub = rospy.Publisher('pano_capture/stitch',Image)
+        self.img_pub = rospy.Publisher('~stitch',Image)
         
 
     def __call__(self, image, camera_info):
@@ -295,7 +295,7 @@ class StitchCapture(CaptureInterface):
             self.setupCamera(camera_info)
             self.setupStitch()
         try:
-            cv_image = self.bridge.imgmsg_to_cv(image, "bgr8")
+            cv_image = self.bridge.imgmsg_to_cv(image, "rgb8")
                            
             pano_image = pcv.convertCvMat2Mat(cv_image)
             self.stitcher.addNewImage(pano_image)
