@@ -81,9 +81,7 @@ void PanoApp::init()
 void PanoApp::spin()
 {
   ros::Rate loop_rate(10);
-  double st,fi;
 
-  st = 0;
   while( ros::ok() ) {
 	  switch ( state )
 	  {

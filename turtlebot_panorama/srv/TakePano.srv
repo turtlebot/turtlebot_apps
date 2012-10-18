@@ -1,0 +1,10 @@
+float32 angle
+float32 interval_angle
+float32 zvel
+---
+uint8 status
+sensor_msgs/Image image
+
+uint8 STARTED=0
+uint8 IN_PROGRESS=1
+uint8 ERROR=2
