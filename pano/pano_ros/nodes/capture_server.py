@@ -295,7 +295,7 @@ class StitchCapture(CaptureInterface):
             self.setupCamera(camera_info)
             self.setupStitch()
         try:
-            cv_image = self.bridge.imgmsg_to_cv(image, "bgr8")
+            cv_image = self.bridge.imgmsg_to_cv(image, "rgb8")
                            
             pano_image = pcv.convertCvMat2Mat(cv_image)
             self.stitcher.addNewImage(pano_image)

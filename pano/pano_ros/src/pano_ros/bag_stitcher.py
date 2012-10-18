@@ -37,7 +37,7 @@ class StitchJob(object):
         for topic, msg, t in bag.read_messages(topics=['image', 'camera_info']):
             if ('image' in topic):
                 try:
-                    cv_image = self.bridge.imgmsg_to_cv(msg, "bgr8")                 
+                    cv_image = self.bridge.imgmsg_to_cv(msg, "rgb8")                 
                     image_name = "%s/image_%05d.png" % (pano_dir , img_n)
                     image_names.append("image_%05d.png" % img_n)
                     cv.SaveImage(image_name,cv_image)
