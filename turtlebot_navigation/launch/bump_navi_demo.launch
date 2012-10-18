@@ -1,0 +1,33 @@
+<!--
+  Before launching this:
+    roslaunch turtlebot_bringup minimal.launch  
+ -->
+<launch>
+  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, roomba -->
+
+  <!--- Run Move Base -->
+  <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch" >
+    <arg name="base" value="$(arg base)"/>
+  </include>
+
+  <!--
+    Tweaks to adapt the move base node to local navigation:
+     - global costmap is also a rolling window, non-static map
+     - so it's referenced to odom, as the local costmap
+     - and it must be updated, dislike a static map
+     - we use a bigger costmap than that of the local planner
+     - replan often to contour hit obstacles
+  -->
+  <param name="move_base/global_costmap/global_frame" value="odom"/>
+  <param name="move_base/global_costmap/update_frequency" value="1.0"/>
+  <param name="move_base/global_costmap/publish_frequency" value="1.0"/>
+  <param name="move_base/global_costmap/static_map" value="false"/>
+  <param name="move_base/global_costmap/rolling_window" value="true"/>
+  <param name="move_base/global_costmap/width" value="10.0"/>
+  <param name="move_base/global_costmap/height" value="10.0"/>
+  <param name="move_base/global_costmap/resolution" value="0.02"/>
+  <param name="move_base/global_costmap/origin_x" value="0.0"/>
+  <param name="move_base/global_costmap/origin_y" value="0.0"/>
+  <param name="move_base/local_costmap/resolution" value="0.02"/>
+  <param name="move_base/planner_frequency" value="5.0"/>
+</launch>
