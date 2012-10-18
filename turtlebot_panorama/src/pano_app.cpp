@@ -93,7 +93,7 @@ void PanoApp::stop()
 void PanoApp::done()
 {
   ROS_INFO("done");
-  ;
+  state= PENDING;
 }
 
 /********************
