@@ -1,0 +1,23 @@
+<package>
+  <description brief="turtlebot_panorama">
+
+     turtlebot_panorama
+
+  </description>
+  <author>Jihoon</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/turtlebot_panorama</url>
+  <depend package="roscpp"/>
+  <depend package="actionlib"/>
+  <depend package="pano_ros"/>
+  <depend package="image_transport"/>
+  <depend package="std_msgs"/>
+  <depend package="sensor_msgs"/>
+  <depend package="geometry_msgs"/>
+
+  <depend package="ecl_geometry"/>
+
+</package>
+
+

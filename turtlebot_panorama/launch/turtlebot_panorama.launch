@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find turtlebot_bringup)/launch/kinect.launch" />
+  <node name="pano_capture_server" pkg="pano_ros" type="capture_server.py"/>
+  <node name="turtlebot_panorama" pkg="turtlebot_panorama" type="panorama">
+    <rosparam command="load" file="$(find turtlebot_panorama)/config/default.yaml" />
+  </node>
+</launch>
