@@ -1,7 +1,7 @@
 <package>
 	<description brief="pano_ros">
 
-		pano_ros
+	The ros frontend to the pano subsystem.
 
   </description>
 	<author>Ethan Rublee, Ken Conley</author>
