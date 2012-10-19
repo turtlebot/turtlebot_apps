@@ -136,6 +136,7 @@ void PanoApp::stop()
   log("stop");
   is_active = false;
   pub_stop.publish( empty );
+
 }
 
 void PanoApp::done()
@@ -150,7 +151,15 @@ void PanoApp::done()
 bool PanoApp::takeService(TakePano::Request& request,TakePano::Response& response)
 {
   if(is_active) {
-    response.status = response.IN_PROGRESS;
+    if(request.angle < 0.0f)
+    {
+      stop();
+      cmd_vel.angular.z = 0.0f;
+      response.status = response.STOPPED;
+    }
+    else {
+      response.status = response.IN_PROGRESS;
+    }
   }
   else {
     given_angle = request.angle;
