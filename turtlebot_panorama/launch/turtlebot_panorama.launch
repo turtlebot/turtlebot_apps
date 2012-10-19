@@ -9,5 +9,5 @@
     <remap from="/$(arg pano_ros_server_name)/stop" to="$(arg turtlebot_panorama_name)/pano_server/stop"/>
     <remap from="/$(arg pano_ros_server_name)/stitch" to="$(arg turtlebot_panorama_name)/pano_server/stitch"/>
   </node>
-  <node name="$(arg turtlebot_panorama_name)" pkg="turtlebot_panorama" type="panorama"/>
+  <node name="$(arg turtlebot_panorama_name)" pkg="turtlebot_panorama" type="panorama_stop"/>
 </launch>

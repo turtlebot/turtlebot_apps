@@ -1,5 +1,6 @@
 float32 angle
 float32 interval_angle
+float32 snap_interval
 float32 zvel
 ---
 uint8 status
