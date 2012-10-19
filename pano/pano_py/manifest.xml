@@ -1,7 +1,7 @@
 <package>
 	<description brief="pano_py">
 
-		pano_py
+        This is a python wraper around the pano_core library (I think)
 
   </description>
 	<author>Ethan Rublee</author>
