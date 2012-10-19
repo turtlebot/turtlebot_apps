@@ -81,20 +81,17 @@ void PanoApp::init()
 void PanoApp::spin()
 {
   ros::Rate loop_rate(10);
-  double st,fi;
 
-  st = 0;
   while( ros::ok() ) {
-    if(is_active)
-    {
-      turn();
-      fi = ros::Time::now().toSec();
-      if(fi - st > snap_interval)
-      {
-        snap();
-        st = fi;
-      }
-    }
+	  switch ( state )
+	  {
+	  case PENDING: break;
+	  case SNAP: snap(); break;
+	  case TURN: turn(); break;
+	  case STOP: stop(); break;
+	  case DONE: done(); break;
+	  default: break;
+	  }  
 	  ros::spinOnce();
 	  loop_rate.sleep();
   }
@@ -110,14 +107,14 @@ void PanoApp::snap()
 void PanoApp::turn()
 {
   log("turn");
-  /*
+
   if( hasReached() ) {
     cmd_vel.angular.z = 0.0f; 
     state = SNAP;
     is_active = false;
   } else {
     cmd_vel.angular.z = ang_vel; 
-  }*/
+  }
   pub_cmd_vel.publish( cmd_vel );
 }
 
@@ -136,6 +133,7 @@ void PanoApp::stop()
   log("stop");
   is_active = false;
   pub_stop.publish( empty );
+  state = PENDING;
 }
 
 void PanoApp::done()
@@ -154,8 +152,8 @@ bool PanoApp::takeService(TakePano::Request& request,TakePano::Response& respons
   }
   else {
     given_angle = request.angle;
+    interval_angle = request.interval_angle;
     cmd_vel.angular.z = request.zvel;
-    snap_interval = request.snap_interval;
     startPano();
     response.status = response.STARTED;
   }
@@ -169,8 +167,8 @@ void PanoApp::takeCb( const std_msgs::EmptyConstPtr& msg )
   if( is_active ) return;
 
   given_angle = 360.0f;
+  interval_angle = 30.0f;
   cmd_vel.angular.z = 0.1f;
-  snap_interval = 0.2;
   startPano();
 }
 
@@ -192,7 +190,7 @@ void PanoApp::startPano()
   angle = 0.0f;
   last_angle = 0.0f;
   is_active = true;
-  //state = PENDING;
+  state = PENDING;
 }
 
 void PanoApp::odomCb( const nav_msgs::OdometryConstPtr& msg )
@@ -253,14 +251,15 @@ void PanoApp::feedbackCb( const pano_ros::PanoCaptureFeedbackConstPtr& feedback 
 
   if( /*hasRevoluted()*/angle > ecl::degrees_to_radians(given_angle))// || feedback->n_captures > 36/*MAX_XXX*/ )
   {
-    stop();
-    cmd_vel.angular.z = 0.0f;
+    state= STOP;
+  }
+  else {
+    state = TURN;
   }
 }
 
 void PanoApp::log(std::string log)
 {
-//  std::cout << log << std::endl;
   ROS_INFO(log.c_str());
   std_msgs::String msg;
   msg.data = log;

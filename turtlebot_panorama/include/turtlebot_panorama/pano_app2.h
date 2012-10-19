@@ -64,10 +64,9 @@ private:
   std_msgs::Empty empty;
   geometry_msgs::Twist cmd_vel;
   float ang_vel;
-  double snap_interval;
 
   State state;
-  double angle, last_angle, given_angle;
+  double angle, last_angle, given_angle,interval_angle;
 
   // to check whether it is in the progress of panoraming
   bool is_active;

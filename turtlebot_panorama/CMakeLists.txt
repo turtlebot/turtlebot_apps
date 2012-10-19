@@ -26,7 +26,11 @@ rosbuild_gensrv()
 #target_link_libraries(${PROJECT_NAME} another_library)
 rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
-rosbuild_add_executable(panorama src/main2.cpp
+rosbuild_add_executable(panorama src/main.cpp
+                                 src/pano_app.cpp)
+rosbuild_add_executable(panorama2 src/main2.cpp
                                  src/pano_app2.cpp)
+
 rosbuild_link_boost(panorama thread)
+rosbuild_link_boost(panorama2 thread)
 #target_link_libraries(example ${PROJECT_NAME})
