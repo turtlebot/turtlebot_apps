@@ -44,7 +44,7 @@ typedef pcl::PointCloud<pcl::PointXYZ> PointCloud;
 //* The turtlebot follower nodelet.
 /**
  * The turtlebot follower nodelet. Subscribes to point clouds
- * from the kinect, processes them, and publishes command vel
+ * from the 3dsensor, processes them, and publishes command vel
  * messages.
  */
 class TurtlebotFollower : public nodelet::Nodelet 

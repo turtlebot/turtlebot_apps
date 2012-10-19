@@ -1,8 +1,8 @@
 <launch>
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
 
-  <!--- Run the kinect -->
-  <include file="$(find turtlebot_bringup)/launch/kinect.launch" />
+  <!--- Run the 3dsensor -->
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch" />
 
   <!--- Run gmapping -->
   <include file="$(find turtlebot_navigation)/launch/includes/_gmapping.launch" />
