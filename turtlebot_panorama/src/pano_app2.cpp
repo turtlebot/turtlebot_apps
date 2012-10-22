@@ -233,6 +233,10 @@ void PanoApp::imageCb ( const sensor_msgs::ImageConstPtr& msg )
     is_active = false;
     ros::Duration(1.0).sleep();
     pub_stitched.publish( msg );
+    ros::Duration(1.0).sleep();
+    pub_stitched.publish( msg );
+    ros::Duration(1.0).sleep();
+    pub_stitched.publish( msg );
 }
 
 void PanoApp::doneCb( const actionlib::SimpleClientGoalState& state, const pano_ros::PanoCaptureResultConstPtr& result )
