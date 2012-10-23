@@ -14,6 +14,7 @@
   <depend package="tf"/>
   <depend package="roscpp"/>
   <depend package="pcl_ros"/>
+  <depend package="visualization_msgs"/>
   <export>
     <nodelet plugin="${prefix}/nodelets.xml" />
   </export>

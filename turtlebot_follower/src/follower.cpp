@@ -36,6 +36,8 @@
 #include "dynamic_reconfigure/server.h"
 #include "turtlebot_follower/FollowerConfig.h"
 
+#include <visualization_msgs/Marker.h>
+
 
 namespace turtlebot_follower
 {
@@ -94,13 +96,16 @@ private:
     private_nh.getParam("min_y", min_y_);
     private_nh.getParam("max_y", max_y_);
     private_nh.getParam("min_x", min_x_);
+    private_nh.getParam("max_x", max_x_);
     private_nh.getParam("max_z", max_z_);
     private_nh.getParam("goal_z", goal_z_);
     private_nh.getParam("z_scale", z_scale_);
     private_nh.getParam("x_scale", x_scale_);
     
     cmdpub_ = nh.advertise<geometry_msgs::Twist> ("cmd_vel", 1);
-    sub_= nh.subscribe<PointCloud>("/camera/depth/points", 1, &TurtlebotFollower::cloudcb, this);\
+    markerpub_ = nh.advertise<visualization_msgs::Marker>("marker",1);
+    bboxpub_ = nh.advertise<visualization_msgs::Marker>("bbox",1);
+    sub_= nh.subscribe<PointCloud>("/camera/depth/points", 1, &TurtlebotFollower::cloudcb, this);
 
     srv_ = new dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>(private_nh);
     dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>::CallbackType f = boost::bind(&TurtlebotFollower::reconfigure, this, _1, _2);
@@ -156,7 +161,7 @@ private:
     
     //If there are points, find the centroid and calculate the command goal.
     //If there are no points, simply publish a stop goal.
-    if (n)
+    if (n>4000)
     { 
       x /= n; 
       y /= n; 
@@ -168,17 +173,84 @@ private:
       cmd.linear.x = (z - goal_z_) * z_scale_;
       cmd.angular.z = -x * x_scale_;
       cmdpub_.publish(cmd);
+      publishMarker(x,y,z);
     }
     else
     {
       ROS_DEBUG("No points detected, stopping the robot");
       cmdpub_.publish(geometry_msgs::Twist());
+      publishMarker(x,y,z);
     }
+
+    publishBbox();
   }
-  
+
+  void publishMarker(double x,double y,double z)
+  {
+    visualization_msgs::Marker marker;
+    marker.header.frame_id = "/camera_rgb_optical_frame";
+    marker.header.stamp = ros::Time();
+    marker.ns = "my_namespace";
+    marker.id = 0;
+    marker.type = visualization_msgs::Marker::SPHERE;
+    marker.action = visualization_msgs::Marker::ADD;
+    marker.pose.position.x = x;
+    marker.pose.position.y = y;
+    marker.pose.position.z = z;
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+    marker.scale.x = 0.2;
+    marker.scale.y = 0.2;
+    marker.scale.z = 0.2;
+    marker.color.a = 1.0;
+    marker.color.r = 1.0;
+    marker.color.g = 0.0;
+    marker.color.b = 0.0;
+    //only if using a MESH_RESOURCE marker type:
+    markerpub_.publish( marker );
+  }
+
+  void publishBbox()
+  {
+    double x = (min_x_ + max_x_)/2;
+    double y = (min_y_ + max_y_)/2;
+    double z = (0 + max_z_)/2;
+
+    double scale_x = (max_x_ - x)*2;
+    double scale_y = (max_y_ - y)*2;
+    double scale_z = (max_z_ - z)*2;
+
+    visualization_msgs::Marker marker;
+    marker.header.frame_id = "/camera_rgb_optical_frame";
+    marker.header.stamp = ros::Time();
+    marker.ns = "my_namespace";
+    marker.id = 1;
+    marker.type = visualization_msgs::Marker::CUBE;
+    marker.action = visualization_msgs::Marker::ADD;
+    marker.pose.position.x = x;
+    marker.pose.position.y = -y;
+    marker.pose.position.z = z;
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+    marker.scale.x = scale_x;
+    marker.scale.y = scale_y;
+    marker.scale.z = scale_z;
+    marker.color.a = 0.5;
+    marker.color.r = 0.0;
+    marker.color.g = 1.0;
+    marker.color.b = 0.0;
+    //only if using a MESH_RESOURCE marker type:
+    bboxpub_.publish( marker );
+  }
   
   ros::Subscriber sub_;
   ros::Publisher cmdpub_;
+  ros::Publisher markerpub_;
+  ros::Publisher bboxpub_;
 };
 
 PLUGINLIB_DECLARE_CLASS(turtlebot_follower, TurtlebotFollower, turtlebot_follower::TurtlebotFollower, nodelet::Nodelet);
