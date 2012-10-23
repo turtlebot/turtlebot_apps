@@ -26,7 +26,7 @@ if __name__ == '__main__':
   takepanoReq = TakePanoRequest() 
   takepanoReq.angle = 360
   takepanoReq.snap_interval = 0.5
-  takepanoReq.zvel = 0.2
+  takepanoReq.zvel = -0.2
 
   # Setting final image subscriber
   sub_pano = rospy.Subscriber('/turtlebot_panorama/pano_server/stitch',Image,imageCallback)
@@ -40,13 +40,13 @@ if __name__ == '__main__':
   while not rospy.is_shutdown():
     rospy.loginfo("Iteration " + str(iteration))
     # send take panorama call 
+    takepanoReq.zvel = -takepanoReq.zvel
     srv_takepano(takepanoReq)
     in_progress = True
     # wait until the final image
     while (not rospy.is_shutdown()) and in_progress == True:
       print "is_shutdown" + str(rospy.is_shutdown())
       print "inprogress " + str(in_progress)
-      print ""
       
       rospy.sleep(1.0)
   
