@@ -1,0 +1,11 @@
+<launch>
+
+  <!-- Wanderer node -->
+  <node pkg="turtlebot_wanderer" type="safe_wandering.py" name="safe_wandering">
+    <param name="forward_speed"  value="0.18"/>
+    <param name="turning_speed"  value="1.8"/>
+    <param name="backward_speed" value="0.1"/>
+    <param name="backward_dist " value="0.1"/>
+  </node>
+
+</launch>
