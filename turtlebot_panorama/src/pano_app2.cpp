@@ -165,6 +165,7 @@ bool PanoApp::takeService(TakePano::Request& request,TakePano::Response& respons
     given_angle = request.angle;
     cmd_vel.angular.z = request.zvel;
     snap_interval = request.snap_interval;
+    state = PENDING;
     startPano();
     response.status = response.STARTED;
   }
