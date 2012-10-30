@@ -1,8 +1,6 @@
 <launch>
   <!-- 3D Sensor -->
-  <!-- commenting out for the demo 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch" />
-  -->
 
   <include file="$(find turtlebot_panorama)/launch/turtlebot_panorama_cont.launch" />
 </launch>
