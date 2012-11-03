@@ -19,6 +19,8 @@ genaction()
 
 rosbuild_init()
 
+rosbuild_add_boost_directories()
+
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
@@ -35,9 +37,11 @@ rosbuild_genmsg()
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
 rosbuild_add_executable(turtlebot_move_action_server src/turtlebot_move_action_server.cpp)
+rosbuild_link_boost(turtlebot_move_action_server thread)
 #rosbuild_add_executable(turtlebot_goto_action_server src/turtlebot_goto_action_server.cpp)
 
 rosbuild_add_executable(find_fiducial_pose src/find_fiducial_pose.cpp src/detect_calibration_pattern.cpp)
+rosbuild_link_boost(find_fiducial_pose thread)
 find_package(OpenCV)
 target_link_libraries(find_fiducial_pose ${OpenCV_LIBRARIES})
 
