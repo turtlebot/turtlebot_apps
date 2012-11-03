@@ -20,7 +20,6 @@
   <depend package="image_geometry"/>
 
   <rosdep name="eigen"/>
-  <rosdep name="opencv2"/>
 </package>
 
 
