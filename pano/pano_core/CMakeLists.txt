@@ -22,6 +22,7 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+find_package(OpenCV REQUIRED)
 
 #this is the pano_core library
 file(GLOB pano_srcs src/*.cpp)
@@ -34,8 +35,10 @@ target_link_libraries(utest pano_core)
 #standalone apps
 rosbuild_add_executable(stitcher apps/stitcher.cpp)
 target_link_libraries(stitcher ${PROJECT_NAME})
+target_link_libraries(stitcher ${OpenCV_LIBS})
 rosbuild_link_boost(stitcher program_options)
 
 rosbuild_add_executable(video_stitcher apps/video_stitcher.cpp)
 target_link_libraries(video_stitcher ${PROJECT_NAME})
+target_link_libraries(video_stitcher ${OpenCV_LIBS})
 rosbuild_link_boost(video_stitcher program_options)
