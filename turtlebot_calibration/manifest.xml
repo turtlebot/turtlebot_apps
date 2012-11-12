@@ -13,7 +13,7 @@
   <depend package="sensor_msgs"/>
   <depend package="nav_msgs"/>
   <depend package="geometry_msgs"/>
-  <depend package="kdl"/>
+  <depend package="python_orocos_kdl"/>
 
 
 </package>
