@@ -13,9 +13,9 @@
 #include <nav_msgs/Odometry.h>		
 #include <geometry_msgs/Twist.h>	
 //#include <> // and some for modal logic
+#include "geometry.h"
 
 #include <turtlebot_panorama/TakePano.h>
-#include <ecl/geometry.hpp>
 
 namespace turtlebot_panorama {
 

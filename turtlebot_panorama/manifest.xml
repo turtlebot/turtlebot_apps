@@ -15,9 +15,7 @@
   <depend package="std_msgs"/>
   <depend package="sensor_msgs"/>
   <depend package="geometry_msgs"/>
-
-  <depend package="ecl_geometry"/>
-
+  <rosdep name="eigen"/>
 </package>
 
 

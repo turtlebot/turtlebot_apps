@@ -1,4 +1,6 @@
 #include <turtlebot_panorama/pano_app3.h>
+#include <eigen3/Eigen/Core>
+#include <eigen3/Eigen/Geometry>
 
 namespace turtlebot_panorama {
 
@@ -121,7 +123,7 @@ void PanoApp::turn()
 
 bool PanoApp::hasReached()
 {
-  if( angle - last_angle > ecl::degrees_to_radians(interval_angle) ) {
+  if( angle - last_angle > degrees_to_radians(interval_angle) ) {
     last_angle = angle;
     return true;
   } else {
@@ -210,7 +212,7 @@ void PanoApp::odomCb( const nav_msgs::OdometryConstPtr& msg )
   if( axis(2) > 0.0 ) heading = angle_axis.angle();
   else if( axis(2) < 0.0 ) heading = -1.0 * angle_axis.angle();
 
-  angle += fabs(ecl::wrap_angle(heading - heading_last));
+  angle += fabs(wrap_angle(heading - heading_last));
   heading_last = heading;
 }
 
@@ -250,7 +252,7 @@ void PanoApp::feedbackCb( const pano_ros::PanoCaptureFeedbackConstPtr& feedback 
   ss >> str;
   log(str);
 
-  if( /*hasRevoluted()*/angle > ecl::degrees_to_radians(given_angle))// || feedback->n_captures > 36/*MAX_XXX*/ )
+  if( /*hasRevoluted()*/angle > degrees_to_radians(given_angle))// || feedback->n_captures > 36/*MAX_XXX*/ )
   {
     state= STOP;
   }

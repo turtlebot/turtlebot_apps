@@ -15,7 +15,7 @@
 //#include <> // and some for modal logic
 
 #include <turtlebot_panorama/TakePano.h>
-#include <ecl/geometry.hpp>
+#include "geometry.h"
 
 namespace turtlebot_panorama {
 

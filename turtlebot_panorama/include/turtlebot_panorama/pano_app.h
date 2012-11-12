@@ -13,8 +13,7 @@
 #include <nav_msgs/Odometry.h>		
 #include <geometry_msgs/Twist.h>	
 //#include <> // and some for modal logic
-
-#include <ecl/geometry.hpp>
+#include "geometry.h"
 
 namespace pano_app {
 
