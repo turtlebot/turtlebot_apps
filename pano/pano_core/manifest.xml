@@ -8,9 +8,6 @@
 	<license>BSD</license>
 	<review status="unreviewed" notes="" />
 	<url>http://ros.org/wiki/pano_core</url>
-
-
-	<depend package="opencv2" />
 	
 	<!--
 	this is only for logging in the apps

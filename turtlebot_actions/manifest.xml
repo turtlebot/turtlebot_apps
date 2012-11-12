@@ -10,14 +10,16 @@
   <url>http://ros.org/wiki/turtlebot_actions</url>
 
   <depend package="roscpp"/>
+  <depend package="common_rosdeps"/>
   <depend package="actionlib"/>
+  <depend package="actionlib_msgs"/>
+  <depend package="geometry_msgs"/>
   <depend package="tf"/>
-  <rosdep name="opencv2"/>
-  <depend package="image_transport"/>
-  <depend package="common_rosdeps" />
-  <rosdep name="eigen" />
   <depend package="cv_bridge"/>
+  <depend package="image_transport"/>
   <depend package="image_geometry"/>
+
+  <rosdep name="eigen"/>
 </package>
 
 
