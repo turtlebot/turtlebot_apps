@@ -19,6 +19,5 @@
   <depend stack="ros_comm" /> <!-- rospy, roscpp -->
   <depend stack="slam_gmapping" /> <!-- gmapping -->
   <depend stack="vision_opencv" /> <!-- opencv2, image_geometry, cv_bridge -->
-  <depend stack="turtlebot_software" /> <!-- pano, pointcloud_to_laserscan -->
 
 </stack>

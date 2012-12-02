@@ -1,0 +1,17 @@
+<package>
+  <catkin/>
+  <description brief="turtlebot_core_apps">
+
+    The core set of turtlebot 'app manager' apps are defined in this package.
+
+  </description>
+  <author>Daniel Stonier</author>
+  <license>BSD</license>
+  <review status="experimental" notes=""/>
+  <url>http://ros.org/wiki/turtlebot_core_apps</url>
+  <depend package="turtlebot_navigation"/>
+  <depend package="turtlebot_teleop"/>
+  <depend package="turtlebot_follower"/>
+  <depend package="turtlebot_panorama"/>
+  <depend package="turtlebot_sounds"/>
+</package>

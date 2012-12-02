@@ -1,0 +1,10 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+\b Core app definitions for turtlebot apps.
+
+Later I'd like to see this split up properly, one package (debian install) for each app.
+
+
+*/
