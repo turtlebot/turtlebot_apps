@@ -1,9 +1,9 @@
 display: Make a Map
 description: Make a map by driving a Turtlebot from an Android device.
 platform: turtlebot
-launch: turtlebot_teleop/android_make_a_map.launch
-interface: turtlebot_teleop/android_teleop.interface
-icon: turtlebot_teleop/map.jpg
+launch: turtlebot_core_apps/android_make_a_map.launch
+interface: turtlebot_core_apps/android_teleop.interface
+icon: turtlebot_core_apps/map.jpg
 clients:
  - type: android
    manager:

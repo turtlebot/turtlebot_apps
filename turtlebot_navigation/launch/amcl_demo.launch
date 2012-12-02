@@ -2,7 +2,9 @@
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
   
   <!--- Run the 3dsensor -->
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch" />
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="fake_laser" value="true"/>  
+  </include>
 
   <!-- Run the map server -->
   <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>

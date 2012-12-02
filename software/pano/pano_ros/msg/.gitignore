@@ -1,0 +1,14 @@
+/PanoCaptureAction.msg
+/PanoCaptureActionFeedback.msg
+/PanoCaptureActionGoal.msg
+/PanoCaptureActionResult.msg
+/PanoCaptureFeedback.msg
+/PanoCaptureGoal.msg
+/PanoCaptureResult.msg
+/StitchAction.msg
+/StitchActionFeedback.msg
+/StitchActionGoal.msg
+/StitchActionResult.msg
+/StitchFeedback.msg
+/StitchGoal.msg
+/StitchResult.msg

@@ -1,8 +1,8 @@
 display: Map Nav
 description: Drive a turtlebot around a pre-made map from an Android device.
 platform: turtlebot
-launch: turtlebot_teleop/android_map_nav.launch
-interface: turtlebot_teleop/android_teleop.interface
+launch: turtlebot_core_apps/android_map_nav.launch
+interface: turtlebot_core_apps/android_teleop.interface
 icon: turtlebot_teleop/map.jpg
 clients:
  - type: android

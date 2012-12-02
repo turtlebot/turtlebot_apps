@@ -1,9 +1,7 @@
 <launch>
 
   <!-- 3D Sensor -->
-  <!-- Commenting out for the demo
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch" />
-  -->
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
   
   <!-- Follower nodelet -->
   <node pkg="nodelet" type="nodelet" name="turtlebot_follower" args="load turtlebot_follower/TurtlebotFollower camera_nodelet_manager" respawn="true">

@@ -1,5 +1,7 @@
 <launch>
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch" />
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="fake_laser" value="true"/>  
+  </include>
 
   <node pkg="turtlebot_calibration" type="scan_to_angle.py" name="scan_to_angle" >
     <param name="min_angle" value="-0.3" />
