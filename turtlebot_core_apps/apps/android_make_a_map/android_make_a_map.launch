@@ -17,9 +17,8 @@
     </rosparam>
   </node>
 
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
-    <arg name="fake_laser" value="true"/>  
-  </include>
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+  <include file="$(find pointcloud_to_laserscan)/launch/include/_pcl_to_laser.launch"/>
 
   <!--- Run Move Base and Robot Pose EKF -->
   <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch">
