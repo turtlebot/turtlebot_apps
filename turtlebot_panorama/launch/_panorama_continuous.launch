@@ -1,3 +1,6 @@
+<!-- 
+  Continuously takes panoramas. Make sure the 3d sensor is started before launching this.
+ -->
 <launch>
   <arg name="pano_ros_server_name" value="pano_server"/>
   <arg name="turtlebot_panorama_name" value="turtlebot_panorama"/>
@@ -9,5 +12,5 @@
     <remap from="/$(arg pano_ros_server_name)/stop" to="$(arg turtlebot_panorama_name)/pano_server/stop"/>
     <remap from="/$(arg pano_ros_server_name)/stitch" to="$(arg turtlebot_panorama_name)/pano_server/stitch"/>
   </node>
-  <node name="$(arg turtlebot_panorama_name)" pkg="turtlebot_panorama" type="panorama_stop"/>
+  <node name="$(arg turtlebot_panorama_name)" pkg="turtlebot_panorama" type="panorama_cont"/>
 </launch>

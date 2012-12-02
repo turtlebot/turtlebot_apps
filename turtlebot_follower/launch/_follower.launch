@@ -1,9 +1,8 @@
+<!--
+  Make sure you start the 3d sensor before launching this.   
+ -->
 <launch>
-
-  <!-- 3D Sensor -->
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
-  
-  <!-- Follower nodelet -->
+  <!--  This gets loaded into the 3d sensors nodelet manager -->
   <node pkg="nodelet" type="nodelet" name="turtlebot_follower" args="load turtlebot_follower/TurtlebotFollower camera_nodelet_manager" respawn="true">
     <param name="x_scale" value="7.0" />
     <param name="z_scale" value="2.0" />
