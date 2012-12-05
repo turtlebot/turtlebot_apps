@@ -1,7 +1,11 @@
 <launch>
+  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>
+  
+  <!-- Load base-specific stuff -->
+  <include file="$(find turtlebot_core_apps)/apps/android_teleop/$(arg base)/_base_specific.launch"/>
 
   <node pkg="mjpeg_server" type="mjpeg_server"  name="mjpeg_server" output="screen">
-                <param name="port" type="int" value="8181" />
+    <param name="port" type="int" value="8181" />
   </node>
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
@@ -10,6 +14,5 @@
   <!-- Make a slower camera feed available. -->
   <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
         args="messages camera/rgb/image_color/compressed 5"/>
-
 </launch>
 
