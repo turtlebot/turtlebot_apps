@@ -28,8 +28,8 @@
  */
 
 #include "ros/ros.h"
-#include "pluginlib/class_list_macros.h" 
-#include "nodelet/nodelet.h" 
+#include "pluginlib/class_list_macros.h"
+#include "nodelet/nodelet.h"
 #include <geometry_msgs/Twist.h>
 #include <pcl_ros/point_cloud.h>
 #include <pcl/point_types.h>
@@ -49,7 +49,7 @@ typedef pcl::PointCloud<pcl::PointXYZ> PointCloud;
  * from the 3dsensor, processes them, and publishes command vel
  * messages.
  */
-class TurtlebotFollower : public nodelet::Nodelet 
+class TurtlebotFollower : public nodelet::Nodelet
 {
 public:
   /*!
@@ -59,16 +59,16 @@ public:
   TurtlebotFollower() : min_y_(0.1), max_y_(0.5),
                         min_x_(-0.2), max_x_(0.2),
                         max_z_(0.8), goal_z_(0.6),
-                        z_scale_(1.0), x_scale_(5.0) 
+                        z_scale_(1.0), x_scale_(5.0)
   {
-    
+
   }
 
   ~TurtlebotFollower()
   {
     delete srv_;
   }
-  
+
 private:
   double min_y_; /**< The minimum y position of the points in the box. */
   double max_y_; /**< The maximum y position of the points in the box. */
@@ -82,17 +82,17 @@ private:
 
   // Dynamic reconfigure server
   dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>* srv_;
-  
+
   /*!
    * @brief OnInit method from node handle.
    * OnInit method from node handle. Sets up the parameters
    * and topics.
    */
-  virtual void onInit() 
+  virtual void onInit()
   {
     ros::NodeHandle& nh = getNodeHandle();
     ros::NodeHandle& private_nh = getPrivateNodeHandle();
-    
+
     private_nh.getParam("min_y", min_y_);
     private_nh.getParam("max_y", max_y_);
     private_nh.getParam("min_x", min_x_);
@@ -101,7 +101,7 @@ private:
     private_nh.getParam("goal_z", goal_z_);
     private_nh.getParam("z_scale", z_scale_);
     private_nh.getParam("x_scale", x_scale_);
-    
+
     cmdpub_ = nh.advertise<geometry_msgs::Twist> ("cmd_vel", 1);
     markerpub_ = nh.advertise<visualization_msgs::Marker>("marker",1);
     bboxpub_ = nh.advertise<visualization_msgs::Marker>("bbox",1);
@@ -124,7 +124,7 @@ private:
     z_scale_ = config.z_scale;
     x_scale_ = config.x_scale;
   }
-  
+
   /*!
    * @brief Callback for point clouds.
    * Callback for point clouds. Uses PCL to find the centroid
@@ -158,27 +158,27 @@ private:
         }
       }
     }
-    
+
     //If there are points, find the centroid and calculate the command goal.
     //If there are no points, simply publish a stop goal.
     if (n>4000)
-    { 
-      x /= n; 
-      y /= n; 
-      z /= n;  
-      
+    {
+      x /= n;
+      y /= n;
+      z /= n;
+
       ROS_DEBUG("Centriod at %f %f %f with %d points", x, y, z, n);
-      
-      geometry_msgs::Twist cmd;
-      cmd.linear.x = (z - goal_z_) * z_scale_;
-      cmd.angular.z = -x * x_scale_;
+
+      geometry_msgs::TwistPtr cmd(new geometry_msgs::Twist());
+      cmd->linear.x = (z - goal_z_) * z_scale_;
+      cmd->angular.z = -x * x_scale_;
       cmdpub_.publish(cmd);
       publishMarker(x,y,z);
     }
     else
     {
       ROS_DEBUG("No points detected, stopping the robot");
-      cmdpub_.publish(geometry_msgs::Twist());
+      cmdpub_.publish(geometry_msgs::TwistPtr(new geometry_msgs::Twist()));
       publishMarker(x,y,z);
     }
 
@@ -246,7 +246,7 @@ private:
     //only if using a MESH_RESOURCE marker type:
     bboxpub_.publish( marker );
   }
-  
+
   ros::Subscriber sub_;
   ros::Publisher cmdpub_;
   ros::Publisher markerpub_;
