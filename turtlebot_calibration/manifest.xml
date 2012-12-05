@@ -14,8 +14,5 @@
   <depend package="nav_msgs"/>
   <depend package="geometry_msgs"/>
   <depend package="python_orocos_kdl"/>
-
-
+  <depend package="pointcloud_to_laserscan"/>
 </package>
-
-
