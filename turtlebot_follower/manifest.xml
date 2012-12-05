@@ -2,7 +2,7 @@
   <description brief="follower">
 
      Follower for the turtlebot. Follows humans and robots around
-     by following the centroid of a box points infront of the
+     by following the centroid of a box points in front of the
      turtlebot.
 
   </description>
