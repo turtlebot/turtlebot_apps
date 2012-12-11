@@ -14,4 +14,9 @@
   <depend package="turtlebot_follower"/>
   <depend package="turtlebot_panorama"/>
   <depend package="turtlebot_sounds"/>
+
+  <!-- for navigation apps -->
+  <depend package="map_store"/>
+  <!-- for teleoperation applications -->
+  <depend package="mjpeg_server"/>
 </package>
