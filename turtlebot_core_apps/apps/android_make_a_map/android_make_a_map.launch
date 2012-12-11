@@ -1,5 +1,6 @@
 <launch>
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, roomba -->
+  <arg name="camera" value="camera"/>
 
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
@@ -7,7 +8,7 @@
   <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
         args="messages camera/rgb/image_color/compressed 5"/>
 
-  <node pkg="tf" type="change_notifier" name="tf_throttle_for_android_gui" output="screen">
+  <node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui" output="screen">
     <param name="polling_frequency" value="5"/>
     <param name="translational_update_distance" value="-1"/>
     <param name="angular_update_distance" value="-1"/>
@@ -18,7 +19,7 @@
   </node>
 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
-  <include file="$(find pointcloud_to_laserscan)/launch/include/_pcl_to_laser.launch"/>
+  <include file="$(find pointcloud_to_laserscan)/launch/pcl_to_laser.launch"/>
 
   <!--- Run Move Base and Robot Pose EKF -->
   <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch">
@@ -29,7 +30,7 @@
   <include file="$(find turtlebot_navigation)/launch/includes/_gmapping.launch" />
 
   <!-- Save the maps to a warehouse. -->
-  <node name="mongo" type="wrapper.py" pkg="mongodb" output="log">
+  <node name="mongo" type="mongo_wrapper_ros.py" pkg="warehouse_ros" output="log">
     <param name="database_path" value="warehouse_data"/>
     <param name="overwrite" value="false"/>
   </node>
