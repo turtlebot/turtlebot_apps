@@ -21,9 +21,8 @@
 	<depend package="cv_bridge" />
 
 	<depend package="pano_py" />
-	<!-- DOH
-	<depend package="warehouse" />
-	-->
+
+	<depend package="warehouse_ros" />
 </package>
 
 
