@@ -2,15 +2,14 @@
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
   
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
-  <include file="$(find pointcloud_to_laserscan)/launch/include/_pcl_to_laser.launch"/>
 
   <!-- Run the map server -->
   <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--- Run AMCL -->
-  <arg name="initial_pose_x" value="17.0"/>
-  <arg name="initial_pose_y" value="17.0"/>
+  <arg name="initial_pose_x" default="17.0"/>
+  <arg name="initial_pose_y" default="17.0"/>
   <include file="$(find turtlebot_navigation)/launch/includes/_amcl.launch">
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
@@ -20,6 +19,6 @@
   <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch">
     <arg name="base" value="$(arg base)" />
   </include>
-  
 
 </launch>
+
