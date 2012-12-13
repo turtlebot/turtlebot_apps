@@ -18,7 +18,7 @@
   </node>
 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
-  <include file="$(find pointcloud_to_laserscan)/launch/include/_pcl_to_laser.launch"/>
+  <include file="$(find pointcloud_to_laserscan)/launch/pcl_to_laser.launch"/>
 
   <!--- Run Move Base and Robot Pose EKF -->
   <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch">
@@ -26,13 +26,13 @@
   </include>
 
   <!-- Load the maps from a warehouse. -->
-  <node name="mongo" type="wrapper.py" pkg="mongodb" output="log">
+  <node name="mongo" type="mongo_wrapper_ros.py" pkg="mongodb" output="log">
     <param name="database_path" value="warehouse_data"/>
     <param name="overwrite" value="false"/>
     <!--  
      -->
   </node>
-  <node pkg="map_store" type="map_manager" name="map_manager" output="screen"/>
+  <node pkg="map_store" type="map_manager" name="warehouse_ros" output="screen"/>
 
   <!--- Run AMCL -->
   <include file="$(find turtlebot_navigation)/launch/includes/_amcl.launch">
