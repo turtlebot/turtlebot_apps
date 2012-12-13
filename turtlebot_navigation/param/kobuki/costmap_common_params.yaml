@@ -4,6 +4,6 @@ raytrace_range: 3.0
 robot_radius: 0.18
 footprint_padding: 0.01
 inflation_radius: 0.50
-observation_sources: scan bump
+observation_sources: scan
 scan: {data_type: LaserScan, topic: /scan, marking: true, clearing: true}
 bump: {data_type: PointCloud2, topic: mobile_base/sensors/bump_pc, marking: true, clearing: false}
