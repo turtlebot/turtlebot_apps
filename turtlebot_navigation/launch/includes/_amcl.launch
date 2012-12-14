@@ -1,10 +1,10 @@
 <launch>
 
   <arg name="use_map_topic" default="false"/>
-  <arg name="scan_topic" default="narrow_scan" />
-  <!-- These are nice defaults for the willow map -->
-  <arg name="initial_pose_x" value="0.0"/>
-  <arg name="initial_pose_y" value="0.0"/>
+  <arg name="scan_topic" default="scan"/>
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
 
   <node pkg="amcl" type="amcl" name="amcl">
     <param name="use_map_topic" value="$(arg use_map_topic)"/>

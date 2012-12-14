@@ -6,6 +6,8 @@
     <rosparam file="$(find turtlebot_navigation)/param/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find turtlebot_navigation)/param/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find turtlebot_navigation)/param/base_local_planner_params.yaml" command="load" />
+
+    <remap from="cmd_vel" to="/mobile_base/commands/velocity"/>
   </node>
 
 </launch>
