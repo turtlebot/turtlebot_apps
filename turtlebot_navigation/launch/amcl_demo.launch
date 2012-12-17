@@ -10,9 +10,11 @@
   <!--- Run AMCL -->
   <arg name="initial_pose_x" default="17.0"/>
   <arg name="initial_pose_y" default="17.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
   <include file="$(find turtlebot_navigation)/launch/includes/_amcl.launch">
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
   </include>
 
   <!--- Run Move Base -->
