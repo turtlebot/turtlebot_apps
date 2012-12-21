@@ -15,6 +15,7 @@
   <depend package="std_msgs"/>
   <depend package="sensor_msgs"/>
   <depend package="geometry_msgs"/>
+  <depend package="turtlebot_bringup"/>
   <rosdep name="eigen"/>
 </package>
 

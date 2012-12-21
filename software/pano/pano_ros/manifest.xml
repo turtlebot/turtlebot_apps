@@ -8,21 +8,15 @@
 	<license>BSD</license>
 	<review status="unreviewed" notes="" />
 	<url>http://ros.org/wiki/pano_ros</url>
-
 	<depend package="roscpp" />
 	<depend package="rospy" />
 	<depend package="std_msgs" />
 	<depend package="sensor_msgs" />
-
 	<depend package="actionlib" />
 	<depend package="actionlib_msgs" />
-
 	<depend package="image_transport" />
 	<depend package="cv_bridge" />
-
 	<depend package="pano_py" />
-
-	<depend package="warehouse_ros" />
 </package>
 
 

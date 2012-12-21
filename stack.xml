@@ -4,20 +4,57 @@
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/turtlebot_apps</url>
-  <depend stack="common" /> <!-- actionlib -->
-  <depend stack="common_msgs" /> <!-- nav_msgs, sensor_msgs, geometry_msgs -->
-  <depend stack="common_rosdeps" /> <!-- eigen -->
-  <depend stack="geometry" /> <!-- tf -->
-  <depend stack="image_common" /> <!-- image_transport -->
-  <depend stack="joystick_drivers" /> <!-- joy -->
-  <depend stack="laser_pipeline" /> <!-- laser_geometry -->
-  <depend stack="navigation" /> <!-- move_base -->
-  <depend stack="nodelet_core" /> <!-- nodelet -->
-  <depend stack="orocos_kinematics_dynamics" /> <!-- kdl -->
-  <depend stack="perception_pcl" /> <!-- pcl_ros -->
+
+  <!-- shared -->
   <depend stack="ros" />
   <depend stack="ros_comm" /> <!-- rospy, roscpp -->
-  <depend stack="slam_gmapping" /> <!-- gmapping -->
-  <depend stack="vision_opencv" /> <!-- opencv2, image_geometry, cv_bridge -->
 
+  <!-- pano -->
+  <depend stack="std_msgs" /> <!-- std_msgs -->
+  <depend stack="image_common" /> <!-- image_transport -->
+  <depend stack="vision_opencv" /> <!-- cv_bridge -->
+  <depend stack="common_msgs" /> <!-- sensor_msgs, actionlib_msgs -->
+  <depend stack="actionlib" /> <!-- actionlib -->
+
+  <!-- turtlebot_actions -->
+  <!-- <depend stack="actionlib" /> --> <!-- actionlib -->
+  <!-- <depend stack="common_msgs" /> --> <!-- actionlib_msgs, geometry_msgs -->
+  <depend stack="geometry" /> <!-- tf -->
+  <!-- <depend stack="image_common" /> --> <!-- image_transport -->
+  <!-- <depend stack="vision_opencv" /> --> <!-- image_geometry, cv_bridge -->
+
+  <!-- turtlebot_calibration -->
+  <!-- <depend stack="common_msgs" /> --> <!-- nav_msgs, sensor_msgs, geometry_msgs -->
+  <depend stack="orocos_kinematics_dynamics" /> <!-- python_orocos_kdl -->
+  <depend stack="turtlebot" /> <!-- turtlebot_bringup -->
+
+  <!-- turtlebot_follower -->
+  <depend stack="nodelet_core" /> <!-- nodelet -->
+  <depend stack="perception_pcl" /> <!-- pcl_ros -->
+  <!-- <depend stack="common_msgs" /> --> <!-- visualization_msgs -->
+  
+  <!-- turtlebot_navigation -->
+  <depend stack="navigation" /> <!-- move_base -->
+  <depend stack="slam_gmapping" /> <!-- gmapping -->
+
+  <!-- turtlebot_panorama -->
+  <!-- <depend stack="std_msgs" /> --> <!-- std_msgs -->
+  <!-- <depend stack="image_common" /> --> <!-- image_transport -->
+  <!-- <depend stack="actionlib" /> --> <!-- actionlib -->
+  <!-- <depend stack="common_msgs" /> --> <!-- sensor_msgs, geometry_msgs -->
+
+  <!-- turtlebot_teleop -->
+  <!-- <depend stack="common_msgs" /> --> <!-- geometry_msgs -->
+  <depend stack="yujin_ocs" /> <!-- cmd_vel_mux, yocs_velocity_smoother -->
+  <depend stack="kobuki" /> <!-- kobuki_safety_controller -->
+  <depend stack="joystick_drivers" /> <!-- joy -->
+
+  <!-- turtlebot_core_apps -->
+  <!-- <depend stack="kobuki" /> --> <!-- kobuki_auto_docking -->
+  <depend stack="warehouse_ros" /> <!-- warehouse_ros -->
+  <depend stack="map_store" /> <!-- map_store -->
+  
+  <!-- **************** Not yet has a deb! ****************** -->
+  <!-- <depend stack="mjpeg_server" /> --> <!-- mjpeg_server -->
+  
 </stack>
