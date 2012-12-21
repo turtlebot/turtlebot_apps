@@ -1,5 +1,4 @@
 <package>
-  <catkin/>
   <description brief="turtlebot_core_apps">
 
     The core set of turtlebot 'app manager' apps are defined in this package.
