@@ -20,5 +20,6 @@
   <depend package="map_store"/>
   <depend package="warehouse_ros"/>
   <!-- for teleoperation applications -->
-  <depend package="mjpeg_server"/>
+  <!-- **************** Not yet has a deb! ****************** -->
+  <!-- <depend package="mjpeg_server"/> -->
 </package>
