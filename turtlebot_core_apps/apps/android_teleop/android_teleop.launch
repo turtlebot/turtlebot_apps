@@ -1,8 +1,10 @@
 <launch>
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>
   
-  <!-- Load base-specific stuff -->
-  <include file="$(find turtlebot_core_apps)/apps/android_teleop/$(arg base)/_base_specific.launch"/>
+  <!-- 
+    Cmd_vel_mux, safety_controller, velocity_smoother - only available for kobuki 
+  -->
+  <include file="$(find turtlebot_teleop)/launch/$(arg base)/_safe_teleop.launch"/>
 
   <node pkg="mjpeg_server" type="mjpeg_server"  name="mjpeg_server" output="screen">
     <param name="port" type="int" value="8181" />
