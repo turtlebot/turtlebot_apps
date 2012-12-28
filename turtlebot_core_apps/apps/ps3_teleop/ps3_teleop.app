@@ -1,4 +1,4 @@
-display: PS3 Joystick
+display: PS3 Teleop
 description: Control the TurtleBot with a PlayStation 3 Joystick.
 platform: turtlebot
 launch: turtlebot_teleop/ps3_teleop.launch
