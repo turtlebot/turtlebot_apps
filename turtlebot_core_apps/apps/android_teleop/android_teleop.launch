@@ -1,4 +1,8 @@
 <launch>
+  <!--  
+    Right now, the android app is hard coded to look for /cmd_vel as the input
+    topic.
+   -->
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>
   
   <!-- 

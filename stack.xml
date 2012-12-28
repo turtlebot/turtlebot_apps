@@ -53,6 +53,7 @@
   <!-- <depend stack="kobuki" /> --> <!-- kobuki_auto_docking -->
   <depend stack="warehouse_ros" /> <!-- warehouse_ros -->
   <depend stack="map_store" /> <!-- map_store -->
+  <depend stack="image_transport_plugins"/> <!-- compressed_image_transport -->
   
   <!-- **************** Not yet has a deb! ****************** -->
   <!-- <depend stack="mjpeg_server" /> --> <!-- mjpeg_server -->

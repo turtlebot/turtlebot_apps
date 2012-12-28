@@ -3,7 +3,7 @@ description: Drive a turtlebot from Android with a touch joystick and video feed
 platform: turtlebot
 launch: turtlebot_core_apps/android_teleop.launch
 interface: turtlebot_core_apps/android_teleop.interface
-icon: turtlebot_core_apps/android-lightning-turtlebot.png
+icon: turtlebot_core_apps/android_teleop.png
 clients:
  - type: android
    manager:

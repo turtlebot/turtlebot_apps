@@ -19,6 +19,9 @@
   <!-- for navigation apps -->
   <depend package="map_store"/>
   <depend package="warehouse_ros"/>
-  <!-- for teleoperation applications -->
+
+  <!-- android_teleop -->
   <depend package="mjpeg_server"/>
+  <depend package="compressed_image_transport"/>
+  <depend package="topic_tools"/>
 </package>
