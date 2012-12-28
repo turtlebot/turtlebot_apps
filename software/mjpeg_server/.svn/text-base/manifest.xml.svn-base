@@ -1,0 +1,13 @@
+<package>
+  <description brief="mjpeg_server">A node that provides a mjpeg server which is able to subscribe to any ros image stream.</description>
+  <author>Maintained by Benjamin Pitzer</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mjpeg_server</url>
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+  <depend package="roslib"/>
+  <depend package="cv_bridge"/>
+  <depend package="image_transport"/>
+  <depend package="opencv2"/>
+</package>
