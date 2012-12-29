@@ -6,7 +6,7 @@
  -->
 <launch>
   <node pkg="nodelet" type="nodelet" name="cmd_vel_mux" args="load cmd_vel_mux/CmdVelMuxNodelet kobuki">
-    <param name="yaml_cfg_file" value="$(find turtlebot_follower)/param/follower_mux.yaml"/>
+    <param name="yaml_cfg_file" value="$(find turtlebot_follower)/param/mux.yaml"/>
     <remap from="cmd_vel_mux/output" to="mobile_base/commands/velocity"/>
   </node>
   
@@ -18,7 +18,7 @@
   </node>
   
   <node pkg="nodelet" type="nodelet" name="follower_vel_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet kobuki">
-    <rosparam file="$(find turtlebot_follower)/param/follower_smoother.yaml" command="load"/>
+    <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
     <remap from="follower_vel_smoother/odometry" to="odom"/>
     <remap from="follower_vel_smoother/raw_cmd_vel" to="turtlebot_follower/cmd_vel"/>
     <remap from="follower_vel_smoother/smooth_cmd_vel" to="cmd_vel_mux/follower_controller"/>
