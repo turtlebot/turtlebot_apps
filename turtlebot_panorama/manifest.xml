@@ -16,6 +16,7 @@
   <depend package="sensor_msgs"/>
   <depend package="geometry_msgs"/>
   <depend package="turtlebot_bringup"/>
+  <depend package="yocs_velocity_smoother"/>
   <rosdep name="eigen"/>
 </package>
 
