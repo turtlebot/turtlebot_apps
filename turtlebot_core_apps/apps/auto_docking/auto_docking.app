@@ -3,4 +3,4 @@ description: Makes robot spin until it detects docking base beacon signals; then
 platform: turtlebot
 launch: turtlebot_core_apps/auto_docking.launch
 interface: turtlebot_core_apps/auto_docking.interface
-icon: turtlebot_core_apps/auto_docking.jpg
+icon: turtlebot_core_apps/auto_docking_bubble_icon.png

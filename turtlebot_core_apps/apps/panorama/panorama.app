@@ -4,3 +4,4 @@ description :
 platform: turtlebot
 launch: turtlebot_core_apps/panorama.launch
 interface : turtlebot_core_apps/panorama.interface 
+icon: turtlebot_core_apps/panorama_bubble_icon.png
