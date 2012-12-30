@@ -5,7 +5,11 @@
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>
   <arg name="camera"  value="camera"/>
   
-  <include file="$(find turtlebot_follower)/launch/includes/$(arg base)/_velocity_control.launch"/>
+  <include file="$(find turtlebot_follower)/launch/includes/_velocity_smoother.launch">
+    <arg name="base" value="$(arg base)" />
+  </include>
+
+  <include file="$(find turtlebot_follower)/launch/includes/$(arg base)/_safety_controller.launch"/>
 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
     <arg name="rgb_processing" value="false" />
@@ -22,7 +26,7 @@
     <node pkg="nodelet" type="nodelet" name="follower" 
           args="load turtlebot_follower/TurtlebotFollower camera_nodelet_manager"
           >
-      <remap from="follower/cmd_vel" to="/cmd_vel"/>
+      <remap from="follower/cmd_vel" to="/cmd_vel_mux/input/navi_raw"/>
       <remap from="follower/depth/points" to="depth/points"/>
       <param name="x_scale" value="7.0" />
       <param name="z_scale" value="2.0" />
