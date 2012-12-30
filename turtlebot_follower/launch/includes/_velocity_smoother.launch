@@ -8,7 +8,7 @@
   <arg name="base"/>
   <node pkg="nodelet" type="nodelet" name="follower_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet $(arg base)">
     <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
-    <remap from="follower_velocity_smoother/odometry" to="odom"/>
+    <remap from="follower_velocity_smoother/odometry" to="odom"/> <!-- Todo : moved to odom_combined -->
     <remap from="follower_velocity_smoother/raw_cmd_vel" to="cmd_vel_mux/input/navi_raw"/>
     <remap from="follower_velocity_smoother/smooth_cmd_vel" to="cmd_vel_mux/input/navi"/>
   </node>

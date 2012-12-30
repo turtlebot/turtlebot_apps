@@ -1,3 +1,0 @@
-<!--
-  We don't load anything extra (no mux, velocity smoother) for the create like the kobuki does.
--->

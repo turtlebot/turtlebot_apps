@@ -1,12 +1,27 @@
+<!--
+  Right now, the android app is hard coded to look for /cmd_vel as the input
+  topic.
+ -->
 <launch>
   <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, roomba -->
-  <arg name="camera" value="camera"/>
+
+  <!-- *************************** Tele *************************** -->
 
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
   <!-- Make a slower camera feed available. -->
   <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
         args="messages camera/rgb/image_color/compressed 5"/>
+
+  <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet $(arg base)">
+    <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
+    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="cmd_vel"/>
+    <remap from="teleop_velocity_smoother/odometry" to="odom"/> <!-- Todo : moved to odom_combined -->
+    <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="cmd_vel_mux/input/teleop"/>
+  </node>
+
+
+  <!-- *********************** Optimisation *********************** -->
 
   <node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui" output="screen">
     <param name="polling_frequency" value="5"/>
@@ -18,21 +33,21 @@
     </rosparam>
   </node>
 
+  <!-- *************************** Navi *************************** -->
+
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
     <arg name="rgb_processing" value="true" />
     <arg name="depth_registration" value="false" />
     <arg name="depth_processing" value="false" />
   </include>
 
-  <include file="$(find turtlebot_navigation)/launch/includes/$(arg base)/_velocity_control.launch"/>
   <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch">
     <arg name="base" value="$(arg base)" />
   </include>
-
-  <!--- Run gmapping to make maps-->
   <include file="$(find turtlebot_navigation)/launch/includes/_gmapping.launch" />
 
-  <!-- Save the maps to a warehouse. -->
+  <!-- *************************** Maps *************************** -->
+
   <node name="mongo" type="mongo_wrapper_ros.py" pkg="warehouse_ros" output="log">
     <param name="database_path" value="warehouse_data"/>
     <param name="overwrite" value="false"/>
