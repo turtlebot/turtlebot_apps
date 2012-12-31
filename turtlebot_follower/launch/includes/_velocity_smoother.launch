@@ -1,7 +1,5 @@
 <!-- 
          Velocity smoother
-  Note that the nodelet manager for kobuki and create goes by the same name as the base arg. 
-  
   Might need custom smoother parameters for this one.      
 -->
 <launch>

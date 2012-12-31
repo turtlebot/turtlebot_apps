@@ -1,0 +1,12 @@
+<launch>
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="true" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="false" />
+    <arg name="scan_processing" value="false" />
+  </include>
+
+  <node pkg="turtlebot_actions" type="find_fiducial_pose" name="find_fiducial_pose">
+  </node>
+
+</launch>

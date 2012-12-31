@@ -175,6 +175,10 @@ public:
         done = true;
       }
     }
+    base_cmd.linear.x = 0.0;
+    base_cmd.angular.z = 0.0;
+    cmd_vel_pub_.publish(base_cmd);
+
     if (done) return true;
     return false;
   }
