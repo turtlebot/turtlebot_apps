@@ -3,8 +3,6 @@
   topic.
  -->
 <launch>
-  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, roomba -->
-
   <!-- *************************** Tele *************************** -->
   
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
@@ -32,15 +30,11 @@
     <arg name="depth_registration" value="false" />
     <arg name="depth_processing" value="false" />
   </include>
-
-  <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch">
-    <arg name="base" value="$(arg base)" />
-  </include>
-
+  
+<include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch"/>
   <include file="$(find turtlebot_navigation)/launch/includes/_amcl.launch">
     <arg name="use_map_topic" value="true"/>
   </include>
-
   <!-- *************************** Maps *************************** -->
 
   <!-- Load the maps from a warehouse. -->

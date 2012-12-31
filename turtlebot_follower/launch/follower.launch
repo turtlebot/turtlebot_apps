@@ -2,14 +2,8 @@
   The turtlebot people follower nodelet.   
  -->
 <launch>
-  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>
-  <arg name="camera"  value="camera"/>
-  
-  <include file="$(find turtlebot_follower)/launch/includes/_velocity_smoother.launch">
-    <arg name="base" value="$(arg base)" />
-  </include>
-
-  <include file="$(find turtlebot_follower)/launch/includes/$(arg base)/_safety_controller.launch"/>
+  <include file="$(find turtlebot_follower)/launch/includes/_velocity_smoother.launch"/>
+  <include file="$(find turtlebot_follower)/launch/includes/_safety_controller.launch"/>
 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
     <arg name="rgb_processing" value="false" />
@@ -22,7 +16,7 @@
   <node pkg="nodelet" type="nodelet" name="turtlebot_follower_manager" args="manager"/>
   <node pkg="nodelet" type="nodelet" name="turtlebot_follower" args="load turtlebot_follower/TurtlebotFollower turtlebot_follower_manager">
   -->
-  <group ns="$(arg camera)">
+  <group ns="camera">
     <node pkg="nodelet" type="nodelet" name="follower" 
           args="load turtlebot_follower/TurtlebotFollower camera_nodelet_manager"
           >
