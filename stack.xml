@@ -55,11 +55,4 @@
   <depend stack="map_store" /> <!-- map_store -->
   <depend stack="image_transport_plugins"/> <!-- compressed_image_transport -->
   
-  <!-- **************** Not yet has a deb! ****************** -->
-  <!-- <depend stack="mjpeg_server" /> --> <!-- mjpeg_server -->
-  <!-- While it's temporarily housed in here -->
-  <!-- <depend stack="image_common" /> --> <!-- image_transport -->
-  <!-- <depend stack="common_msgs" /> --> <!-- actionlib_msgs, geometry_msgs -->
-  <!-- <depend stack="vision_opencv" /> --> <!-- cv_bridge -->
-   
 </stack>

@@ -21,7 +21,6 @@
   <depend package="warehouse_ros"/>
 
   <!-- android_teleop -->
-  <depend package="mjpeg_server"/>
   <depend package="compressed_image_transport"/>
   <depend package="topic_tools"/>
 </package>
