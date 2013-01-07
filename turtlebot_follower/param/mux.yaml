@@ -1,0 +1,20 @@
+# Created on: Dec 5, 2012
+#     Author: jorge
+# Configuration for subscribers to cmd_vel sources.
+#
+# Individual subscriber configuration:
+#   name:           Source name
+#   topic:          The topic that provides cmd_vel messages
+#   timeout:        Time in seconds without incoming messages to consider this topic inactive
+#   priority:       Priority: an UNIQUE unsigned integer from 0 (lowest) to MAX_INT 
+#   short_desc:     Short description (optional)
+
+subscribers:
+  - name:        "Safe reactive controller"
+    topic:       "input/safety_controller"
+    timeout:     0.2
+    priority:    10
+  - name:        "Follower"
+    topic:       "input/follower"
+    timeout:     0.5
+    priority:    7

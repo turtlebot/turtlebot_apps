@@ -10,7 +10,6 @@
   <url>http://ros.org/wiki/turtlebot_actions</url>
 
   <depend package="roscpp"/>
-  <depend package="common_rosdeps"/>
   <depend package="actionlib"/>
   <depend package="actionlib_msgs"/>
   <depend package="geometry_msgs"/>
@@ -18,6 +17,7 @@
   <depend package="cv_bridge"/>
   <depend package="image_transport"/>
   <depend package="image_geometry"/>
+  <depend package="turtlebot_bringup"/>
 
   <rosdep name="eigen"/>
 </package>

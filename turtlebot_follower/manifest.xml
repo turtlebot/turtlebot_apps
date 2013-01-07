@@ -11,10 +11,10 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/follower</url>
   <depend package="nodelet"/>
-  <depend package="tf"/>
   <depend package="roscpp"/>
   <depend package="pcl_ros"/>
   <depend package="visualization_msgs"/>
+  <depend package="turtlebot_bringup"/>
   <export>
     <nodelet plugin="${prefix}/nodelets.xml" />
   </export>

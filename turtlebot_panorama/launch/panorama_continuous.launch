@@ -1,0 +1,12 @@
+<!-- 
+  Continuously takes panoramas. Make sure the 3d sensor is started before launching this.
+ -->
+<launch>
+  <node name="pano_server" pkg="pano_ros" type="capture_server.py">
+    <remap from="/pano_server/" to="turtlebot_panorama/pano_server/"/>
+    <remap from="/pano_server/snap" to="turtlebot_panorama/pano_server/snap"/>
+    <remap from="/pano_server/stop" to="turtlebot_panorama/pano_server/stop"/>
+    <remap from="/pano_server/stitch" to="turtlebot_panorama/pano_server/stitch"/>
+  </node>
+  <node name="turtlebot_panorama" pkg="turtlebot_panorama" type="panorama_cont"/>
+</launch>

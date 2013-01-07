@@ -1,0 +1,36 @@
+<!--
+  The turtlebot people follower nodelet.   
+ -->
+<launch>
+  <include file="$(find turtlebot_follower)/launch/includes/_velocity_smoother.launch"/>
+  <include file="$(find turtlebot_follower)/launch/includes/_safety_controller.launch"/>
+
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="false" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="true" />
+  </include>
+
+  <!--  This gets loaded into the 3d sensors nodelet manager -->
+  <!-- useful for testing 
+  <node pkg="nodelet" type="nodelet" name="turtlebot_follower_manager" args="manager"/>
+  <node pkg="nodelet" type="nodelet" name="turtlebot_follower" args="load turtlebot_follower/TurtlebotFollower turtlebot_follower_manager">
+  -->
+  <group ns="camera">
+    <node pkg="nodelet" type="nodelet" name="follower" 
+          args="load turtlebot_follower/TurtlebotFollower camera_nodelet_manager"
+          >
+      <remap from="follower/cmd_vel" to="/cmd_vel_mux/input/navi_raw"/>
+      <remap from="follower/depth/points" to="depth/points"/>
+      <param name="x_scale" value="7.0" />
+      <param name="z_scale" value="2.0" />
+      <param name="min_x" value="-0.35" />
+      <param name="max_x" value="0.35" />
+      <param name="min_y" value="0.1" />
+      <param name="max_y" value="0.5" />
+      <param name="max_z" value="1.2" />
+      <param name="goal_z" value="0.6" />
+    </node>
+  </group>
+
+</launch>

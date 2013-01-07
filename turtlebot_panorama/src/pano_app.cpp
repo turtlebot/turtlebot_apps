@@ -18,15 +18,15 @@ void PanoApp::init()
 
   sub_pano = nh.subscribe("/take_pano", 1, &PanoApp::takeCb, this);
 
-  pub_snap = nh.advertise<std_msgs::Empty>( "/pano_capture/snap", 100 );
-  pub_stop = nh.advertise<std_msgs::Empty>( "/pano_capture/stop", 100 );
+  pub_snap = nh.advertise<std_msgs::Empty>( "snap", 100 );
+  pub_stop = nh.advertise<std_msgs::Empty>( "stop", 100 );
 
-  pub_cmd_vel = nh.advertise<geometry_msgs::Twist>( "/cmd_vel", 100 );
-  sub_odom = nh.subscribe("/odom", 100, &PanoApp::odomCb, this);
+  pub_cmd_vel = nh.advertise<geometry_msgs::Twist>( "cmd_vel", 100 );
+  sub_odom = nh.subscribe("odom", 100, &PanoApp::odomCb, this);
 
   image_transport::ImageTransport it(nh);
-  pub_stitched = it.advertise("/panorama", 1);
-  sub_stitched = it.subscribe("/pano_capture/stitch", 1, &PanoApp::imageCb, this);
+  pub_stitched = it.advertise("panorama", 1);
+  sub_stitched = it.subscribe("stitch", 1, &PanoApp::imageCb, this);
 
   cmd_vel.linear.x = 0.0f;
   cmd_vel.linear.y = 0.0f;
@@ -35,7 +35,7 @@ void PanoApp::init()
   cmd_vel.angular.y = 0.0f;
   cmd_vel.angular.z = 0.0f; 
 
-  ROS_INFO("Panorama application initialized.");
+  ROS_INFO("Panorama : initialised.");
 }
 
 void PanoApp::spin()

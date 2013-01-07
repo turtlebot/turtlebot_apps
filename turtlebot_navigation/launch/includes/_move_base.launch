@@ -1,13 +1,14 @@
 <launch>
-  <arg name="base"/>
+
+  <include file="$(find turtlebot_navigation)/launch/includes/_velocity_smoother.launch"/>
+
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find turtlebot_navigation)/param/$(arg base)/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find turtlebot_navigation)/param/$(arg base)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find turtlebot_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find turtlebot_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find turtlebot_navigation)/param/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find turtlebot_navigation)/param/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find turtlebot_navigation)/param/base_local_planner_params.yaml" command="load" />
-
-    <remap from="cmd_vel" to="/mobile_base/commands/velocity"/>
+    <remap from="cmd_vel" to="cmd_vel_mux/input/navi_raw"/>
   </node>
 
 </launch>

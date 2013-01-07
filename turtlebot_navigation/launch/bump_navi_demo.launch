@@ -3,12 +3,7 @@
     roslaunch turtlebot_bringup minimal.launch  
  -->
 <launch>
-  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, roomba -->
-
-  <!--- Run Move Base -->
-  <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch" >
-    <arg name="base" value="$(arg base)"/>
-  </include>
+  <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch" />
 
   <!--
     Tweaks to adapt the move base node to local navigation:

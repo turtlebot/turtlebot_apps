@@ -1,0 +1,15 @@
+<!-- 
+  Single snapshot, automatically starts.
+ -->
+<launch>
+  <include file="$(find turtlebot_panorama)/launch/includes/_velocity_smoother.launch"/>
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+  <node name="pano_server" pkg="pano_ros" type="capture_server.py"/>
+  <node name="turtlebot_panorama" pkg="turtlebot_panorama" type="panorama">
+    <remap from="turtlebot_panorama/cmd_vel" to="cmd_vel"/>
+    <remap from="turtlebot_panorama/odom" to="odom"/>
+    <remap from="turtlebot_panorama/snap" to="pano_server/snap"/>
+    <remap from="turtlebot_panorama/stop" to="pano_server/stop"/>
+    <remap from="turtlebot_panorama/stitch" to="pano_server/stitch"/>
+  </node>
+</launch>

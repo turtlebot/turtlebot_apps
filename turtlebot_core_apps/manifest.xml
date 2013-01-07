@@ -1,5 +1,4 @@
 <package>
-  <catkin/>
   <description brief="turtlebot_core_apps">
 
     The core set of turtlebot 'app manager' apps are defined in this package.
@@ -9,14 +8,19 @@
   <license>BSD</license>
   <review status="experimental" notes=""/>
   <url>http://ros.org/wiki/turtlebot_core_apps</url>
+  <depend package="kobuki_auto_docking"/>
   <depend package="turtlebot_navigation"/>
   <depend package="turtlebot_teleop"/>
   <depend package="turtlebot_follower"/>
   <depend package="turtlebot_panorama"/>
   <depend package="turtlebot_sounds"/>
+  <depend package="turtlebot_bringup"/>
 
   <!-- for navigation apps -->
   <depend package="map_store"/>
-  <!-- for teleoperation applications -->
-  <depend package="mjpeg_server"/>
+  <depend package="warehouse_ros"/>
+
+  <!-- android_teleop -->
+  <depend package="compressed_image_transport"/>
+  <depend package="topic_tools"/>
 </package>

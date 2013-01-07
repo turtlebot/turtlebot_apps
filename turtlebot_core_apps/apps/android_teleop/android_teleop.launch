@@ -1,18 +1,26 @@
 <launch>
-  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>
-  
-  <!-- Load base-specific stuff -->
-  <include file="$(find turtlebot_core_apps)/apps/android_teleop/$(arg base)/_base_specific.launch"/>
-
-  <node pkg="mjpeg_server" type="mjpeg_server"  name="mjpeg_server" output="screen">
-    <param name="port" type="int" value="8181" />
+  <!--  
+    Right now, the android app is hard coded to look for /cmd_vel as the input
+    topic.
+   -->
+  <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet mobile_base_nodelet_manager">
+    <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
+    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="cmd_vel"/>
+    <remap from="teleop_velocity_smoother/odometry" to="odom"/> <!-- Todo : moved to odom_combined -->
+    <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="cmd_vel_mux/input/teleop"/>
   </node>
+
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="true" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="false" />
+  </include>
 
   <!-- Make a slower camera feed available. -->
   <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
         args="messages camera/rgb/image_color/compressed 5"/>
+
 </launch>
 
