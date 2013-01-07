@@ -1,10 +1,18 @@
 <!-- 
-  Continuously takes panoramas. Make sure the 3d sensor is started before launching this.
+  Continuously takes photos and stitches them together
  -->
 <launch>
   <arg name="pano_ros_server_name" value="pano_server"/>
   <arg name="turtlebot_panorama_name" value="turtlebot_panorama"/>
+  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>
+  
+  <!-- Load base-specific stuff -->
+  <include file="$(find turtlebot_panorama)/launch/$(arg base)/_base_specific.launch"/>
 
+  <!-- 3d sensor; ensure that the nodelet manager is named camera_nodelet_manager! -->
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="use_openni_launch" value="false"/>
+  </include>
 
   <node name="$(arg pano_ros_server_name)" pkg="pano_ros" type="capture_server.py">
     <remap from="/$(arg pano_ros_server_name)/" to="$(arg turtlebot_panorama_name)/pano_server/"/>
@@ -12,5 +20,9 @@
     <remap from="/$(arg pano_ros_server_name)/stop" to="$(arg turtlebot_panorama_name)/pano_server/stop"/>
     <remap from="/$(arg pano_ros_server_name)/stitch" to="$(arg turtlebot_panorama_name)/pano_server/stitch"/>
   </node>
-  <node name="$(arg turtlebot_panorama_name)" pkg="turtlebot_panorama" type="panorama_cont"/>
+  <node name="$(arg turtlebot_panorama_name)" pkg="turtlebot_panorama" type="panorama_cont">
+    <param name="cmd_vel_name" value="cmd_vel"/>
+    <param name="odometry_name" value="/odom"/>
+    <remap from="$(arg turtlebot_panorama_name)/cmd_vel" to="panorama_vel_smoother/raw_cmd_vel"/>
+  </node>
 </launch>
