@@ -1,5 +1,5 @@
 <package>
-  <description brief="Use your Turtlebot to take panorama pictures">
+  <description brief="Use your TurtleBot to take panorama pictures">
 
      This app utilises pano_ros for taking snapshots and stitching them together to create panorama pictures.
 
