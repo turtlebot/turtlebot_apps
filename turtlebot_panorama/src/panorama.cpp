@@ -133,7 +133,7 @@ void PanoApp::spin()
     if (is_active)
     {
       ROS_INFO_STREAM_THROTTLE(1.0, "Degrees to go: " << radians_to_degrees(std::abs(given_angle - angle)));
-      if (std::abs(given_angle - angle) <= 0.0174) // check, if target angle is reached (< 1 degree)
+      if ((given_angle - angle) <= 0.0174) // check, if target angle is reached (< 1 degree)
       {
         snap();
         pub_cmd_vel.publish(zero_cmd_vel);
