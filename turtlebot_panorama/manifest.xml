@@ -1,10 +1,10 @@
 <package>
-  <description brief="turtlebot_panorama">
+  <description brief="Use your Turtlebot to take panorama pictures">
 
-     turtlebot_panorama
+     This app utilises pano_ros for taking snapshots and stitching them together to create panorama pictures.
 
   </description>
-  <author>Jihoon</author>
+  <author>Younhoon Ju, Jihoon Lee and Marcus Liebhardt</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/turtlebot_panorama</url>
@@ -18,6 +18,8 @@
   <depend package="turtlebot_bringup"/>
   <depend package="yocs_velocity_smoother"/>
   <rosdep name="eigen"/>
+  
+  <depend package="std_srvs"/>
 </package>
 
 
