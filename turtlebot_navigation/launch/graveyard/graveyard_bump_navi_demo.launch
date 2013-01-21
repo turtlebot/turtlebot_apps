@@ -2,11 +2,15 @@
   Blind navigation demo; try to use navi stack just with bumper and cliff sensors.
 
   Before launching this:
-    roslaunch turtlebot_bringup minimal.launch  
+    roslaunch turtlebot_bringup minimal.launch
+  
+  TODO: this app will only work on turtlebot2. We need to make bump2pcl work for both
+  turtlebot2 and create. It also needs a good setup for the safety_controller.launch.
+  i.e. a fair bit of work is needed.
  -->
 <launch>
-  <include file="$(find turtlebot_navigation)/launch/includes/_safety_controller.launch"/>
-  <include file="$(find turtlebot_navigation)/launch/includes/_bumper2pc.launch"/>
+  <include file="$(find turtlebot_bringup)/launch/includes/$(arg base)/_safety_controller.launch"/>
+
   <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch"/>
 
   <!-- We are blind, so... do not run! this limit is tolerably safe for cliffs -->

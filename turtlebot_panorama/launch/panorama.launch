@@ -1,9 +1,4 @@
 <launch>
-  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>
-  
-  <!-- Load base-specific stuff -->
-  <include file="$(find turtlebot_panorama)/launch/$(arg base)/_base_specific.launch"/>
-
   <!-- 3d sensor; ensure that the nodelet manager is named camera_nodelet_manager! -->
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
 
@@ -16,6 +11,6 @@
     <param name="default_rotation_velocity" value="0.3"/>
     <param name="camera_name" value="/camera/rgb"/>
     <param name="bag_location" value="/tmp/turtlebot_panorama.bag"/>
-    <remap from="cmd_vel" to="cmd_vel_mux/panorama_controller"/>
+    <remap from="cmd_vel" to="cmd_vel_mux/input/navi"/>
   </node>
 </launch>

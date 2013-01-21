@@ -412,7 +412,7 @@ void PanoApp::log(std::string log)
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "pano_app");
+  ros::init(argc, argv, "turtlebot_panorama");
 
   turtlebot_panorama::PanoApp pano;
   pano.log("Panorama app starting...");
