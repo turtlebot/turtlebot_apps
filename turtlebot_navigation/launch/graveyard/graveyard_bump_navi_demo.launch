@@ -4,14 +4,12 @@
   Before launching this:
     roslaunch turtlebot_bringup minimal.launch
   
-  TODO: this app can be run just on Turtlebot 2; we need to change safety_controller and bumper2pc
-  to make it platform agnostic.
+  TODO: this app will only work on turtlebot2. We need to make bump2pcl work for both
+  turtlebot2 and create. It also needs a good setup for the safety_controller.launch.
+  i.e. a fair bit of work is needed.
  -->
 <launch>
-  <arg name="base" value="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
-
   <include file="$(find turtlebot_bringup)/launch/includes/$(arg base)/_safety_controller.launch"/>
-  <include file="$(find turtlebot_bringup)/launch/includes/$(arg base)/_bumper2pc.launch"/>
 
   <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch"/>
 
