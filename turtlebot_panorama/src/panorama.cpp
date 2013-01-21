@@ -50,26 +50,15 @@ PanoApp::PanoApp() : nh(), priv_nh("~")
 {
   std::string name = ros::this_node::getName();
 
-  ros::param::param<std::string>("~take_pano_name", params["take_pano_name"], "take_pano");
-  ros::param::param<std::string>("~take_pano_srv_name", params["take_pano_srv_name"], "take_pano");
-  ros::param::param<std::string>("~stop_pano_name", params["stop_pano_name"], "stop_pano");
-  ros::param::param<std::string>("~pub_result_name", params["pub_result_name"], "panorama");
-  ros::param::param<std::string>("~cmd_vel_name", params["cmd_vel_name"], "/cmd_vel");
-  ros::param::param<std::string>("~odometry_name", params["odometry_name"], "/odom");
-  ros::param::param<std::string>("~pano_server_name", params["pano_server_name"], "/pano_server");
-  params["pano_snap_name"] = params["pano_server_name"] + "/snap";
-  params["pano_stop_name"] = params["pano_server_name"] + "/stop";
-  params["pano_result_name"] = params["pano_server_name"] + "/stitch";
-  ros::param::param<std::string>("~camera_name", params["camera_name"], "/camera/rgb");
-  ros::param::param<std::string>("~bag_location", params["bag_location"], "/opt/pano.bag");
-  ros::param::param<std::string>("~log", params["log"], "log");
-
   ros::param::param<int>("~default_mode", default_mode, 1);
   ros::param::param<double>("~default_pano_angle", default_pano_angle, (2 * M_PI));
   ros::param::param<double>("~default_snap_interval", default_snap_interval, 2.0);
   ros::param::param<double>("~default_rotation_velocity", default_rotation_velocity, 0.3);
 
-  pub_log = priv_nh.advertise<std_msgs::String>(params["log"], 100);
+  ros::param::param<std::string>("~camera_name", params["camera_name"], "/camera/rgb");
+  ros::param::param<std::string>("~bag_location", params["bag_location"], "/home/turtlebot/pano.bag");
+
+  pub_log = priv_nh.advertise<std_msgs::String>("log", 100);
 }
 
 PanoApp::~PanoApp()
@@ -82,29 +71,29 @@ void PanoApp::init()
   //***************************
   // public API for the app
   //***************************
-  srv_start_pano = priv_nh.advertiseService(params["take_pano_srv_name"], &PanoApp::takePanoServiceCb, this);
-  sub_start_pano = priv_nh.subscribe(params["take_pano_name"], 1, &PanoApp::takePanoCb, this);
-  sub_stop_pano = priv_nh.subscribe(params["stop_pano_name"], 1, &PanoApp::stopPanoCb, this);
+  srv_start_pano = priv_nh.advertiseService("take_pano", &PanoApp::takePanoServiceCb, this);
+  sub_start_pano = priv_nh.subscribe("take_pano", 1, &PanoApp::takePanoCb, this);
+  sub_stop_pano = priv_nh.subscribe("stop_pano", 1, &PanoApp::stopPanoCb, this);
   image_transport::ImageTransport it_priv(priv_nh);
-  pub_stitched = it_priv.advertise(params["pub_result_name"], 1, true);
+  pub_stitched = it_priv.advertise("panorama", 1, true);
 
   //***************************
   // Robot control
   //***************************
-  pub_cmd_vel = priv_nh.advertise<geometry_msgs::Twist>(params["cmd_vel_name"], 100);
-  sub_odom = priv_nh.subscribe(params["odometry_name"], 100, &PanoApp::odomCb, this);
+  pub_cmd_vel = priv_nh.advertise<geometry_msgs::Twist>(params["cmd_vel"], 100);
+  sub_odom = priv_nh.subscribe(params["odom"], 100, &PanoApp::odomCb, this);
 
   //***************************
   // pano_ros API
   //***************************
-  pano_ros_client = new actionlib::SimpleActionClient<pano_ros::PanoCaptureAction>(params["pano_server_name"], true);
+  pano_ros_client = new actionlib::SimpleActionClient<pano_ros::PanoCaptureAction>("pano_server", true);
   log("Waiting for Pano ROS server ...");
   pano_ros_client->waitForServer(); // will wait for infinite time
   log("Connected to Pano ROS server.");
-  pub_action_snap = nh.advertise<std_msgs::Empty>(params["pano_snap_name"], 100);
-  pub_action_stop = nh.advertise<std_msgs::Empty>(params["pano_stop_name"], 100);
+  pub_action_snap = nh.advertise<std_msgs::Empty>("pano_server/snap", 100);
+  pub_action_stop = nh.advertise<std_msgs::Empty>("pano_server/stop", 100);
   image_transport::ImageTransport it_pano(nh);
-  sub_stitched = it_pano.subscribe(params["pano_result_name"], 1, &PanoApp::stitchedImageCb, this);
+  sub_stitched = it_pano.subscribe("pano_server/stitch", 1, &PanoApp::stitchedImageCb, this);
 
   cmd_vel.linear.x = 0.0f;
   cmd_vel.linear.y = 0.0f;

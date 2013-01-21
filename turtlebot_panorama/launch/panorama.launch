@@ -12,19 +12,12 @@
   <node name="$(arg pano_ros_server_name)" pkg="pano_ros" type="capture_server.py"/>
   
   <node name="$(arg turtlebot_panorama_name)" pkg="turtlebot_panorama" type="panorama">
-    <param name="take_pano_name" value="take_pano"/>
-    <param name="take_pano_srv_name" value="take_pano"/>
-    <param name="pub_result_name" value="panorama"/>
-    <param name="cmd_vel_name" value="cmd_vel"/>
-    <param name="odometry_name" value="/odom"/>
-    <param name="pano_server_name" value="$(arg pano_ros_server_name)"/>
-    <param name="camera_name" value="/camera/rgb"/>
-    <param name="bag_location" value="/opt/pano.bag"/>
-    <param name="log" value="log"/>
     <param name="default_mode" value="1"/>
     <param name="default_pano_angle" value="6.28318530718"/> <!-- 2 * Pi -->
     <param name="default_snap_interval" value="2.0"/>
     <param name="default_rotation_velocity" value="0.3"/>
+    <param name="camera_name" value="/camera/rgb"/>
+    <param name="bag_location" value="/tmp/turtlebot_panorama.bag"/>
     <remap from="$(arg turtlebot_panorama_name)/cmd_vel" to="cmd_vel_mux/panorama_controller"/>
   </node>
 </launch>
