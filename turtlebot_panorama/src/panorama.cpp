@@ -80,8 +80,8 @@ void PanoApp::init()
   //***************************
   // Robot control
   //***************************
-  pub_cmd_vel = priv_nh.advertise<geometry_msgs::Twist>(params["cmd_vel"], 100);
-  sub_odom = priv_nh.subscribe(params["odom"], 100, &PanoApp::odomCb, this);
+  pub_cmd_vel = nh.advertise<geometry_msgs::Twist>("cmd_vel", 100);
+  sub_odom = nh.subscribe("odom", 100, &PanoApp::odomCb, this);
 
   //***************************
   // pano_ros API
