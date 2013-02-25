@@ -8,7 +8,7 @@ clients:
  - type: android
    manager:
      api-level: 9
-     intent-action: ros.android.mapnav.MapNav
+     intent-action: org.ros.android.map_nav.MainActivity
    app: 
      gravityMode: 0
      base_control_topic: /cmd_vel

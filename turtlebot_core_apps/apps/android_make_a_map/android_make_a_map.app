@@ -8,7 +8,7 @@ clients:
  - type: android
    manager:
      api-level: 9
-     intent-action: ros.android.makeamap.MakeAMap
+     intent-action: org.ros.android.make_a_map.MainActivity
    app: 
      gravityMode: 0
      base_control_topic: /cmd_vel 
