@@ -1,3 +1,4 @@
-publisher: []
-subscriber: [] 
-service: []
+published_topics:
+  /turtlebot_panorama/panorama/compressed: sensor_msgs/CompressedImage
+
+subscribed_topics: {}
