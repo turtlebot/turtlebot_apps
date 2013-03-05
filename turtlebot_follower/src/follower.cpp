@@ -34,6 +34,7 @@
 #include <pcl_ros/point_cloud.h>
 #include <pcl/point_types.h>
 #include "dynamic_reconfigure/server.h"
+#include "turtlebot_follower/ChangeState.h"
 #include "turtlebot_follower/FollowerConfig.h"
 
 #include <visualization_msgs/Marker.h>
@@ -66,7 +67,7 @@ public:
 
   ~TurtlebotFollower()
   {
-    delete srv_;
+    delete config_srv_;
   }
 
 private:
@@ -78,10 +79,13 @@ private:
   double goal_z_; /**< The distance away from the robot to hold the centroid */
   double z_scale_; /**< The scaling factor for translational robot speed */
   double x_scale_; /**< The scaling factor for rotational robot speed */
+  bool   enabled_; /**< Enable/disable following; just prevents motor commands */
 
+  // Service for start/stop following
+  ros::ServiceServer switch_srv_;
 
   // Dynamic reconfigure server
-  dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>* srv_;
+  dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>* config_srv_;
 
   /*!
    * @brief OnInit method from node handle.
@@ -101,15 +105,19 @@ private:
     private_nh.getParam("goal_z", goal_z_);
     private_nh.getParam("z_scale", z_scale_);
     private_nh.getParam("x_scale", x_scale_);
+    private_nh.getParam("enabled", enabled_);
 
     cmdpub_ = private_nh.advertise<geometry_msgs::Twist> ("cmd_vel", 1);
     markerpub_ = private_nh.advertise<visualization_msgs::Marker>("marker",1);
     bboxpub_ = private_nh.advertise<visualization_msgs::Marker>("bbox",1);
     sub_= nh.subscribe<PointCloud>("depth/points", 1, &TurtlebotFollower::cloudcb, this);
 
-    srv_ = new dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>(private_nh);
-    dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>::CallbackType f = boost::bind(&TurtlebotFollower::reconfigure, this, _1, _2);
-    srv_->setCallback(f);
+    switch_srv_ = private_nh.advertiseService("change_state", &TurtlebotFollower::changeModeSrvCb, this);
+
+    config_srv_ = new dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>(private_nh);
+    dynamic_reconfigure::Server<turtlebot_follower::FollowerConfig>::CallbackType f =
+        boost::bind(&TurtlebotFollower::reconfigure, this, _1, _2);
+    config_srv_->setCallback(f);
   }
 
   void reconfigure(turtlebot_follower::FollowerConfig &config, uint32_t level)
@@ -167,21 +175,46 @@ private:
       z /= n;
 
       ROS_DEBUG("Centriod at %f %f %f with %d points", x, y, z, n);
+      publishMarker(x, y, z);
 
-      geometry_msgs::TwistPtr cmd(new geometry_msgs::Twist());
-      cmd->linear.x = (z - goal_z_) * z_scale_;
-      cmd->angular.z = -x * x_scale_;
-      cmdpub_.publish(cmd);
-      publishMarker(x,y,z);
+      if (enabled_)
+      {
+        geometry_msgs::TwistPtr cmd(new geometry_msgs::Twist());
+        cmd->linear.x = (z - goal_z_) * z_scale_;
+        cmd->angular.z = -x * x_scale_;
+        cmdpub_.publish(cmd);
+      }
     }
     else
     {
       ROS_DEBUG("No points detected, stopping the robot");
-      cmdpub_.publish(geometry_msgs::TwistPtr(new geometry_msgs::Twist()));
-      publishMarker(x,y,z);
+      publishMarker(x, y, z);
+
+      if (enabled_)
+      {
+        cmdpub_.publish(geometry_msgs::TwistPtr(new geometry_msgs::Twist()));
+      }
     }
 
     publishBbox();
+  }
+
+  bool changeModeSrvCb(ChangeState::Request& request, ChangeState::Response& response)
+  {
+    if ((enabled_ == true) && (request.state == request.STOPPED))
+    {
+      ROS_INFO("Change mode service request: following stopped");
+      cmdpub_.publish(geometry_msgs::TwistPtr(new geometry_msgs::Twist()));
+      enabled_ = false;
+    }
+    else if ((enabled_ == false) && (request.state == request.FOLLOW))
+    {
+      ROS_INFO("Change mode service request: following (re)started");
+      enabled_ = true;
+    }
+
+    response.result = response.OK;
+    return true;
   }
 
   void publishMarker(double x,double y,double z)
