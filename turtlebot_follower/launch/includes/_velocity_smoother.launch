@@ -8,5 +8,10 @@
     <remap from="follower_velocity_smoother/odometry" to="odom"/> <!-- Todo : moved to odom_combined -->
     <remap from="follower_velocity_smoother/raw_cmd_vel" to="cmd_vel_mux/input/navi_raw"/>
     <remap from="follower_velocity_smoother/smooth_cmd_vel" to="cmd_vel_mux/input/navi"/>
+    
+    <!-- Configure velocity smoother to allow more aggressive motion -->
+    <param name="accel_lim_v"  value="0.6"/>
+    <param name="accel_lim_w"  value="5.5"/>
+    <param name="decel_factor" value="2.0"/>
   </node>
 </launch>
