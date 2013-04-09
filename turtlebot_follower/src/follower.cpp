@@ -142,9 +142,9 @@ private:
   void cloudcb(const PointCloud::ConstPtr&  cloud)
   {
     //X,Y,Z of the centroid
-    double x = 0.0;
-    double y = 0.0;
-    double z = 0.0;
+    float x = 0.0;
+    float y = 0.0;
+    float z = 1e6;
     //Number of points observed
     unsigned int n = 0;
     //Iterate through all the points in the region and find the average of the position
@@ -160,7 +160,7 @@ private:
           //Add the point to the totals
           x += pt.x;
           y += pt.y;
-          z += pt.z;
+          z = std::min(z, pt.z);
           n++;
         }
       }
@@ -172,9 +172,16 @@ private:
     {
       x /= n;
       y /= n;
-      z /= n;
+      if(z > max_z_){
+        ROS_DEBUG("No valid points detected, stopping the robot");
+        if (enabled_)
+        {
+          cmdpub_.publish(geometry_msgs::TwistPtr(new geometry_msgs::Twist()));
+        }
+        return;
+      }
 
-      ROS_DEBUG("Centriod at %f %f %f with %d points", x, y, z, n);
+      ROS_DEBUG("Centroid at %f %f %f with %d points", x, y, z, n);
       publishMarker(x, y, z);
 
       if (enabled_)
