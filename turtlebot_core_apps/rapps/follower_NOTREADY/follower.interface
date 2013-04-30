@@ -1,2 +1,5 @@
-published_topics: {}
-subscribed_topics: {}
+publishers: []
+subscribers: []
+services: []
+action_clients: []
+action_servers: []
