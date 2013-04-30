@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>turtlebot_sounds</name>
+  <version>0.0.0</version>
+  <description>
+     Play a single fixed sound file when chirp.launch is launched, at full volume.
+  </description>
+
+  <maintainer email="stonier@rnd.yujinrobot.com">Daniel Stonier</maintainer>
+
+  <license>TODO</license>
+
+
+  <author email="hersh@willowgarage.com">Dave Hershberger</author>
+  <url type="website">http://ros.org/wiki/turtlebot_sounds</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
