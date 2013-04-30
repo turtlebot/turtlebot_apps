@@ -3,7 +3,7 @@ project(pano_core)
 
 find_package(catkin REQUIRED COMPONENTS cv_bridge roscpp)
 find_package(OpenCV REQUIRED)
-find_package(Boost COMPONENTS components program_options)
+find_package(Boost REQUIRED components program_options)
 
 ###################################
 ## catkin specific configuration ##
@@ -26,7 +26,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include
+include_directories(include SYSTEM
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
 )
