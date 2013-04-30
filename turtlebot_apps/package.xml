@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+  <name>turtlebot_apps</name>
+  <version>2.0.2</version>
+  <description brief="turtlebot_apps">turtlebot_apps is a group of simple demos and exmaples to run on your TurtleBot to help you get started with ROS and TurtleBot.</description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag --> 
+  <!-- Example:  -->
+  <maintainer email="stonier@rnd.yujinrobot.com">Daniel Stonier</maintainer>
+  <maintainer email="tfoote@osrfoundation.org">Tully Foote</maintainer>
+  <maintainer email="mwise@willowgarage.com">Melonee Wise</maintainer>
+
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/turtlebot_apps</url>
+  <url type="repository">https://github.com/turtlebot/turtlebot_apps</url>
+  <url type="bugtracker">https://github.com/turtlebot/turtlebot_apps/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>pano</run_depend>
+  <run_depend>turtlebot_actions</run_depend>
+  <run_depend>turtlebot_calibration</run_depend>
+  <run_depend>turtlebot_core_apps</run_depend>
+  <run_depend>turtlebot_follower</run_depend>
+  <run_depend>turtlebot_navigation</run_depend>
+  <run_depend>turtlebot_panorama</run_depend>
+  <run_depend>turtlebot_sounds</run_depend>
+  <run_depend>turtlebot_teleop</run_depend>
+
+  <export>
+    <metapackage/> 
+  </export>
+</package>

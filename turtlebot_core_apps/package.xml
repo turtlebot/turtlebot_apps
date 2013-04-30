@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>turtlebot_core_apps</name>
+  <version>0.0.0</version>
+  <description>The core set of turtlebot 'app manager' apps are defined in this package. </description>
+
+  <maintainer email="stonier@rnd.yujinrobot.com">Daniel Stonier</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/turtlebot_core_apps</url> 
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>kobuki_auto_docking</run_depend>
+  <run_depend>turtlebot_bringup</run_depend>
+  <run_depend>turtlebot_follower</run_depend>
+  <run_depend>turtlebot_navigation</run_depend>
+  <run_depend>turtlebot_panorama</run_depend>
+  <run_depend>turtlebot_sounds</run_depend>
+  <run_depend>turtlebot_teleop</run_depend>
+
+  <!-- for navigation apps -->
+  <run_depend>warehouse_ros</run_depend>
+<!--   <run_depend>map_store</run_depend> Not catkinized yet -->
+
+  <!-- android_teleop -->
+  <run_depend>compressed_image_transport</run_depend>
+  <run_depend>topic_tools</run_depend>
+
+</package>
