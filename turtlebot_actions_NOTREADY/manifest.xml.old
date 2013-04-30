@@ -1,0 +1,25 @@
+<package>
+  <description brief="turtlebot_actions">
+
+     turtlebot_actions provides several basic actionlib actions for the TurtleBot.
+
+  </description>
+  <author>Helen Oleynikova, Melonee Wise</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/turtlebot_actions</url>
+
+  <depend package="roscpp"/>
+  <depend package="actionlib"/>
+  <depend package="actionlib_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="tf"/>
+  <depend package="cv_bridge"/>
+  <depend package="image_transport"/>
+  <depend package="image_geometry"/>
+  <depend package="turtlebot_bringup"/>
+
+  <rosdep name="eigen"/>
+</package>
+
+
