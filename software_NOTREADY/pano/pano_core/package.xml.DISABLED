@@ -9,7 +9,7 @@
 
   <url type="website">http://ros.org/wiki/pano_core</url> 
 
-  <author email="">Ethan Rublee</author> 
+  <author email="erublee@dont.no">Ethan Rublee</author> 
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>cv_bridge</build_depend>

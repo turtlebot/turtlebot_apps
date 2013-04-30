@@ -3,7 +3,7 @@ project(pano_core)
 
 find_package(catkin REQUIRED COMPONENTS cv_bridge roscpp)
 find_package(OpenCV REQUIRED)
-find_package(Boost COMPONENTS components)
+find_package(Boost COMPONENTS components program_options)
 
 ###################################
 ## catkin specific configuration ##
@@ -31,7 +31,11 @@ include_directories(include
   ${Boost_INCLUDE_DIRS}
 )
 
-add_library(pano_core src/*.cpp)
+file(GLOB pano_srcs src/*.cpp)
+add_library(pano_core ${pano_srcs})
+
+target_link_libraries(pano_core ${catkin_LIBRARIES})
+target_link_libraries(pano_core ${Boost_LIBRARIES})
 
 # standalone apps
 add_executable(stitcher apps/stitcher.cpp)
