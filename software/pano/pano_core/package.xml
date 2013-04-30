@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <name>pano_core</name>
+  <version>0.0.0</version>
+  <description>Library for the opencv-based panorama stitching algorithm </description>
+
+  <maintainer email="jihoonlee@gmail.com">Jihoon Lee</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/pano_core</url> 
+
+  <author email="">Ethan Rublee</author> 
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>roscpp</build_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>roscpp</run_depend>
+
+</package>

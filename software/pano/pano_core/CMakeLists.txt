@@ -1,44 +1,83 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+cmake_minimum_required(VERSION 2.8.3)
+project(pano_core)
 
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-set(ROS_BUILD_TYPE Debug)
-
-rosbuild_init()
-
-set(ROS_BUILD_STATIC_LIBS true)
-set(ROS_BUILD_SHARED_LIBS false)
-
-#uncomment/comment to toggle crazy fast brief matching with the popcount instruction
-set(ROS_COMPILE_FLAGS ${ROS_COMPILE_FLAGS} "-msse4.2 -Wall")
-
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-
+find_package(catkin REQUIRED COMPONENTS cv_bridge roscpp)
 find_package(OpenCV REQUIRED)
+find_package(Boost COMPONENTS components)
 
-#this is the pano_core library
-file(GLOB pano_srcs src/*.cpp)
-rosbuild_add_library(${PROJECT_NAME} ${pano_srcs})
+###################################
+## catkin specific configuration ##
+###################################
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+   LIBRARIES pano_core
+   INCLUDE_DIRS include
+   CATKIN_DEPENDS cv_bridge roscpp
+   DEPENDS system_lib
+)
 
-#unit tests
-rosbuild_add_gtest(utest test/utest.cpp)
-target_link_libraries(utest pano_core)
+###########
+## Build ##
+###########
 
-#standalone apps
-rosbuild_add_executable(stitcher apps/stitcher.cpp)
-target_link_libraries(stitcher ${PROJECT_NAME})
-target_link_libraries(stitcher ${OpenCV_LIBS})
-rosbuild_link_boost(stitcher program_options)
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+include_directories(include
+  ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
+)
 
-rosbuild_add_executable(video_stitcher apps/video_stitcher.cpp)
-target_link_libraries(video_stitcher ${PROJECT_NAME})
-target_link_libraries(video_stitcher ${OpenCV_LIBS})
-rosbuild_link_boost(video_stitcher program_options)
+add_library(pano_core src/*.cpp)
+
+# standalone apps
+add_executable(stitcher apps/stitcher.cpp)
+target_link_libraries(stitcher pano_core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(video_stitcher apps/video_stitcher.cpp)
+target_link_libraries(video_stitcher pano_core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+#############
+## Install ##
+#############
+
+# all install targets should use catkin DESTINATION variables
+# See http://ros.org/doc/groovy/api/catkin/html/adv_user_guide/variables.html
+
+## Mark executable scripts (Python etc.) for installation
+## in contrast to setup.py, you can choose the destination
+# install(PROGRAMS
+#   scripts/my_python_script
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark executables and/or libraries for installation
+install(TARGETS pano_core stitcher
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(TARGETS pano_core video_stitcher
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+## Mark cpp header files for installation
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+
+#############
+## Testing ##
+#############
+
+## Add gtest based cpp test target and link libraries
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_pano_core.cpp)
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+# endif()
+
+## Add folders to be run by python nosetests
+# catkin_add_nosetests(test)
