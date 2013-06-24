@@ -1,0 +1,5 @@
+/bin
+/lib
+filenode_empty.yml
+filenode_filled.yml
+filenode_filled_deserialed.yml

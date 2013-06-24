@@ -1,0 +1,28 @@
+<package>
+	<description brief="pano_py">
+
+        This is a python wraper around the pano_core library (I think)
+
+  </description>
+	<author>Ethan Rublee</author>
+	<license>BSD</license>
+	<review status="unreviewed" notes="" />
+	<url>http://ros.org/wiki/pano_py</url>
+	<depend package="pano_core" />
+	<depend package="rospy" />
+		
+	<depend package="roscpp" />
+	<depend package="std_msgs" />
+			
+	<depend package="image_transport" />
+	<depend package="cv_bridge" />
+	  <rosdep name="python-numpy" />
+
+	
+	<export>
+		<python path="${prefix}/lib" />
+	</export>
+
+</package>
+
+

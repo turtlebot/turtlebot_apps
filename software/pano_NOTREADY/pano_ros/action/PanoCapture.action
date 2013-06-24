@@ -1,0 +1,12 @@
+# Define the goal
+# TODO: tf frame 
+string camera_topic
+string bag_filename
+---
+# Define the result
+uint32 pano_id
+uint32 n_captures
+string bag_filename
+---
+# Define a feedback message
+float32 n_captures
