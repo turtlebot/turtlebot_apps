@@ -78,5 +78,5 @@ install(DIRECTORY include/${PROJECT_NAME}/
 #############
 
 ## Add gtest based cpp test target and link libraries
-catkin_add_gtest(utest test/utest.cpp)
-target_link_libraries(utest pano_core)
+catkin_add_gtest(pano_core_utest test/utest.cpp)
+target_link_libraries(pano_core_utest pano_core)
