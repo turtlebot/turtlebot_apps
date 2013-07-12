@@ -3,6 +3,7 @@ project(turtlebot_actions)
 
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS roscpp actionlib actionlib_msgs geometry_msgs tf cv_bridge image_transport image_geometry turtlebot_bringup)
+find_package(Boost REQUIRED COMPONENTS system)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(Eigen REQUIRED)
