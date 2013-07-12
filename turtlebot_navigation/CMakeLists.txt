@@ -26,7 +26,7 @@ install(TARGETS laser_footprint_filter
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-# Mark anything (usefull) else for installation
+# Mark anything (useful) else for installation
 install(DIRECTORY laser
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )

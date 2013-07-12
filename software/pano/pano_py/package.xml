@@ -1,0 +1,31 @@
+<package>
+  <name>pano_py</name>
+  <version>2.1.0</version>
+  <description>
+      This is a python wraper around the pano_core library (I think)
+  </description>
+  <maintainer email="jihoonlee.in@gmail.com">Jihoon Lee</maintainer>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/pano_py</url>
+  <author>Ethan Rublee</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>rospy</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>pano_core</build_depend>
+  
+  <run_depend>rospy</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>pano_core</run_depend>
+
+  <export>
+    <python path="${prefix}/lib"/>
+  </export>
+</package>
