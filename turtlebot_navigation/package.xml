@@ -1,0 +1,25 @@
+<package>
+  <name>turtlebot_navigation</name>
+  <version>2.1.0</version>
+  <description>turtlebot_navigation</description>
+  <maintainer email="turtlebot@osrfoundation.org">OSRF</maintainer>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/turtlebot_navigation</url>
+  <author>Tully Foote</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>tf</build_depend>
+  <build_depend>move_base</build_depend>
+  <build_depend>gmapping</build_depend>
+  <build_depend>turtlebot_bringup</build_depend>
+
+  <run_depend>tf</run_depend>
+  <run_depend>move_base</run_depend>
+  <run_depend>gmapping</run_depend>
+  <run_depend>turtlebot_bringup</run_depend>
+
+  <export>
+
+  </export>
+</package>
