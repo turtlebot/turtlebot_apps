@@ -1,13 +1,12 @@
 <package>
   <name>turtlebot_actions</name>
   <version>2.1.0</version>
-  <description>turtlebot_actions provides several basic actionlib actions for the TurtleBot.</description>
-  <maintainer email="mwise@willowgarage.com">Melonee Wise</maintainer>
-
+  <description>
+      turtlebot_actions provides several basic actionlib actions for the TurtleBot.
+  </description>
+  <maintainer email="turtlebot@osrfoundation.org">OSRF</maintainer>
   <license>BSD</license>
-
   <url type="website">http://ros.org/wiki/turtlebot_actions</url>
-
   <author>Helen Oleynikova</author>
   <author>Melonee Wise</author>
   
