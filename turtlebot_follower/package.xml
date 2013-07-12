@@ -1,7 +1,6 @@
-<?xml version="1.0"?>
 <package>
   <name>turtlebot_follower</name>
-  <version>0.0.0</version>
+  <version>2.1.0</version>
   <description>
        Follower for the turtlebot. Follows humans and robots around by following the centroid of a box points in front of the turtlebot.
   </description>
@@ -17,12 +16,14 @@
   <author email="tony.pratkanis@to.do">Tony Pratkanis</author> 
 
   <buildtool_depend>catkin</buildtool_depend>
+
   <build_depend>nodelet</build_depend>
   <build_depend>pcl_ros</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>visualization_msgs</build_depend>
   <build_depend>message_generation</build_depend>
   <build_depend>dynamic_reconfigure</build_depend>
+
   <run_depend>nodelet</run_depend>
   <run_depend>pcl_ros</run_depend>
   <run_depend>roscpp</run_depend>
