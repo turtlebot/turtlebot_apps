@@ -19,6 +19,7 @@
   <build_depend>std_srvs</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
   <build_depend>image_transport</build_depend>
   <build_depend>pano_ros</build_depend>
   <build_depend>turtlebot_bringup</build_depend>
@@ -30,6 +31,7 @@
   <run_depend>std_srvs</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>geometry_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
   <run_depend>image_transport</run_depend>
   <run_depend>pano_ros</run_depend>
   <run_depend>turtlebot_bringup</run_depend>

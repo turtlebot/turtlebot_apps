@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(turtlebot_actions)
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS roscpp actionlib actionlib_msgs geometry_msgs tf cv_bridge image_transport image_geometry turtlebot_bringup)
+find_package(catkin REQUIRED COMPONENTS roscpp actionlib actionlib_msgs geometry_msgs message_generation tf cv_bridge image_transport image_geometry turtlebot_bringup)
 find_package(Boost REQUIRED COMPONENTS system)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -29,15 +29,17 @@ generate_messages(
 # building c++ executables and libraries
 add_executable(turtlebot_move_action_server src/turtlebot_move_action_server.cpp)
 target_link_libraries(turtlebot_move_action_server ${Boost_LIBRARIES} ${catkin_LIBRARIES})
+add_dependencies(turtlebot_move_action_server turtlebot_actions_gencpp)
 
 add_executable(find_fiducial_pose src/find_fiducial_pose.cpp src/detect_calibration_pattern.cpp)
 target_link_libraries(find_fiducial_pose ${Boost_LIBRARIES} ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_dependencies(find_fiducial_pose turtlebot_actions_gencpp)
 
 
 # what other packages will need to use this package
 catkin_package(
     DEPENDS eigen opencv
-    CATKIN_DEPENDS roscpp actionlib actionlib_msgs geometry_msgs tf cv_bridge image_transport image_geometry turtlebot_bringup
+    CATKIN_DEPENDS roscpp actionlib actionlib_msgs geometry_msgs message_runtime tf cv_bridge image_transport image_geometry turtlebot_bringup
     INCLUDE_DIRS include
 )
 
