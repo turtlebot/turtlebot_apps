@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 2.8.3)
 project(turtlebot_follower)
 
 ## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS nodelet pcl_ros roscpp visualization_msgs message_generation dynamic_reconfigure)
 find_package(Boost REQUIRED)
 find_package(PCL)
@@ -19,12 +17,11 @@ add_service_files(
 generate_messages()
 
 generate_dynamic_reconfigure_options(cfg/Follower.cfg)
-include_directories(include cfg/cpp)
 
 catkin_package(
-  INCLUDE_DIRS
+  INCLUDE_DIRS include
   LIBRARIES turtlebot_follower
-  CATKIN_DEPENDS nodelet pcl_ros roscpp visualization_msgs message_runtime
+  CATKIN_DEPENDS nodelet pcl_ros roscpp visualization_msgs message_runtime dynamic_reconfigure
   DEPENDS system_lib PCL
 )
 
@@ -32,13 +29,9 @@ catkin_package(
 ## Build ##
 ###########
 
-
-
-
-
 ## Specify additional locations of header files
-## Your package locations should be listed before other locations
-include_directories(include SYSTEM
+include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
@@ -47,10 +40,7 @@ include_directories(include SYSTEM
 ## Declare a cpp library
 add_library(turtlebot_follower src/follower.cpp)
 
-## Declare a cpp executable
-# add_executable(turtlebot_follower_node src/turtlebot_follower_node.cpp)
-
-add_dependencies(turtlebot_follower turtlebot_follower_generate_messages_cpp)
+add_dependencies(turtlebot_follower turtlebot_follower_gencpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(turtlebot_follower
@@ -62,16 +52,6 @@ target_link_libraries(turtlebot_follower
 ## Install ##
 #############
 
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/groovy/api/catkin/html/adv_user_guide/variables.html
-
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-#)
-
 ## Mark executables and/or libraries for installation
 install(TARGETS turtlebot_follower 
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -79,13 +59,7 @@ install(TARGETS turtlebot_follower
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-## Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.h"
-  PATTERN ".svn" EXCLUDE
-)
-
+## Mark all other required files for installation
 install(DIRECTORY sim
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
@@ -99,7 +73,9 @@ install(DIRECTORY param
 )
 
 
-install(FILES nodelet.xml   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(DIRECTORY plugins
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 #############
 ## Testing ##
