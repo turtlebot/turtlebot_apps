@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 2.8.3)
 project(pano_ros)
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs sensor_msgs actionlib actionlib_msgs image_transport cv_bridge pano_py)
+find_package(catkin REQUIRED COMPONENTS std_msgs sensor_msgs actionlib_msgs message_generation)
 
-include_directories(include ${OpenCV_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
+catkin_python_setup()
 
 # actions
 add_action_files(
@@ -27,5 +27,5 @@ generate_messages(
 
 # What other packages will need to use this package
 catkin_package(
-    CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs actionlib actionlib_msgs image_transport cv_bridge pano_py
+    CATKIN_DEPENDS std_msgs sensor_msgs actionlib_msgs message_runtime
 )
