@@ -19,7 +19,7 @@ generate_messages()
 generate_dynamic_reconfigure_options(cfg/Follower.cfg)
 
 catkin_package(
-  INCLUDE_DIRS include
+  INCLUDE_DIRS
   LIBRARIES turtlebot_follower
   CATKIN_DEPENDS nodelet pcl_ros roscpp visualization_msgs message_runtime dynamic_reconfigure
   DEPENDS system_lib PCL

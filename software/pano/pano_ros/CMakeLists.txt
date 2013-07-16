@@ -29,3 +29,13 @@ generate_messages(
 catkin_package(
     CATKIN_DEPENDS std_msgs sensor_msgs actionlib_msgs message_runtime
 )
+
+#############
+## Install ##
+#############
+
+## Mark executable scripts (Python etc.) for installation
+install(PROGRAMS nodes/capture_client.py
+		 nodes/capture_server.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
