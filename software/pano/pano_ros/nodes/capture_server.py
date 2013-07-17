@@ -42,7 +42,7 @@ Sample run command for using the kinect as a capture device:
 rosrun pano_ros capture_server.py camera:=/kinect/rgb
 """
 
-import roslib; roslib.load_manifest('pano_ros')
+#import roslib; roslib.load_manifest('pano_ros')
 import os
 import tempfile
 import threading

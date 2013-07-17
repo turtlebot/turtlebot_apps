@@ -20,3 +20,14 @@ catkin_package(
     INCLUDE_DIRS include
     LIBRARIES pano_cv pano_py
 )
+
+# Add these python modules install path to LD_LIBRARY_PATH; installed panorama will not work if not
+catkin_add_env_hooks(15.ld_lib_path SHELLS bash tcsh zsh DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/env-hooks)
+
+#############
+## Install ##
+#############
+
+install(DIRECTORY include/${PROJECT_NAME}/
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)

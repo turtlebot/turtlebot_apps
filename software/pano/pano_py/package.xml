@@ -24,8 +24,4 @@
   <run_depend>image_transport</run_depend>
   <run_depend>cv_bridge</run_depend>
   <run_depend>pano_core</run_depend>
-
-  <export>
-    <python path="${prefix}/lib"/>
-  </export>
 </package>
