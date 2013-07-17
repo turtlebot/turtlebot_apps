@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(turtlebot_calibration)
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS rospy sensor_msgs nav_msgs geometry_msgs python_orocos_kdl turtlebot_bringup)
-
-catkin_python_setup()
+find_package(catkin REQUIRED COMPONENTS std_msgs message_generation)
 
 # Messages
 add_message_files(
@@ -18,7 +16,7 @@ generate_messages(
 
 # What other packages will need to use this package
 catkin_package(
-  CATKIN_DEPENDS rospy sensor_msgs nav_msgs geometry_msgs python_orocos_kdl turtlebot_bringup
+  CATKIN_DEPENDS std_msgs message_runtime
 )
 
 # Mark executable scripts (Python etc.) for installation

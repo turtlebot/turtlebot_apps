@@ -8,8 +8,6 @@ find_package(Eigen REQUIRED)
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIR} ${Eigen_INCLUDE_DIR})
 
-catkin_python_setup()
-
 # services
 add_service_files(
   FILES TakePano.srv
