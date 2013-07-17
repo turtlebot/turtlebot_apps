@@ -20,7 +20,7 @@ generate_messages(
 
 # common commands for building c++ executables and libraries
 add_executable(panorama src/panorama.cpp)
-add_dependencies(panorama pano_ros_gencpp)
+add_dependencies(panorama pano_ros_gencpp turtlebot_panorama_gencpp)
 target_link_libraries(panorama ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${Eigen_LIBRARIES})
 
 
