@@ -16,7 +16,9 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <run_depend>pano</run_depend>
+  <run_depend>pano_core</run_depend>
+  <run_depend>pano_py</run_depend>
+  <run_depend>pano_ros</run_depend>
   <run_depend>turtlebot_actions</run_depend>
   <run_depend>turtlebot_calibration</run_depend>
   <run_depend>turtlebot_core_apps</run_depend>
