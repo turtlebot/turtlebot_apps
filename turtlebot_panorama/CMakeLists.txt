@@ -6,7 +6,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp actionlib std_msgs std_srvs senso
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Eigen REQUIRED)
 
-include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIR} ${Eigen_INCLUDE_DIR})
+include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${EIGEN_INCLUDE_DIRS})
 
 # services
 add_service_files(
