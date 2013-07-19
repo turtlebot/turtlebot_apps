@@ -4,7 +4,7 @@
   <description>
       This app utilises pano_ros for taking snapshots and stitching them together to create panorama pictures.
   </description>
-  <maintainer email="jihoonlee.in@gmail.com">Jihoon Lee</maintainer>
+  <maintainer email="jorge@yujinrobot.com">Jorge Santos</maintainer>
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/turtlebot_panorama</url>
   <author>Younhoon Ju</author>
