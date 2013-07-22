@@ -1,6 +1,6 @@
 <package>
   <name>turtlebot_sounds</name>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <description>
      Play a single fixed sound file when chirp.launch is launched, at full volume.
   </description>

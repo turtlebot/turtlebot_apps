@@ -1,6 +1,6 @@
 <package>
   <name>pano_ros</name>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <description>
       The ros frontend to the pano subsystem.
   </description>
