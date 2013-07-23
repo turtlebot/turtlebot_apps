@@ -1,3 +1,0 @@
-<launch>
-  <node name="chirp" pkg="turtlebot_sounds" type="chirp.bash" cwd="node"/>
-</launch>
