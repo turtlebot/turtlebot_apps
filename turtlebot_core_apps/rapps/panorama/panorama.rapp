@@ -4,10 +4,10 @@ platform:    linux.ros.turtlebot
 launch:      turtlebot_core_apps/panorama.launch
 interface:   turtlebot_core_apps/panorama.interface 
 icon:        turtlebot_core_apps/panorama_bubble_icon.png
-paired_clients:
+pairing_clients:
   - type: android
     manager:
       api-level: 10
       intent-action: com.github.turtlebot.turtlebot_android.panorama.PanoramaActivity
     app:
-      pano_img_topic: /turtlebot_panorama/panorama/compressed
+      pano_img_topic: turtlebot_panorama/panorama/compressed
