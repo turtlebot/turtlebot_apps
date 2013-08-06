@@ -1,0 +1,11 @@
+<launch>
+  <!-- *************************** Maps *************************** -->
+  <node name="mongo" type="mongo_wrapper_ros.py" pkg="warehouse_ros" output="log">
+    <param name="warehouse_host" value="localhost"/>
+    <param name="warehouse_port" value="27017"/>
+    <param name="db_path"        value="warehouse_data"/>
+    <param name="overwrite"      value="false"/>
+  </node>
+  
+  <node pkg="map_store" type="map_manager" name="map_manager" output="screen"/>
+</launch>

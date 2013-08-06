@@ -1,0 +1,9 @@
+publishers: []
+subscribers: []
+services:
+  - delete_map
+  - list_maps
+  - publish_map
+  - rename_map
+action_clients: []
+action_servers: []
