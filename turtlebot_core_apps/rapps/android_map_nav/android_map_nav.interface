@@ -1,0 +1,15 @@
+publishers:
+  - camera/rgb/image_color/compressed_throttle
+  - map
+  - amcl_pose
+  - move_base/TrajectoryPlannerROS/global_plan
+subscribers: 
+  - android/virtual_joystick/cmd_vel
+  - initialpose
+  - move_base_simple/goal
+  - move_base/goal
+services:
+  - list_maps
+  - publish_map
+action_clients: []
+action_servers: []

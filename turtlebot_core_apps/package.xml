@@ -21,6 +21,7 @@
   <!-- for navigation apps -->
   <run_depend>warehouse_ros</run_depend>
   <run_depend>map_store</run_depend>
+  <run_depend>tf</run_depend>
 
   <!-- android_teleop -->
   <run_depend>compressed_image_transport</run_depend>

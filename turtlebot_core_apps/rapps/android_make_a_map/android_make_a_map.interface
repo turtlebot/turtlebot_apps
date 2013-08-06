@@ -2,6 +2,10 @@ publishers:
   - camera/rgb/image_color/compressed_throttle
 subscribers: 
   - android/virtual_joystick/cmd_vel
-services: []
+  - tf
+  - scan
+  - map
+services:
+  - save_map
 action_clients: []
 action_servers: []

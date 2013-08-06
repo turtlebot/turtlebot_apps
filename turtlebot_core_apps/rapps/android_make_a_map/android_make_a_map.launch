@@ -4,7 +4,6 @@
  -->
 <launch>
   <!-- *********************** Teleoperation ********************** -->
-
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
@@ -14,23 +13,21 @@
   </include>
 
   <!-- Make a slower camera feed available. -->
-  <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
-        args="messages camera/rgb/image_color/compressed 5"/>
+  <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_color/compressed 5"/>
 
-  <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet mobile_base_nodelet_manager">
+  <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother"
+        args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
     <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
-    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="cmd_vel"/>
-    <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="cmd_vel_mux/input/teleop"/>
+    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="android/virtual_joystick/cmd_vel"/>
+    <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/>
 
     <!-- Robot velocity feedbacks; use the one configured as base default -->
-    <remap from="teleop_velocity_smoother/odometry" to="odom"/>
-    <remap from="teleop_velocity_smoother/robot_cmd_vel" to="mobile_base/commands/velocity"/>
+    <remap from="teleop_velocity_smoother/odometry" to="/odom"/>
+    <remap from="teleop_velocity_smoother/robot_cmd_vel" to="/mobile_base/commands/velocity"/>
   </node>
 
-
   <!-- *********************** Optimisation *********************** -->
-
-  <node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui" output="screen">
+  <node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui">
     <param name="polling_frequency" value="5"/>
     <param name="translational_update_distance" value="-1"/>
     <param name="angular_update_distance" value="-1"/>
@@ -40,19 +37,20 @@
     </rosparam>
   </node>
 
-
   <!-- *************************** Navi *************************** -->
-
-  <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch"/>
-  <include file="$(find turtlebot_navigation)/launch/includes/_gmapping.launch" />
-
+  <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch">
+    <arg name="odom_topic" value="/odom" />
+  </include>
+  <include file="$(find turtlebot_navigation)/launch/includes/_gmapping.launch"/>
 
   <!-- *************************** Maps *************************** -->
-
-  <node name="mongo" type="mongo_wrapper_ros.py" pkg="warehouse_ros" output="log">
-    <param name="database_path" value="warehouse_data"/>
+  <node  pkg="warehouse_ros" type="mongo_wrapper_ros.py" name="mongo">
+    <param name="warehouse_host" value="localhost"/>
+    <param name="warehouse_port" value="27017"/>
+    <param name="db_path" value="warehouse_data"/>
     <param name="overwrite" value="false"/>
   </node>
+
   <node pkg="map_store" type="map_saver" name="map_saver" output="screen"/>
 
 </launch>
