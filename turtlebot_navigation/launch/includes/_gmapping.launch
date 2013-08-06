@@ -1,6 +1,5 @@
 <launch>
-
-    <arg name="scan_topic" default="scan" />
+  <arg name="scan_topic" default="scan" />
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <param name="base_frame" value="base_footprint"/>
