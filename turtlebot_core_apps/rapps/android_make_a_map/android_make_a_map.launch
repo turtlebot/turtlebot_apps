@@ -44,9 +44,9 @@
   <include file="$(find turtlebot_navigation)/launch/includes/_gmapping.launch"/>
 
   <!-- *************************** Maps *************************** -->
+  <param name="warehouse_host" value="localhost"/>
+  <param name="warehouse_port" value="27018"/> <!-- 27017 is default, use a private one to avoid error 48 conflicts -->
   <node  pkg="warehouse_ros" type="mongo_wrapper_ros.py" name="mongo">
-    <param name="warehouse_host" value="localhost"/>
-    <param name="warehouse_port" value="27017"/>
     <param name="db_path" value="warehouse_data"/>
     <param name="overwrite" value="false"/>
   </node>
