@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(turtlebot_navigation)
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS tf move_base gmapping turtlebot_bringup)
+find_package(catkin REQUIRED COMPONENTS tf roscpp sensor_msgs)
 
 include_directories(${catkin_INCLUDE_DIRS})
 
@@ -12,7 +12,7 @@ target_link_libraries(laser_footprint_filter ${catkin_LIBRARIES})
 
 # What other packages will need to use this package
 catkin_package(
-    CATKIN_DEPENDS tf move_base gmapping turtlebot_bringup
+    CATKIN_DEPENDS tf roscpp sensor_msgs
 )
 
 
