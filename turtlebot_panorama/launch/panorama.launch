@@ -1,6 +1,15 @@
 <launch>
-  <!-- 3d sensor; ensure that the nodelet manager is named camera_nodelet_manager! -->
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+  <!-- 3d sensor; we just need RGB images -->
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing"                  value="true"/>
+    <arg name="ir_processing"                   value="false"/>
+    <arg name="depth_processing"                value="false"/>
+    <arg name="depth_registered_processing"     value="false"/>
+    <arg name="depth_registration"              value="false"/>
+    <arg name="disparity_processing"            value="false"/>
+    <arg name="disparity_registered_processing" value="false"/>
+    <arg name="scan_processing"                 value="false"/>
+  </include>
 
   <node name="pano_server" pkg="pano_ros" type="capture_server.py"/>
   
