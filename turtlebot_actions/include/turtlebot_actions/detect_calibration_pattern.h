@@ -18,7 +18,7 @@ using namespace std;
 
 enum Pattern
 {
-  CHESSBOARD, CIRCLES_GRID, ASYMMETRIC_CIRCLES_GRID
+  CHESSBOARD = 1, CIRCLES_GRID = 2, ASYMMETRIC_CIRCLES_GRID = 3
 };
 
 typedef std::vector<cv::Point3f> object_pts_t;
