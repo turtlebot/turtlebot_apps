@@ -54,7 +54,7 @@ class FindFiducialAction
 public:
 
   FindFiducialAction(std::string name) :
-    as_(nh_, name),
+    as_(nh_, name, true),
     action_name_(name),
     it_(nh_)
   {
