@@ -7,6 +7,8 @@
   <maintainer email="jihoonlee.in@gmail.com">Jihoon Lee</maintainer>
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/pano_py</url>
+  <url type="repository">https://github.com/turtlebot/turtlebot_apps</url>
+  <url type="bugtracker">https://github.com/turtlebot/turtlebot_apps/issues</url>
   <author>Ethan Rublee</author>
   
   <buildtool_depend>catkin</buildtool_depend>

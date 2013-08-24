@@ -8,7 +8,9 @@
   <license>BSD</license>
 
   <url type="website">http://ros.org/wiki/turtlebot_core_apps</url> 
-
+  <url type="repository">https://github.com/turtlebot/turtlebot_apps</url>
+  <url type="bugtracker">https://github.com/turtlebot/turtlebot_apps/issues</url>
+  
   <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>kobuki_auto_docking</run_depend>

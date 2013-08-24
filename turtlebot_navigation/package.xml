@@ -5,6 +5,8 @@
   <maintainer email="turtlebot@osrfoundation.org">OSRF</maintainer>
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/turtlebot_navigation</url>
+  <url type="repository">https://github.com/turtlebot/turtlebot_apps</url>
+  <url type="bugtracker">https://github.com/turtlebot/turtlebot_apps/issues</url>
   <author>Tully Foote</author>
 
   <buildtool_depend>catkin</buildtool_depend>
