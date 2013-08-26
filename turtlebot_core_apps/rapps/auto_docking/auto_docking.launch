@@ -1,5 +1,5 @@
 <launch>
-  <node pkg="kobuki_auto_docking" type="DockDriveActionClient.py" name="start_docking"/>
+  <node pkg="kobuki_auto_docking" type="DockDriveActionClient.py" name="start_docking" required="true"/>
   <node pkg="nodelet" type="nodelet" name="dock_drive" args="load kobuki_auto_docking/AutoDockingNodelet /mobile_base_nodelet_manager">
     <remap from="dock_drive/odom" to="/odom"/>
     <remap from="dock_drive/core" to="/mobile_base/sensors/core"/>
