@@ -343,7 +343,7 @@ class StitchCapture(CaptureInterface):
         if(self.stitcher):
             blended = cv.CreateMat(1500,3000,cv.CV_8UC3)
             self.stitcher.stitch(blended, self.stitch_cb)
-            img_msg = self.bridge.cv_to_imgmsg(blended)
+            img_msg = self.bridge.cv_to_imgmsg(blended, "rgb8")
             self.img_pub.publish(img_msg)
         self._bag_capture.stop()
         
