@@ -21,5 +21,6 @@
     <param name="camera_name" value="camera/rgb"/>
     <param name="bag_location" value="/tmp/turtlebot_panorama.bag"/>
     <remap from="cmd_vel" to="/cmd_vel_mux/input/navi"/>
+    <remap from="odom" to="/odom"/>
   </node>
 </launch>
