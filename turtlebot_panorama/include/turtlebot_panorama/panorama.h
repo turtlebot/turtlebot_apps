@@ -34,7 +34,7 @@
  *
  * @date 08/01/2013
  *
- * @author Younghoon Ju, Jihoon Lee and Marcus Liebhardt
+ * @author Younghun Ju, Jihoon Lee and Marcus Liebhardt
  **/
 
 /*****************************************************************************

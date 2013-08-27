@@ -34,7 +34,7 @@
  *
  * @date 08/01/2013
  *
- * @author Younghoon Ju, Jihoon Lee and Marcus Liebhardt
+ * @author Younghun Ju, Jihoon Lee and Marcus Liebhardt
  **/
 
 #include <cmath>
@@ -394,6 +394,9 @@ void PanoApp::feedbackCb(const pano_ros::PanoCaptureFeedbackConstPtr& feedback)
 void PanoApp::stitchedImageCb(const sensor_msgs::ImageConstPtr& msg)
 {
   pub_stitched.publish(msg);
+  std::cout << "encoding: " << msg->encoding << std::endl;
+  std::cout << "is_bigendian: " << msg->is_bigendian << std::endl;
+
   log("Published new panorama picture.");
 }
 
