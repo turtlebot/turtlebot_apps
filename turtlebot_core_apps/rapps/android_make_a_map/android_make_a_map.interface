@@ -1,10 +1,16 @@
 publishers:
   - camera/rgb/image_color/compressed_throttle
+  - scan
+  - /tf
+  - tf_changes
+  - /tf_changes
+  - map
+# Non essentials, but useful for viewing with turtlebot_rviz_launchers/view_navigation.launch in the public master
+  - /mobile_base/sensors/bumper_pointcloud
+  - move_base/global_costmap/costmap
+  - move_base/local_costmap/costmap
 subscribers: 
   - android/virtual_joystick/cmd_vel
-  - tf
-  - scan
-  - map
 services:
   - save_map
 action_clients: []
