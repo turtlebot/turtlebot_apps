@@ -9,6 +9,3 @@ pairing_clients:
     manager:
       api-level: 9
       intent-action: com.github.ros_java.android_apps.map_nav.MainActivity
-    app: 
-      gravityMode: 0
-      base_control_topic: /cmd_vel
