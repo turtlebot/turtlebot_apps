@@ -7,7 +7,9 @@
   <maintainer email="jorge@yujinrobot.com">Jorge Santos</maintainer>
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/turtlebot_panorama</url>
-  <author>Younhoon Ju</author>
+  <url type="repository">https://github.com/turtlebot/turtlebot_apps</url>
+  <url type="bugtracker">https://github.com/turtlebot/turtlebot_apps/issues</url>
+  <author>Younghun Ju</author>
   <author>Jihoon Lee</author>
   <author>Marcus Liebhardt</author>
   

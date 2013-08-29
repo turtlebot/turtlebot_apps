@@ -2,8 +2,8 @@
   The turtlebot people (or whatever) follower nodelet.   
  -->
 <launch>
-  <include file="$(find turtlebot_follower)/launch/includes/_velocity_smoother.launch"/>
-  <include file="$(find turtlebot_follower)/launch/includes/_safety_controller.launch"/>
+  <include file="$(find turtlebot_follower)/launch/includes/velocity_smoother.launch.xml"/>
+  <include file="$(find turtlebot_follower)/launch/includes/safety_controller.launch.xml"/>
 
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
   

@@ -54,7 +54,7 @@ class FindFiducialAction
 public:
 
   FindFiducialAction(std::string name) :
-    as_(nh_, name),
+    as_(nh_, name, true),
     action_name_(name),
     it_(nh_)
   {
@@ -80,7 +80,7 @@ public:
 
     ros::Duration(1.0).sleep();
     //subscribe to the image topic of interest
-    std::string image_topic = goal->camera_name + "/image_rect";
+    std::string image_topic = goal->camera_name + "/image_rect_mono";
     sub_ = it_.subscribeCamera(image_topic, 1, &FindFiducialAction::detectCB, this);
 
     pub_timer_ = nh_.createTimer(tf_listener_.getCacheLength() - ros::Duration(1.0), boost::bind(&FindFiducialAction::timeoutCB, this, _1),true);
