@@ -2,13 +2,17 @@
 Changelog for package turtlebot_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.x - hydro, unstable
-=======================
-
-Forthcoming
------------
+2.2.0 (2013-08-30)
+------------------
+* On gmapping, provide a realistic range for the kinect and reduce the map_update_interval (now use default value).
+* Add bugtracker and repo info URLs.
+* Rename include launchers to *.launch.xml.
+* Changelogs at package level.
 * URL for the pull request that will make the navi modules workaround redundant.
 * Dependencies reviewed
+
+2.1.x - hydro, unstable
+=======================
 
 2.1.1 (2013-08-09)
 ------------------

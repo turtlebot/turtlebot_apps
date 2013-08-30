@@ -2,11 +2,13 @@
 Changelog for package turtlebot_follower
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.0 (2013-08-30)
+------------------
+* Rename include launchers to *.launch.xml.
+* Changelogs at package level.
+
 2.1.x - hydro, unstable
 =======================
-
-Forthcoming
------------
 
 2.1.1 (2013-08-09)
 ------------------

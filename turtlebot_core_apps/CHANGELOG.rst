@@ -2,12 +2,17 @@
 Changelog for package turtlebot_core_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.0 (2013-08-30)
+------------------
+* Remove redundant rapp information.
+* Add auto shutdown functionality on auto_docking.
+* Add bugtracker and repo info URLs.
+* Rename include launchers to *.launch.xml.
+* Changelogs at package level.
+* Use a private warehouse port.
+
 2.1.x - hydro, unstable
 =======================
-
-Forthcoming
------------
-* Private warehouse port.
 
 2.1.1 (2013-08-09)
 ------------------
