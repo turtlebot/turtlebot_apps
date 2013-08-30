@@ -1,6 +1,6 @@
 <package>
   <name>turtlebot_core_apps</name>
-  <version>2.1.1</version>
+  <version>2.2.0</version>
   <description>The core set of turtlebot 'app manager' apps are defined in this package. </description>
 
   <maintainer email="stonier@rnd.yujinrobot.com">Daniel Stonier</maintainer>
