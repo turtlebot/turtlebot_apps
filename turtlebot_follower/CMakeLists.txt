@@ -22,7 +22,7 @@ catkin_package(
   INCLUDE_DIRS
   LIBRARIES turtlebot_follower
   CATKIN_DEPENDS nodelet pcl_ros roscpp visualization_msgs message_runtime dynamic_reconfigure
-  DEPENDS system_lib PCL
+  DEPENDS Boost PCL
 )
 
 ###########
@@ -71,7 +71,6 @@ install(DIRECTORY launch
 install(DIRECTORY param
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-
 
 install(DIRECTORY plugins
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
