@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8.3)
 project(pano_core)
 
 find_package(catkin REQUIRED COMPONENTS cv_bridge roscpp)
-find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS program_options)
 
 ###################################
@@ -17,7 +16,7 @@ catkin_package(
    LIBRARIES pano_core
    INCLUDE_DIRS include
    CATKIN_DEPENDS cv_bridge roscpp
-   DEPENDS system_lib
+   DEPENDS Boost OpenCV
 )
 
 ###########
@@ -29,6 +28,7 @@ catkin_package(
 include_directories(include SYSTEM
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 file(GLOB pano_srcs src/*.cpp)
@@ -36,13 +36,14 @@ add_library(pano_core ${pano_srcs})
 
 target_link_libraries(pano_core ${catkin_LIBRARIES})
 target_link_libraries(pano_core ${Boost_LIBRARIES})
+target_link_libraries(pano_core ${OpenCV_LIBRARIES})
 
 # standalone apps
 add_executable(stitcher apps/stitcher.cpp)
-target_link_libraries(stitcher pano_core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(stitcher pano_core ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBRARIES})
 
 add_executable(video_stitcher apps/video_stitcher.cpp)
-target_link_libraries(video_stitcher pano_core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(video_stitcher pano_core ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBRARIES})
 
 #############
 ## Install ##
