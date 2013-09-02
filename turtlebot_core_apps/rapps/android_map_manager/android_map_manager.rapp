@@ -8,4 +8,4 @@ pairing_clients:
   - type: android
     manager:
       api-level: 13
-      intent-action: com.github.ros_java.android_apps.map_manager.MainActivity
+      intent-action: com.github.rosjava.android_apps.map_manager.MainActivity
