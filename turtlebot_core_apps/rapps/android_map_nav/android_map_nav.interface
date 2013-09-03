@@ -1,7 +1,10 @@
 publishers:
   - camera/rgb/image_color/compressed_throttle
-  - map
   - scan
+  - /tf
+  - tf_changes
+  - /tf_changes
+  - map
   - amcl_pose
   - move_base/TrajectoryPlannerROS/global_plan
 subscribers: 

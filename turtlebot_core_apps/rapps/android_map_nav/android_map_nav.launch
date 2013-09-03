@@ -48,9 +48,9 @@
 
 
   <!-- *************************** Maps *************************** -->
+  <param name="warehouse_host" value="localhost"/>
+  <param name="warehouse_port" value="27017"/> <!-- 27017 is default, use a private one to avoid error 48 conflicts -->
   <node name="mongo" type="mongo_wrapper_ros.py" pkg="warehouse_ros" output="log">
-    <param name="warehouse_host" value="localhost"/>
-    <param name="warehouse_port" value="27017"/>
     <param name="db_path"        value="warehouse_data"/>
     <param name="overwrite"      value="false"/>
   </node>
