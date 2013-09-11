@@ -24,3 +24,7 @@ install(PROGRAMS src/turtlebot_calibration/calibrate.py
                  src/turtlebot_calibration/scan_to_angle.py
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+install(DIRECTORY launch
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
