@@ -2,6 +2,10 @@
 Changelog for package turtlebot_core_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.1 (2013-09-23)
+------------------
+* Set of fixes to make it work with Android apps.
+
 2.2.0 (2013-08-30)
 ------------------
 * Remove redundant rapp information.

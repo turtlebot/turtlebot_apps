@@ -2,6 +2,9 @@
 Changelog for package turtlebot_follower
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.1 (2013-09-23)
+------------------
+
 2.2.0 (2013-08-30)
 ------------------
 * Rename include launchers to *.launch.xml.

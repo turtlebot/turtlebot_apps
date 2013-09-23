@@ -2,6 +2,9 @@
 Changelog for package turtlebot_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.1 (2013-09-23)
+------------------
+
 2.2.0 (2013-08-30)
 ------------------
 * On gmapping, provide a realistic range for the kinect and reduce the map_update_interval (now use default value).
