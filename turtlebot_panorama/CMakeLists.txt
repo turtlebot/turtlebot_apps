@@ -2,32 +2,22 @@ cmake_minimum_required(VERSION 2.8.3)
 project(turtlebot_panorama)
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS roscpp actionlib std_msgs std_srvs nav_msgs sensor_msgs geometry_msgs message_generation image_transport pano_ros)
+find_package(catkin REQUIRED COMPONENTS roscpp actionlib std_msgs std_srvs nav_msgs sensor_msgs geometry_msgs turtlebot_msgs image_transport pano_ros)
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Eigen REQUIRED)
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${EIGEN_INCLUDE_DIRS})
 
-# services
-add_service_files(
-  FILES TakePano.srv
-)
-
-# Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES std_msgs
-)
-
 # common commands for building c++ executables and libraries
 add_executable(panorama src/panorama.cpp)
-add_dependencies(panorama pano_ros_gencpp turtlebot_panorama_gencpp)
+add_dependencies(panorama pano_ros_gencpp turtlebot_msgs_gencpp)
 target_link_libraries(panorama ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${Eigen_LIBRARIES})
 
 
 # What other packages will need to use this package
 catkin_package(
     DEPENDS Boost Eigen
-    CATKIN_DEPENDS roscpp actionlib std_msgs std_srvs nav_msgs sensor_msgs geometry_msgs message_runtime image_transport pano_ros
+    CATKIN_DEPENDS roscpp actionlib std_msgs std_srvs nav_msgs sensor_msgs geometry_msgs turtlebot_msgs image_transport pano_ros
     INCLUDE_DIRS include
 )
 

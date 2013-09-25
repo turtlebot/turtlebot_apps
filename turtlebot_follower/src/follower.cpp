@@ -27,17 +27,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ros/ros.h"
-#include "pluginlib/class_list_macros.h"
-#include "nodelet/nodelet.h"
+#include <ros/ros.h>
+#include <pluginlib/class_list_macros.h>
+#include <nodelet/nodelet.h>
 #include <geometry_msgs/Twist.h>
 #include <pcl_ros/point_cloud.h>
 #include <pcl/point_types.h>
-#include "dynamic_reconfigure/server.h"
-#include "turtlebot_follower/ChangeState.h"
-#include "turtlebot_follower/FollowerConfig.h"
-
 #include <visualization_msgs/Marker.h>
+#include <turtlebot_msgs/SetFollowState.h>
+
+#include "dynamic_reconfigure/server.h"
+#include "turtlebot_follower/FollowerConfig.h"
 
 
 namespace turtlebot_follower
@@ -206,7 +206,8 @@ private:
     publishBbox();
   }
 
-  bool changeModeSrvCb(ChangeState::Request& request, ChangeState::Response& response)
+  bool changeModeSrvCb(turtlebot_msgs::SetFollowState::Request& request,
+                       turtlebot_msgs::SetFollowState::Response& response)
   {
     if ((enabled_ == true) && (request.state == request.STOPPED))
     {

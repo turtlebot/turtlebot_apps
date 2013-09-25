@@ -2,26 +2,16 @@ cmake_minimum_required(VERSION 2.8.3)
 project(turtlebot_follower)
 
 ## Find catkin macros and libraries
-find_package(catkin REQUIRED COMPONENTS nodelet pcl_ros roscpp visualization_msgs message_generation dynamic_reconfigure)
+find_package(catkin REQUIRED COMPONENTS nodelet pcl_ros roscpp visualization_msgs turtlebot_msgs dynamic_reconfigure)
 find_package(Boost REQUIRED)
 find_package(PCL)
-
-## Generate services in the 'srv' folder
-add_service_files(
-  DIRECTORY srv
-  FILES
-  ChangeState.srv
-)
-
-## Generate added messages and services with any dependencies listed here
-generate_messages()
 
 generate_dynamic_reconfigure_options(cfg/Follower.cfg)
 
 catkin_package(
   INCLUDE_DIRS
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS nodelet pcl_ros roscpp visualization_msgs message_runtime dynamic_reconfigure
+  CATKIN_DEPENDS nodelet pcl_ros roscpp visualization_msgs turtlebot_msgs dynamic_reconfigure
   DEPENDS Boost PCL
 )
 
@@ -40,8 +30,8 @@ include_directories(
 ## Declare a cpp library
 add_library(${PROJECT_NAME} src/follower.cpp)
 
+add_dependencies(${PROJECT_NAME} turtlebot_msgs_gencfg)
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencpp)
-add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}

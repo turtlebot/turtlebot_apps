@@ -230,7 +230,8 @@ void PanoApp::odomCb(const nav_msgs::OdometryConstPtr& msg)
 //*************************
 // Public interface
 //*************************
-bool PanoApp::takePanoServiceCb(TakePano::Request& request, TakePano::Response& response)
+bool PanoApp::takePanoServiceCb(turtlebot_msgs::TakePanorama::Request& request,
+                                turtlebot_msgs::TakePanorama::Response& response)
 {
   if (is_active && (request.mode == request.CONTINUOUS || request.mode == request.SNAPANDROTATE))
   {
@@ -274,7 +275,7 @@ bool PanoApp::takePanoServiceCb(TakePano::Request& request, TakePano::Response& 
       snap_interval = request.snap_interval;
       cmd_vel.angular.z = request.rot_vel;
     }
-    if (request.mode == TakePanoRequest::CONTINUOUS)
+    if (request.mode == turtlebot_msgs::TakePanoramaRequest::CONTINUOUS)
     {
       continuous = true;
     }

@@ -53,11 +53,11 @@
 #include <std_msgs/Empty.h> 		
 #include <std_msgs/String.h>
 #include <nav_msgs/Odometry.h>		
-#include <geometry_msgs/Twist.h>	
-#include "geometry.h"
-#include <turtlebot_panorama/TakePano.h>
-
+#include <geometry_msgs/Twist.h>
+#include <turtlebot_msgs/TakePanorama.h>
 #include <std_srvs/Empty.h>
+
+#include "geometry.h"
 
 namespace turtlebot_panorama
 {
@@ -153,8 +153,8 @@ private:
    * @param response the current state of the app (started, in progress, stopped)
    * @return true, if service call was successful
    */
-  bool takePanoServiceCb(TakePano::Request& request, TakePano::Response& response);
-//  bool takePanoServiceCb(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response);
+  bool takePanoServiceCb(turtlebot_msgs::TakePanorama::Request& request,
+                         turtlebot_msgs::TakePanorama::Response& response);
 
   /**
    * Simple way of taking a panorama picture (uses default values)
