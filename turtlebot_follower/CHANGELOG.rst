@@ -2,6 +2,10 @@
 Changelog for package turtlebot_follower
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.2 (2013-09-26)
+------------------
+* Use service files to turtlebot_msgs.
+
 2.2.1 (2013-09-23)
 ------------------
 

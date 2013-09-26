@@ -2,6 +2,9 @@
 Changelog for package pano_core
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.2 (2013-09-26)
+------------------
+
 2.2.1 (2013-09-23)
 ------------------
 * Fix indirect catkin issues in pano_core.

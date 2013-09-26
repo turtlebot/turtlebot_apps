@@ -2,6 +2,9 @@
 Changelog for package turtlebot_core_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.2.2 (2013-09-26)
+------------------
+
 2.2.1 (2013-09-23)
 ------------------
 * Set of fixes to make it work with Android apps.
