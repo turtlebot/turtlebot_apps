@@ -6,20 +6,19 @@ find_package(catkin REQUIRED COMPONENTS roscpp actionlib std_msgs std_srvs nav_m
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Eigen REQUIRED)
 
+# What other packages will need to use this package
+catkin_package(
+    INCLUDE_DIRS include
+    CATKIN_DEPENDS roscpp actionlib std_msgs std_srvs nav_msgs sensor_msgs geometry_msgs turtlebot_msgs image_transport pano_ros
+    DEPENDS Boost Eigen
+)
+
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${EIGEN_INCLUDE_DIRS})
 
 # common commands for building c++ executables and libraries
 add_executable(panorama src/panorama.cpp)
 add_dependencies(panorama pano_ros_gencpp turtlebot_msgs_gencpp)
 target_link_libraries(panorama ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${Eigen_LIBRARIES})
-
-
-# What other packages will need to use this package
-catkin_package(
-    DEPENDS Boost Eigen
-    CATKIN_DEPENDS roscpp actionlib std_msgs std_srvs nav_msgs sensor_msgs geometry_msgs turtlebot_msgs image_transport pano_ros
-    INCLUDE_DIRS include
-)
 
 #############
 ## Install ##
