@@ -1,7 +1,7 @@
 display:     Follower
 description: Take the TurtleBot for a stroll. TurtleBot will follow whatever is in front of it.
 platform:    linux.ros.turtlebot
-launch:      turtlebot_follower/follower.launch
+launch:      turtlebot_core_apps/follower.launch
 interface:   turtlebot_core_apps/follower.interface
 icon:        turtlebot_core_apps/follower_bubble_icon.png
 pairing_clients:
@@ -9,3 +9,18 @@ pairing_clients:
     manager:
       api-level: 10
       intent-action: com.github.turtlebot.turtlebot_android.follower.FollowerActivity
+required_capabilities:
+  - name: 'std_capabilities/DifferentialMobileBase'
+    interface:
+      topics:
+        requires:
+          '/cmd_vel': 'turtlebot_follower/cmd_vel'
+        provides:
+          '/odom': 'teleop_velocity_smoother/odometry'
+  - name: 'std_capabilities/RGBDSensor'
+    interface:
+      topics:
+        requires:
+          []
+        provides:
+          '/rgbd_sensor/depth/points': 'depth/points'
