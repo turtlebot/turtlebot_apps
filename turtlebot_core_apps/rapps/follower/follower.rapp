@@ -23,4 +23,4 @@ required_capabilities:
         requires:
           []
         provides:
-          '/rgbd_sensor/depth/points': 'depth/points'
+          '/rgbd_sensor/depth_registered/points': 'depth/points'
