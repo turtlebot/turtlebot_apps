@@ -1,6 +1,6 @@
 display:      Map Nav
 description:  Drive a turtlebot around a pre-made map from an Android device.
-platform:     linux.ros.turtlebot
+platform:     linux.*.ros.turtlebot
 launch:       turtlebot_core_apps/android_map_nav.launch
 interface:    turtlebot_core_apps/android_map_nav.interface
 icon:         turtlebot_core_apps/map_nav_bubble_icon.png
