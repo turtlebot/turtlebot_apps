@@ -9,3 +9,18 @@ pairing_clients:
     manager:
       api-level: 10
       intent-action: com.github.turtlebot.turtlebot_android.follower.FollowerActivity
+required_capabilities:
+  - name: 'std_capabilities/DifferentialMobileBase'
+    interface:
+      topics:
+        requires:
+          '/cmd_vel': 'turtlebot_follower/cmd_vel'
+        provides:
+          '/odom': 'teleop_velocity_smoother/odometry'
+  - name: 'std_capabilities/RGBDSensor'
+    interface:
+      topics:
+        requires:
+          []
+        provides:
+          '/rgbd_sensor/depth_registered/points': 'depth/points'
