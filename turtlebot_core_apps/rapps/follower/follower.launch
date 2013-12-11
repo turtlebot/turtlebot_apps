@@ -2,18 +2,23 @@
   The turtlebot people (or whatever) follower nodelet.   
  -->
 <launch>
-<!--   <include file="$(find turtlebot_follower)/launch/includes/velocity_smoother.launch.xml"/> -->
-<!--   <include file="$(find turtlebot_follower)/launch/includes/safety_controller.launch.xml"/> -->
+  <!-- Load controllers into the base's nodelet manager -->
+  <include file="$(find turtlebot_follower)/launch/includes/velocity_smoother.launch.xml">
+    <arg name="nodelet_manager_name" value="std_capabilities/DifferentialMobileBase/NodeletManager"/>
+  </include>
+  <include file="$(find turtlebot_follower)/launch/includes/safety_controller.launch.xml">
+    <arg name="nodelet_manager_name" value="std_capabilities/DifferentialMobileBase/NodeletManager"/>
+  </include>
 
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
-  <!-- Make a slower camera feed available; only required if we use android client -->
+  <!-- TODO: Make a slower camera feed available; only required if we use android client -->
 <!--   <node pkg="topic_tools" type="throttle" name="camera_throttle" -->
 <!--         args="messages camera/rgb/image_color/compressed 5"/> -->
 
-  <!--  Load turtlebot follower into the 3d sensors nodelet manager to avoid pointcloud serializing -->
+  <!--  Load turtlebot follower into the 3d sensors nodelet manager to avoid point cloud serializing -->
   <node pkg="nodelet" type="nodelet" name="turtlebot_follower"
-        args="load turtlebot_follower/TurtlebotFollower /camera/camera_nodelet_manager">
+        args="load turtlebot_follower/TurtlebotFollower std_capabilities/RGBDSensor/NodeletManager">
     <remap from="turtlebot_follower/cmd_vel" to="follower_velocity_smoother/raw_cmd_vel"/>
     <remap from="depth/points" to="camera/depth/points"/>
     <param name="enabled" value="true" />
