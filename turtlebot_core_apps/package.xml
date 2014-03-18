@@ -37,7 +37,7 @@
     <rocon_app>rapps/panorama/panorama.rapp</rocon_app>
     <rocon_app>rapps/xbox360_teleop/xbox360_teleop.rapp</rocon_app>
     <rocon_app>rapps/follower/follower.rapp</rocon_app>
-    <rocon_app>rapp/ps3_teleop/ps3_teleop.rapp</rocon_app>
+    <rocon_app>rapps/ps3_teleop/ps3_teleop.rapp</rocon_app>
   </export>
 
 </package>

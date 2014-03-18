@@ -1,9 +1,9 @@
-display:      Map Manager
-description:  Manage the map database for your TurtleBot maps
-platform:     linux.*.ros.turtlebot
-launch:       turtlebot_core_apps/android_map_manager.launch
-interface:    turtlebot_core_apps/android_map_manager.interface
-icon:         turtlebot_core_apps/map_manager_bubble_icon.png
+display:          Map Manager
+description:      Manage the map database for your TurtleBot maps
+compatibility:    rocon:/turtlebot
+launch:           turtlebot_core_apps/android_map_manager.launch
+public_interface: turtlebot_core_apps/android_map_manager.interface
+icon:             turtlebot_core_apps/map_manager_bubble_icon.png
 pairing_clients:
   - type: android
     manager:

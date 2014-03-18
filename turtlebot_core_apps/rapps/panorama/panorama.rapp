@@ -1,9 +1,9 @@
-display:     Panorama
-description: Turtlebot makes a 360 degree panorama image 
-platform:    linux.*.ros.turtlebot
-launch:      turtlebot_core_apps/panorama.launch
-interface:   turtlebot_core_apps/panorama.interface 
-icon:        turtlebot_core_apps/panorama_bubble_icon.png
+display:          Panorama
+description:      Turtlebot makes a 360 degree panorama image 
+compatibility:    rocon:/turtlebot
+launch:           turtlebot_core_apps/panorama.launch
+public_interface: turtlebot_core_apps/panorama.interface 
+icon:             turtlebot_core_apps/panorama_bubble_icon.png
 pairing_clients:
   - type: android
     manager:
