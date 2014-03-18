@@ -28,5 +28,16 @@
   <!-- android_teleop -->
   <run_depend>compressed_image_transport</run_depend>
   <run_depend>topic_tools</run_depend>
+  <export>
+    <rocon_app>rapps/android_make_a_map/android_make_a_map.rapp</rocon_app>
+    <rocon_app>rapps/android_map_nav/android_map_nav.rapp</rocon_app>
+    <rocon_app>rapps/android_map_manager/android_map_manager.rapp</rocon_app>
+    <rocon_app>rapps/android_teleop/android_teleop.rapp</rocon_app>
+    <rocon_app>rapps/auto_docking/auto_docking.rapp</rocon_app>
+    <rocon_app>rapps/panorama/panorama.rapp</rocon_app>
+    <rocon_app>rapps/xbox360_teleop/xbox360_teleop.rapp</rocon_app>
+    <rocon_app>rapps/follower/follower.rapp</rocon_app>
+    <rocon_app>rapp/ps3_teleop/ps3_teleop.rapp</rocon_app>
+  </export>
 
 </package>
