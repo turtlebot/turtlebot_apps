@@ -3,6 +3,7 @@ project(pano_core)
 
 find_package(catkin REQUIRED COMPONENTS cv_bridge roscpp)
 find_package(Boost REQUIRED COMPONENTS program_options)
+find_package(OpenCV REQUIRED)
 
 ###################################
 ## catkin specific configuration ##
