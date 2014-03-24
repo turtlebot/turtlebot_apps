@@ -2,6 +2,14 @@
 Changelog for package turtlebot_teleop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* When deadman is not pressed publish once a zero twist to make the robot stop. Publisher is now latched as commented in https://github.com/turtlebot/turtlebot_apps/pull/75#issuecomment-33087125
+* cmd_vel to 0 when deadman button is released
+* Initialize deadman_pressed_ to false
+  Initalize deadman_pressed_ to false in order to avoid the effect described in https://github.com/turtlebot/turtlebot_apps/issues/71
+* Contributors: MartinPeris, Martí Morta
+
 2.2.4 (2013-10-14)
 ------------------
 * Remove unnecessary dependency on cmd_vel_mux package.

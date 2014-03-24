@@ -2,6 +2,9 @@
 Changelog for package turtlebot_core_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.2.4 (2013-10-14)
 ------------------
 * Use 27018 port (27017 is the default) in all apps avoid error 48
