@@ -1,0 +1,5 @@
+display:          Teleop
+description:      Control the TurtleBot 
+compatibility:    rocon:/turtlebot
+launch:           turtlebot_core_apps/teleop.launch
+parent_name:      rocon_apps/teleop
