@@ -233,9 +233,12 @@ def writeParamsToCalibrationFile(newparams):
             d[k] = v
         newparams = d
         f.close()
-    os.makedirs(calib_dir)
+    try:
+        os.makedirs(calib_dir)
+    except:
+        pass
     with open(calib_file, 'w') as outfile:
-        outfile.write( yaml.dump(newparams, default_flow_style=True) )
+        outfile.write( yaml.dump(newparams, default_flow_style=False) )
     rospy.loginfo("Saved the params to the calibration file: %s" % calib_file)
 
 def writeParamsToLaunchFile(gyro, odom, gyro_range):
@@ -298,7 +301,7 @@ def main():
 
     newparams = {'gyro_scale_correction' : imu_res, 'odom_angular_scale_correction' : odom_res, 'gyro_measurement_range' : gyro_range}
     writeParamsToCalibrationFile(newparams)
-    writeParams(newparams)
+    writeParams(drclient, newparams)
 
 if __name__ == '__main__':
     main()
