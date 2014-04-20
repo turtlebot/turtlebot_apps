@@ -222,7 +222,8 @@ def writeParamsToCalibrationFile(newparams):
     ros_home = os.environ.get('ROS_HOME')
     if ros_home is None:
         ros_home = "~/.ros"
-    calib_file = os.path.expanduser(ros_home +"/turtlebot_create/" +str(kinect_serial) + ".yaml")
+    calib_dir = os.path.expanduser(ros_home +"/turtlebot_create/")
+    calib_file = calib_dir +str(kinect_serial) + ".yaml")
     # if the file exists, load into a dict, update the new params, and then save
     if os.path.isfile(calib_file):
         f = open(calib_file, 'r')
@@ -232,6 +233,7 @@ def writeParamsToCalibrationFile(newparams):
             d[k] = v
         newparams = d
         f.close()
+    os.makedirs(calib_dir)
     with open(calib_file, 'w') as outfile:
         outfile.write( yaml.dump(newparams, default_flow_style=True) )
     rospy.loginfo("Saved the params to the calibration file: %s" % calib_file)
