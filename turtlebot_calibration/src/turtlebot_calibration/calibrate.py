@@ -201,6 +201,30 @@ class CalibrateRobot:
             self.scan_angle = angle
             self.scan_time = msg.header.stamp
 
+def get_usb_to_serial_id():
+    usbpath = subprocess.check_output("readlink -f /sys/class/tty/ttyUSB0", shell=True)
+    if len(usbpath.strip()) == 0:
+        return None
+    serialid = ""
+    try:
+        f = open(usbpath + "../../../../serial", "r")
+        serialid = f.read().strip()
+        f.close()
+    except:
+        pass
+    try:
+        f = open(usbpath + "../../../../idVendor", "r")
+        serialid += f.read().strip()
+        f.close()
+        f = open(usbpath + "../../../../idProduct", "r")
+        serialid += f.read().strip()
+        f.close()
+    except:
+        pass
+    if len(serialid.strip()) == 0:
+        return None
+    return serialid
+
 def get_kinect_serial():
     ret = subprocess.check_output("lsusb -v -d 045e:02ae | grep Serial | awk '{print $3}'", shell=True)
     if len(ret) > 0:
@@ -218,7 +242,9 @@ def writeParams(drclient, newparams):
 def writeParamsToCalibrationFile(newparams):
     kinect_serial = get_kinect_serial()
     if kinect_serial is None:
-        return
+        kinect_serial =  get_usb_to_serial_id()  # can't find a kinect, attempt to use the usb to serial convert's id as a backup
+        if kinect_serial is None:
+            return
     ros_home = os.environ.get('ROS_HOME')
     if ros_home is None:
         ros_home = "~/.ros"
