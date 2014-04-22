@@ -203,20 +203,21 @@ class CalibrateRobot:
 
 def get_usb_to_serial_id():
     usbpath = subprocess.check_output("readlink -f /sys/class/tty/ttyUSB0", shell=True)
-    if len(usbpath.strip()) == 0:
+    usbpath = usbpath.strip()
+    if len(usbpath) == 0:
         return None
     serialid = ""
     try:
-        f = open(usbpath + "../../../../serial", "r")
+        f = open(usbpath + "/../../../../serial", "r")
         serialid = f.read().strip()
         f.close()
     except:
         pass
     try:
-        f = open(usbpath + "../../../../idVendor", "r")
+        f = open(usbpath + "/../../../../idVendor", "r")
         serialid += f.read().strip()
         f.close()
-        f = open(usbpath + "../../../../idProduct", "r")
+        f = open(usbpath + "/../../../../idProduct", "r")
         serialid += f.read().strip()
         f.close()
     except:
