@@ -1,0 +1,35 @@
+<!--
+  Launcher for TurtleBot's teleop rapp
+     
+  Most features of this rapp are implemented by the required capabilities. Only exception is the velocity smoother.
+  We use topic relays to enable flipping for pairing/concert usage and throttle the message stream.
+  -->
+<launch>
+<!--  TODO: use velocity smoother -->
+<!--   <arg name="capability_server_nodelet_manager_name" default="/capability_server_nodelet_manager" /> -->
+  
+<!--   <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" -->
+<!--         args="load yocs_velocity_smoother/VelocitySmootherNodelet $(arg capability_server_nodelet_manager_name)"> -->
+<!--     <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/> -->
+<!--     <remap from="teleop_velocity_smoother/raw_cmd_vel" to="android/virtual_joystick/cmd_vel"/> -->
+<!--     <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/> -->
+
+<!--     Robot velocity feedbacks; use the one configured as base default -->
+<!--     <remap from="teleop_velocity_smoother/odometry" to="/odom"/> -->
+<!--     <remap from="teleop_velocity_smoother/robot_cmd_vel" to="/mobile_base/commands/velocity"/> -->
+<!--   </node> -->
+
+<!--  TODO: set image quality
+      <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
+  -->
+
+  <!-- Relay for velocity commands -->
+  <node pkg="topic_tools" type="throttle" name="relay_cmd_vel" args="messages /cmd_vel_teleop 5 /cmd_vel" required="true">
+    <param name="lazy" value="false"/>
+  </node>
+  
+  <!-- Relay for the video feedback -->
+  <node pkg="topic_tools" type="throttle" name="relay_video" args="messages /camera/rgb/image_color 5 /compressed_image_teleop" required="true">
+    <param name="lazy" value="false"/>
+  </node>
+</launch>

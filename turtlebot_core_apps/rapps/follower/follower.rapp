@@ -1,14 +1,9 @@
 display:          Follower
 description:      Take the TurtleBot for a stroll. TurtleBot will follow whatever is in front of it.
-compatibility:    rocon:/turtlebot
-launch:           turtlebot_follower/follower.launch
-public_interface: turtlebot_core_apps/follower.interface
-icon:             turtlebot_core_apps/follower_bubble_icon.png
-pairing_clients:
-  - type: android
-    manager:
-      api-level: 10
-      intent-action: com.github.turtlebot.turtlebot_android.follower.FollowerActivity
+compatibility:    rocon:/turtlebot|turtlebot2
+launch:           follower.launch
+public_interface: follower.interface
+icon:             follower_bubble_icon.png
 required_capabilities:
   - name: 'std_capabilities/DifferentialMobileBase'
     interface:

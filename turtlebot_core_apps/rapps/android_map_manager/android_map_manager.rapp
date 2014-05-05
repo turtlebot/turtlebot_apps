@@ -1,11 +1,6 @@
 display:          Map Manager
 description:      Manage the map database for your TurtleBot maps
-compatibility:    rocon:/turtlebot
-launch:           turtlebot_core_apps/android_map_manager.launch
-public_interface: turtlebot_core_apps/android_map_manager.interface
-icon:             turtlebot_core_apps/map_manager_bubble_icon.png
-pairing_clients:
-  - type: android
-    manager:
-      api-level: 13
-      intent-action: com.github.rosjava.android_apps.map_manager.MainActivity
+compatibility:    rocon:/turtlebot|turtlebot2
+launch:           android_map_manager.launch
+public_interface: android_map_manager.interface
+icon:             map_manager_bubble_icon.png

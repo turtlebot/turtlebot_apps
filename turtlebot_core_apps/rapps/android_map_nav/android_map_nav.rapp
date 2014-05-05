@@ -1,11 +1,6 @@
 display:          Map Nav
 description:      Drive a turtlebot around a pre-made map from an Android device.
-compatibility:    rocon:/turtlebot
-launch:           turtlebot_core_apps/android_map_nav.launch
-public_interface: turtlebot_core_apps/android_map_nav.interface
-icon:             turtlebot_core_apps/map_nav_bubble_icon.png
-pairing_clients:
-  - type: android
-    manager:
-      api-level: 9
-      intent-action: com.github.rosjava.android_apps.map_nav.MainActivity
+compatibility:    rocon:/turtlebot|turtlebot2
+launch:           android_map_nav.launch
+public_interface: android_map_nav.interface
+icon:             map_nav_bubble_icon.png

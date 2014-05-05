@@ -1,11 +1,6 @@
 display:          Panorama
 description:      Turtlebot makes a 360 degree panorama image 
-compatibility:    rocon:/turtlebot
+compatibility:    rocon:/turtlebot|turtlebot2
 launch:           turtlebot_core_apps/panorama.launch
 public_interface: turtlebot_core_apps/panorama.interface 
 icon:             turtlebot_core_apps/panorama_bubble_icon.png
-pairing_clients:
-  - type: android
-    manager:
-      api-level: 10
-      intent-action: com.github.turtlebot.turtlebot_android.panorama.PanoramaActivity

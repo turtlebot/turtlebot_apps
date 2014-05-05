@@ -1,6 +1,6 @@
 display:          Xbox360 Teleop
 description:      Control the TurtleBot with an xbox360 joystick.
-compatibility:    rocon:/turtlebot
+compatibility:    rocon:/turtlebot|turtlebot2
 launch:           turtlebot_teleop/xbox360_teleop.launch
 public_interface: turtlebot_core_apps/xbox360_teleop.interface
 icon:             turtlebot_core_apps/xbox360_bubble_icon.png
