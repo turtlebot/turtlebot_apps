@@ -38,14 +38,14 @@ class PatternDetector
                                           
     int detectPattern(cv::Mat& inm, Eigen::Vector3f& translation, Eigen::Quaternionf& orientation);
     
-    void setCameraMatrices(cv::Mat K_, cv::Mat D_);
+    void setCameraMatrices(cv::Matx33d K_, cv::Matx33d D_);
     
     void setPattern(cv::Size grid_size_, float square_size_, 
           Pattern pattern_type_, cv::Point3f offset_ = cv::Point3f());
 
   public:
-    cv::Mat K;
-    cv::Mat D;
+    cv::Matx33d K;
+    cv::Matx33d D;
     cv::Mat rvec, tvec, R;
     
     // Do we need to store anything but type and ideal points?

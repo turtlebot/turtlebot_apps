@@ -1,6 +1,6 @@
 #include <turtlebot_actions/detect_calibration_pattern.h>
 
-void PatternDetector::setCameraMatrices(cv::Mat K_, cv::Mat D_)
+void PatternDetector::setCameraMatrices(cv::Matx33d K_, cv::Matx33d D_)
 {
   K = K_;
   D = D_; 
