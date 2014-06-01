@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(turtlebot_core_apps)
+project(turtlebot_rapps)
 
 find_package(catkin REQUIRED COMPONENTS)
 

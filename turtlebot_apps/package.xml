@@ -21,7 +21,7 @@
   <run_depend>pano_ros</run_depend>
   <run_depend>turtlebot_actions</run_depend>
   <run_depend>turtlebot_calibration</run_depend>
-  <run_depend>turtlebot_core_apps</run_depend>
+  <run_depend>turtlebot_rapps</run_depend>
   <run_depend>turtlebot_follower</run_depend>
   <run_depend>turtlebot_navigation</run_depend>
   <run_depend>turtlebot_panorama</run_depend>

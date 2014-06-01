@@ -1,5 +1,5 @@
 <package>
-  <name>turtlebot_core_apps</name>
+  <name>turtlebot_rapps</name>
   <version>2.2.4</version>
   <description>The core set of turtlebot 'app manager' apps are defined in this package. </description>
 
@@ -7,7 +7,7 @@
 
   <license>BSD</license>
 
-  <url type="website">http://ros.org/wiki/turtlebot_core_apps</url> 
+  <url type="website">http://ros.org/wiki/turtlebot_rapps</url> 
   <url type="repository">https://github.com/turtlebot/turtlebot_apps</url>
   <url type="bugtracker">https://github.com/turtlebot/turtlebot_apps/issues</url>
   

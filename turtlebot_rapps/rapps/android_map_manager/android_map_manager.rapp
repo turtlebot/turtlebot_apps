@@ -1,0 +1,6 @@
+display:          Map Manager
+description:      Manage the map database for your TurtleBot maps
+compatibility:    rocon:/turtlebot
+launch:           turtlebot_rapps/android_map_manager.launch
+public_interface: turtlebot_rapps/android_map_manager.interface
+icon:             turtlebot_rapps/map_manager_bubble_icon.png
