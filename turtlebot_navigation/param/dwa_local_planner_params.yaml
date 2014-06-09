@@ -44,7 +44,7 @@ DWAPlannerROS:
 # Debugging
   publish_traj_pc : true
   publish_cost_grid_pc: true
-  global_frame_id: map # this odd - it's used in the trajectory cloud frame id only and for us it refs /map, not /odom
+  global_frame_id: odom
 
 
 # Differential-drive robot configuration - necessary?
