@@ -26,7 +26,7 @@ DWAPlannerROS:
 # Forward Simulation Parameters
   sim_time: 3.0       # 1.7
   vx_samples: 6       # 3
-  vy_samples: 0       # diff drive robot
+  vy_samples: 1       # diff drive robot, there is only one sample
   vtheta_samples: 20  # 20
 
 # Trajectory Scoring Parameters
