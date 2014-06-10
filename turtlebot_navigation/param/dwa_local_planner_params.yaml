@@ -2,17 +2,20 @@ DWAPlannerROS:
 
 # Robot Configuration Parameters - Kobuki
   max_vel_x: 0.5  # 0.55
-  min_vel_x: 0.0  # 0.0
+  min_vel_x: 0.0 
 
   max_vel_y: 0.0  # diff drive robot
   min_vel_y: 0.0  # diff drive robot
 
   max_trans_vel: 0.5
-  min_trans_vel: 0.0
+  min_trans_vel: 0.1  # this is the min trans velocity when there is negligible rotational velocity
+
+  # Warning!
+  #   do not set min_trans_vel to 0.0 otherwise dwa will always think translational velocities
+  #   are non-negligible and small in place rotational velocities will be created.
 
   max_rot_vel: 5.0
-  min_rot_vel: 0.4  # could set this lower
-  # DEPRECATED? min_in_place_vel_theta: 0.6  # TrajectoryPlannerRos
+  min_rot_vel: 0.4  # this is the min angular velocity when there is negligible translational velocity
   
   acc_lim_x: 2.0
   acc_lim_theta: 2.0
@@ -32,7 +35,7 @@ DWAPlannerROS:
 # Trajectory Scoring Parameters
   path_distance_bias: 32.0      # 32.0   - weighting for how much it should stick to the global path plan
   goal_distance_bias: 24.0      # 24.0   - wighting for how much it should attempt to reach its goal
-  occdist_scale: 0.01           # 0.01   - weighting for how much the controller should avoid obstacles
+  occdist_scale: 0.50           # 0.01   - weighting for how much the controller should avoid obstacles
   forward_point_distance: 0.325 # 0.325  - how far along to place an additional scoring point
   stop_time_buffer: 0.2         # 0.2    - amount of time a robot must stop in before colliding for a valid traj.
   scaling_speed: 0.25           # 0.25   - absolute velocity at which to start scaling the robot's footprint
