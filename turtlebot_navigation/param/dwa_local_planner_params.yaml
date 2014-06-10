@@ -9,6 +9,7 @@ DWAPlannerROS:
 
   max_trans_vel: 0.5
   min_trans_vel: 0.1  # this is the min trans velocity when there is negligible rotational velocity
+  trans_stopped_vel: 0.1
 
   # Warning!
   #   do not set min_trans_vel to 0.0 otherwise dwa will always think translational velocities
@@ -16,6 +17,7 @@ DWAPlannerROS:
 
   max_rot_vel: 5.0
   min_rot_vel: 0.4  # this is the min angular velocity when there is negligible translational velocity
+  rot_stopped_vel: 0.4
   
   acc_lim_x: 2.0
   acc_lim_theta: 2.0
@@ -27,13 +29,13 @@ DWAPlannerROS:
   # latch_xy_goal_tolerance: false
 
 # Forward Simulation Parameters
-  sim_time: 3.0       # 1.7
+  sim_time: 1.0       # 1.7
   vx_samples: 6       # 3
   vy_samples: 1       # diff drive robot, there is only one sample
   vtheta_samples: 20  # 20
 
 # Trajectory Scoring Parameters
-  path_distance_bias: 32.0      # 32.0   - weighting for how much it should stick to the global path plan
+  path_distance_bias: 64.0      # 32.0   - weighting for how much it should stick to the global path plan
   goal_distance_bias: 24.0      # 24.0   - wighting for how much it should attempt to reach its goal
   occdist_scale: 0.50           # 0.01   - weighting for how much the controller should avoid obstacles
   forward_point_distance: 0.325 # 0.325  - how far along to place an additional scoring point
