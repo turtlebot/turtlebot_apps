@@ -296,7 +296,7 @@ class StitchCapture(CaptureInterface):
             self.setupStitch()
         try:
             self.img_pub.publish(image)
-            cv_image = self.bridge.imgmsg_to_cv(image, "rgb8")
+            cv_image = self.bridge.imgmsg_to_cv2(image, "rgb8")
                            
             pano_image = pcv.convertCvMat2Mat(cv_image)
             self.stitcher.addNewImage(pano_image)

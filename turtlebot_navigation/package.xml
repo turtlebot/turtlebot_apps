@@ -23,6 +23,7 @@
   <run_depend>amcl</run_depend>
   <run_depend>gmapping</run_depend>
   <run_depend>turtlebot_bringup</run_depend>
+  <run_depend>dwa-local-planner</run_depend>
 
   <export>
 
