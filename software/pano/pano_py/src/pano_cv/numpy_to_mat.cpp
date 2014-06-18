@@ -84,20 +84,18 @@ bool numpy_to_mat(const PyObject* o, cv::Mat& m, const char* name, bool allowND)
             m.allocator = &g_numpyAllocator;
         return true;
     }
-
     if( !PyArray_Check(o) )
     {
         failmsg("%s is not a numpy array", name);
         return false;
     }
-
     int typenum = PyArray_TYPE(o);
     int type = typenum == NPY_UBYTE ? CV_8U : typenum == NPY_BYTE ? CV_8S :
                typenum == NPY_USHORT ? CV_16U : typenum == NPY_SHORT ? CV_16S :
                typenum == NPY_INT || typenum == NPY_LONG ? CV_32S :
                typenum == NPY_FLOAT ? CV_32F :
                typenum == NPY_DOUBLE ? CV_64F : -1;
-
+    
     if( type < 0 )
     {
         failmsg("%s data type = %d is not supported", name, typenum);
