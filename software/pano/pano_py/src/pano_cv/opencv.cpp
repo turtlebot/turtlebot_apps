@@ -1,5 +1,4 @@
-/*
-pencv.cpp
+/* opencv.cpp
  *
  *  Created on: Dec 17, 2010
  *      Author: erublee
