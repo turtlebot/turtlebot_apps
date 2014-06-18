@@ -1,5 +1,5 @@
 /*
- * opencv.cpp
+pencv.cpp
  *
  *  Created on: Dec 17, 2010
  *      Author: erublee
@@ -55,18 +55,17 @@ cv::Mat convert_from_cvmat(PyObject *o, const char* name)
   cvmat_t *m = (cvmat_t*)o;
   void *buffer;
   Py_ssize_t buffer_len;
-
   m->a->refcount = NULL;
-  if (m->data && PyString_Check(m->data))
-  {
-    assert(cvGetErrStatus() == 0);
-    char *ptr = PyString_AsString(m->data) + m->offset;
-    cvSetData(m->a, ptr, m->a->step);
-    assert(cvGetErrStatus() == 0);
-    dest = m->a;
 
+
+  if (m->data && PyString_Check(m->data)){
+      assert(cvGetErrStatus() == 0);
+      char *ptr = PyString_AsString(m->data) + m->offset;
+      cvSetData(m->a, ptr, m->a->step);
+      assert(cvGetErrStatus() == 0);
+      dest = m->a;
   }
-  else if (m->data && PyObject_AsWriteBuffer(m->data, &buffer, &buffer_len) == 0)
+  if (m->data && PyObject_AsWriteBuffer(m->data, &buffer, &buffer_len) == 0)
   {
     cvSetData(m->a, (void*)((char*)buffer + m->offset), m->a->step);
     assert(cvGetErrStatus() == 0);
@@ -79,6 +78,7 @@ cv::Mat convert_from_cvmat(PyObject *o, const char* name)
   return dest;
 
 }
+
 
 cv::Mat convert_from_cviplimage(PyObject *o,const char *name)
 {
@@ -119,12 +119,11 @@ int failmsg(const char *fmt, ...)
 }
 
 cv::Mat convertObj2Mat(bp::object image)
-{
+{	
   if(strcmp(image.ptr()->ob_type->tp_name,"cv.iplimage") == 0){
     return convert_from_cviplimage(image.ptr(),image.ptr()->ob_type->tp_name);
   }else
     return convert_from_cvmat(image.ptr(), image.ptr()->ob_type->tp_name);
-
 }
 
 cv::Mat convertNumpy2Mat(bp::object np)
