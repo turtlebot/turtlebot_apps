@@ -11,7 +11,6 @@
 
 #include <pano_core/pano_core.h>
 #include <pano_py/opencv.h>
-#include <typeinfo>
 
 using namespace pano;
 using namespace cv;
