@@ -12,6 +12,7 @@
 #include <pano_core/pano_core.h>
 #include <pano_py/opencv.h>
 
+
 using namespace pano;
 using namespace cv;
 namespace pano_py{
