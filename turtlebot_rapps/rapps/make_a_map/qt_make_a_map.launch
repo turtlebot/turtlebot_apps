@@ -42,4 +42,6 @@
     <arg name="odom_topic" value="/odom" />
   </include>
   <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml"/>
+
+  <node pkg="map_store" type="map_saver" name="map_saver" output="screen"/>
 </launch>
