@@ -45,4 +45,8 @@
   <include file="$(find turtlebot_navigation)/launch/includes/amcl.launch.xml">
     <arg name="use_map_topic" value ="true"/>
   </include>
+
+  <!-- Maps -->
+  <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 </launch>
