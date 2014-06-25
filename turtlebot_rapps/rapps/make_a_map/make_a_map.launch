@@ -33,9 +33,6 @@
   <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml"/>
 
   <!-- Maps -->
-  <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
-
   <param name="warehouse_host" value="localhost"/>
   <param name="warehouse_port" value="27018"/> <!-- 27017 is default, use a private one to avoid error 48 conflicts -->
   <node  pkg="warehouse_ros" type="mongo_wrapper_ros.py" name="mongo">
