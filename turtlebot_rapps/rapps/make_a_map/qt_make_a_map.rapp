@@ -1,6 +1,0 @@
-display:          Make A Map
-description:      Make a map by driving a TurtleBot from an Android device.
-compatibility:    rocon:/turtlebot
-launch:           turtlebot_rapps/qt_make_a_map.launch
-public_interface: turtlebot_rapps/make_a_map.interface
-icon:             turtlebot_rapps/make_a_map_bubble_icon.png
