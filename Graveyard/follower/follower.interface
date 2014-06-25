@@ -1,0 +1,7 @@
+publishers:
+  - camera/rgb/image_color/compressed_throttle
+subscribers: []
+services: 
+  - turtlebot_follower/change_state
+action_clients: []
+action_servers: []
