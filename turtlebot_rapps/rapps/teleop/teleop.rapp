@@ -1,5 +1,6 @@
 display:          Teleop
-description:      Control the TurtleBot 
+description:      Drive a turtlebot from Android with a touch joystick and video feed.
 compatibility:    rocon:/turtlebot
 launch:           turtlebot_rapps/teleop.launch
-parent_name:      rocon_apps/teleop
+public_interface: turtlebot_rapps/teleop.interface
+icon:             turtlebot_rapps/teleop_bubble_icon.png

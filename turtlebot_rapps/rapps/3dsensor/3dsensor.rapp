@@ -1,0 +1,6 @@
+display:          3D Sensor
+description:      See what TurtleBot does!
+compatibility:    rocon:/turtlebot
+launch:           turtlebot_bringup/3dsensor.launch
+public_interface: turtlebot_rapps/3dsensor.interface
+icon:             turtlebot_rapps/3dsensor_bubble_icon.png

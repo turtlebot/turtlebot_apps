@@ -18,40 +18,42 @@
   <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother"
         args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
     <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
-    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="android/virtual_joystick/cmd_vel"/>
+    <remap from="teleop_velocity_smoother/raw_cmd_vel"    to="android/virtual_joystick/cmd_vel"/>
     <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/>
 
     <!-- Robot velocity feedbacks; use the one configured as base default -->
-    <remap from="teleop_velocity_smoother/odometry" to="/odom"/>
-    <remap from="teleop_velocity_smoother/robot_cmd_vel" to="/mobile_base/commands/velocity"/>
+    <remap from="teleop_velocity_smoother/odometry"       to="/odom"/>
+    <remap from="teleop_velocity_smoother/robot_cmd_vel"  to="/mobile_base/commands/velocity"/>
   </node>
 
   <!-- *********************** Optimisation *********************** -->
   <node pkg="tf" type="tf_change_notifier" name="tf_throttle_for_android_gui">
-    <param name="polling_frequency" value="5"/>
+    <param name="polling_frequency"             value="5"/>
     <param name="translational_update_distance" value="-1"/>
-    <param name="angular_update_distance" value="-1"/>
+    <param name="angular_update_distance"       value="-1"/>
     <rosparam param="frame_pairs">
-      - {source_frame: base_link, target_frame: map}
+      - {source_frame: base_footprint, target_frame: map}
       - {source_frame: camera_depth_frame, target_frame: map}
     </rosparam>
   </node>
 
+
   <!-- *************************** Navi *************************** -->
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
-    <arg name="odom_topic" value="/odom" />
+    <arg name="odom_topic" value ="/odom" />
   </include>
-  <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml"/>
+  <include file="$(find turtlebot_navigation)/launch/includes/amcl.launch.xml">
+    <arg name="use_map_topic" value ="true"/>
+  </include>
 
-  <!-- *************************** Maps *************************** -->
+  <!-- Maps -->
+  <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
   <param name="warehouse_host" value="localhost"/>
   <param name="warehouse_port" value="27018"/> <!-- 27017 is default, use a private one to avoid error 48 conflicts -->
-  <node  pkg="warehouse_ros" type="mongo_wrapper_ros.py" name="mongo">
-    <param name="db_path" value="warehouse_data"/>
-    <param name="overwrite" value="false"/>
+  <node name="mongo" type="mongo_wrapper_ros.py" pkg="warehouse_ros" output="log">
+    <param name="db_path"        value="warehouse_data"/>
+    <param name="overwrite"      value="false"/>
   </node>
-
-  <node pkg="map_store" type="map_saver" name="map_saver" output="screen"/>
-
 </launch>
-
