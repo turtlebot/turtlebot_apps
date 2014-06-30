@@ -1,7 +1,0 @@
-publishers:
-  - camera/rgb/image_color/compressed_throttle
-subscribers: 
-  - android/virtual_joystick/cmd_vel
-services: []
-action_clients: []
-action_servers: []
