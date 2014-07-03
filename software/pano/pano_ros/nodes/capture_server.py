@@ -58,8 +58,9 @@ import message_filters
 
 import pano_py as pano
 import pano_cv as pcv
-import cv
-
+import cv2
+from cv2 import cv
+import numpy
 from cv_bridge import CvBridge, CvBridgeError
 
 class ImageGrabber:
@@ -295,10 +296,10 @@ class StitchCapture(CaptureInterface):
             self.setupCamera(camera_info)
             self.setupStitch()
         try:
-            self.img_pub.publish(image)
+            self.img_pub.publish(image)	    	
             cv_image = self.bridge.imgmsg_to_cv2(image, "rgb8")
-                           
-            pano_image = pcv.convertCvMat2Mat(cv_image)
+	    pano_image_t = cv.fromarray(cv_image)
+	    pano_image = pcv.convertCvMat2Mat(pano_image_t)	
             self.stitcher.addNewImage(pano_image)
         except CvBridgeError, e:
             print e
@@ -341,10 +342,12 @@ class StitchCapture(CaptureInterface):
         #2000 rows = 2000 height
         #4000 cols = 4000 width (this is backwards from widthxheight
         if(self.stitcher):
-            blended = cv.CreateMat(1500,3000,cv.CV_8UC3)
+            blended_t = cv.CreateMat(1500,3000,cv.CV_8UC3)
+	    blended_num = numpy.asarray(blended_t) 
+	    blended = pcv.convertCvMat2Mat(blended_t)  
             self.stitcher.stitch(blended, self.stitch_cb)
-            img_msg = self.bridge.cv_to_imgmsg(blended, "rgb8")
-            self.img_pub.publish(img_msg)
+            img_msg = self.bridge.cv2_to_imgmsg(blended_num, "rgb8")
+            self.img_pub.publish(img_msg) 
         self._bag_capture.stop()
         
     def cancel(self):

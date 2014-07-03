@@ -1,5 +1,5 @@
-/*
- * opencv.cpp
+/* 
+ *  opencv.cppi
  *
  *  Created on: Dec 17, 2010
  *      Author: erublee
@@ -59,11 +59,11 @@ cv::Mat convert_from_cvmat(PyObject *o, const char* name)
   m->a->refcount = NULL;
   if (m->data && PyString_Check(m->data))
   {
-    assert(cvGetErrStatus() == 0);
-    char *ptr = PyString_AsString(m->data) + m->offset;
-    cvSetData(m->a, ptr, m->a->step);
-    assert(cvGetErrStatus() == 0);
-    dest = m->a;
+      assert(cvGetErrStatus() == 0);
+      char *ptr = PyString_AsString(m->data) + m->offset;
+      cvSetData(m->a, ptr, m->a->step);
+      assert(cvGetErrStatus() == 0);
+      dest = m->a;
 
   }
   else if (m->data && PyObject_AsWriteBuffer(m->data, &buffer, &buffer_len) == 0)
@@ -119,7 +119,7 @@ int failmsg(const char *fmt, ...)
 }
 
 cv::Mat convertObj2Mat(bp::object image)
-{
+{	
   if(strcmp(image.ptr()->ob_type->tp_name,"cv.iplimage") == 0){
     return convert_from_cviplimage(image.ptr(),image.ptr()->ob_type->tp_name);
   }else

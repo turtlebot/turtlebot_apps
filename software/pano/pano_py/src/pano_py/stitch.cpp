@@ -106,7 +106,7 @@ struct StitchEngine
 
   void stitch(cv::Mat& blended, StitchProgressCallable* callback){
       glob.batchFindAndSetTrinsics();
-      CallbackEngine cbengine;
+      CallbackEngine cbengine; 
       CV_Assert(blended.type() == CV_8UC3);
       //Mat blended(opts.stitch_size, CV_8UC3);
 
@@ -126,11 +126,10 @@ struct StitchEngine
 
 };
 
-void stitch_engine_py(StitchEngine& se, bp::object image, const bp::object& on_progress){
-  Mat img = convertObj2Mat(image);
+void stitch_engine_py(StitchEngine& se, cv::Mat image, const bp::object& on_progress){
   StitchProgress cb;
   cb.setOnProgressCallback(on_progress);
-  se.stitch(img,&cb);
+  se.stitch(image,&cb);
 }
 
 }
