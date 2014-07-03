@@ -47,7 +47,7 @@
   </include>
 
   <!-- Maps -->
-  <arg name="map_file" default=" $(env TURTLEBOT_MAP_FILE)" /> <!-- User must set this environment variable for map_server to work -->
+  <arg name="map_file" default=" $(env TURTLEBOT_MAP_FILE)" /> 
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <param name="warehouse_host" value="localhost"/>
