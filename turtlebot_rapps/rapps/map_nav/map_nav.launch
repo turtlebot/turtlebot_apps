@@ -47,7 +47,7 @@
   </include>
 
   <!-- Maps -->
-  <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
+  <arg name="map_file" default=" $(env TURTLEBOT_MAP_FILE)" /> 
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <param name="warehouse_host" value="localhost"/>
@@ -56,4 +56,6 @@
     <param name="db_path"        value="warehouse_data"/>
     <param name="overwrite"      value="false"/>
   </node>
+
+  <node pkg="map_store" type="map_manager" name="map_manager" output="screen"/>
 </launch>
