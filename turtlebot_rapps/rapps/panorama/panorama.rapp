@@ -4,8 +4,3 @@ compatibility:    rocon:/turtlebot
 launch:           turtlebot_rapps/panorama.launch
 public_interface: turtlebot_rapps/panorama.interface 
 icon:             turtlebot_rapps/panorama_bubble_icon.png
-pairing_clients:
-  - type: android
-    manager:
-      api-level: 10
-      intent-action: com.github.turtlebot.turtlebot_android.panorama.PanoramaActivity
