@@ -32,7 +32,7 @@
     <rocon_app>rapps/make_a_map/make_a_map.rapp</rocon_app>
     <rocon_app>rapps/map_nav/map_nav.rapp</rocon_app>
     <rocon_app>rapps/map_manager/map_manager.rapp</rocon_app>
-    <rocon_app>rapps/teleop/teleop.rapp</rocon_app>
+    <rocon_app>rapps/video_teleop/video_teleop.rapp</rocon_app>
     <rocon_app>rapps/auto_docking/auto_docking.rapp</rocon_app>
     <rocon_app>rapps/panorama/panorama.rapp</rocon_app>
     <rocon_app>rapps/xbox360_teleop/xbox360_teleop.rapp</rocon_app>
