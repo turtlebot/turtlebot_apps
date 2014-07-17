@@ -47,7 +47,10 @@ from geometry_msgs.msg import Twist
 from turtlebot_calibration.msg import ScanAngle
 from math import *
 import threading
-
+import dynamic_reconfigure.client
+import os
+import subprocess
+import yaml
 
 def quat_to_angle(quat):
     rot = PyKDL.Rotation.Quaternion(quat.x, quat.y, quat.z, quat.w)
@@ -198,8 +201,74 @@ class CalibrateRobot:
             self.scan_angle = angle
             self.scan_time = msg.header.stamp
 
+def get_usb_to_serial_id():
+    usbpath = subprocess.check_output("readlink -f /sys/class/tty/ttyUSB0", shell=True)
+    usbpath = usbpath.strip()
+    if len(usbpath) == 0:
+        return None
+    serialid = ""
+    try:
+        f = open(usbpath + "/../../../../serial", "r")
+        serialid = f.read().strip()
+        f.close()
+    except:
+        pass
+    try:
+        f = open(usbpath + "/../../../../idVendor", "r")
+        serialid += f.read().strip()
+        f.close()
+        f = open(usbpath + "/../../../../idProduct", "r")
+        serialid += f.read().strip()
+        f.close()
+    except:
+        pass
+    if len(serialid.strip()) == 0:
+        return None
+    return serialid
 
-def writeParamsToLaunchFile(gyro, odom):
+def get_kinect_serial():
+    ret = subprocess.check_output("lsusb -v -d 045e:02ae | grep Serial | awk '{print $3}'", shell=True)
+    if len(ret) > 0:
+        return ret.strip()
+    return None
+   
+def getCurrentParams(drclient):
+    allparams = drclient.get_configuration()
+    return (allparams['gyro_scale_correction'], allparams['odom_angular_scale_correction'], allparams['gyro_measurement_range'])
+
+def writeParams(drclient, newparams):
+    r = drclient.update_configuration(newparams) 
+    rospy.loginfo("Automatically updated the params in the current running instance of ROS, no need to restart.")
+
+def writeParamsToCalibrationFile(newparams):
+    kinect_serial = get_kinect_serial()
+    if kinect_serial is None:
+        kinect_serial =  get_usb_to_serial_id()  # can't find a kinect, attempt to use the usb to serial convert's id as a backup
+        if kinect_serial is None:
+            return
+    ros_home = os.environ.get('ROS_HOME')
+    if ros_home is None:
+        ros_home = "~/.ros"
+    calib_dir = os.path.expanduser(ros_home +"/turtlebot_create/")
+    calib_file = calib_dir +str(kinect_serial) + ".yaml"
+    # if the file exists, load into a dict, update the new params, and then save
+    if os.path.isfile(calib_file):
+        f = open(calib_file, 'r')
+        docs = yaml.load_all(f)
+        d = docs.next()
+        for k,v in newparams.iteritems():
+            d[k] = v
+        newparams = d
+        f.close()
+    try:
+        os.makedirs(calib_dir)
+    except:
+        pass
+    with open(calib_file, 'w') as outfile:
+        outfile.write( yaml.dump(newparams, default_flow_style=False) )
+    rospy.loginfo("Saved the params to the calibration file: %s" % calib_file)
+
+def writeParamsToLaunchFile(gyro, odom, gyro_range):
     try:
         f = open("/etc/ros/distro/turtlebot.launch", "r")
         # this is totally NOT the best way to solve this problem.
@@ -209,6 +278,8 @@ def writeParamsToLaunchFile(gyro, odom):
                 foo.append("  <param name=\"turtlebot_node/gyro_scale_correction\" value=\"%f\"/>\n" % gyro)
             elif "turtlebot_node/odom_angular_scale_correction" in lines:
                 foo.append("  <param name=\"turtlebot_node/odom_angular_scale_correction\" value=\"%f\"/>\n" % odom)
+            elif "turtlebot_node/gyro_measurement_range" in lines:
+                foo.append("  <param name=\"turtlebot_node/gyro_measurement_range\" value=\"%f\"/>\n" % gyro_range)
             else:
                 foo.append(lines)
         f.close()
@@ -222,11 +293,20 @@ def writeParamsToLaunchFile(gyro, odom):
     except:
         rospy.loginfo("Could not automatically update turtlebot.launch, please manually update it.")
 
-
+def warnAboutGyroRange(drclient):
+    params = getCurrentParams(drclient)
+    rospy.logwarn("***** If you have not manually set the gyro range parameter you must do so before running calibration.  Cancel this run and see http://wiki.ros.org/turtlebot_calibration/Tutorials/Calibrate%20Odometry%20and%20Gyro")
+    rospy.logwarn("******* turtlebot_node/gyro_measurement_range is currently set to: %d ******" % params[2])
+    
+    
 def main():
     rospy.init_node('scan_to_angle')
     robot = CalibrateRobot()
-    
+    imu_res = 1.0
+
+    drclient = dynamic_reconfigure.client.Client("turtlebot_node")
+    warnAboutGyroRange(drclient)
+
     imu_drift = robot.imu_drift()
     imu_corr = []
     odom_corr = []
@@ -236,15 +316,19 @@ def main():
         if imu:
             imu_corr.append(imu)
         odom_corr.append(odom)
-
+    
+    (prev_gyro, prev_odom, gyro_range) = getCurrentParams(drclient)
     if len(imu_corr)>0:    
-        imu_res = 1.0/(sum(imu_corr)/len(imu_corr))
-        rospy.loginfo("Multiply the 'turtlebot_node/gyro_scale_correction' parameter with %f"%imu_res)
+        imu_res = prev_gyro * (1.0/(sum(imu_corr)/len(imu_corr)))
+        rospy.loginfo("Set the 'turtlebot_node/gyro_scale_correction' parameter to %f"%imu_res)
 
-    odom_res = 1.0/(sum(odom_corr)/len(odom_corr))
-    rospy.loginfo("Multiply the 'turtlebot_node/odom_angular_scale_correction' parameter with %f"%odom_res)
-    writeParamsToLaunchFile(imu_res, odom_res)
+    odom_res = prev_odom * (1.0/(sum(odom_corr)/len(odom_corr)))
+    rospy.loginfo("Set the 'turtlebot_node/odom_angular_scale_correction' parameter to %f"%odom_res)
+    writeParamsToLaunchFile(imu_res, odom_res, gyro_range)
 
+    newparams = {'gyro_scale_correction' : imu_res, 'odom_angular_scale_correction' : odom_res, 'gyro_measurement_range' : gyro_range}
+    writeParamsToCalibrationFile(newparams)
+    writeParams(drclient, newparams)
 
 if __name__ == '__main__':
     main()
