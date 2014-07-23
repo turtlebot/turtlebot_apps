@@ -4,6 +4,7 @@ project(turtlebot_actions)
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS cmake_modules roscpp actionlib actionlib_msgs geometry_msgs message_generation tf cv_bridge image_transport image_geometry)
 find_package(Boost REQUIRED COMPONENTS system)
+find_package(cmake_modules REQUIRED)
 find_package(Eigen REQUIRED)
 find_package(OpenCV REQUIRED)
 

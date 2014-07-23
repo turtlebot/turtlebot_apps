@@ -4,6 +4,7 @@ project(turtlebot_panorama)
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS cmake_modules roscpp actionlib std_msgs std_srvs nav_msgs sensor_msgs geometry_msgs turtlebot_msgs image_transport pano_ros)
 find_package(Boost REQUIRED COMPONENTS system)
+find_package(cmake_modules REQUIRED)
 find_package(Eigen REQUIRED)
 
 # What other packages will need to use this package
