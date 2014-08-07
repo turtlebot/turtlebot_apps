@@ -1,6 +1,6 @@
 display:          Panorama
 description:      Turtlebot makes a 360 degree panorama image 
 compatibility:    rocon:/turtlebot
-launch:           turtlebot_rapps/panorama.launch
-public_interface: turtlebot_rapps/panorama.interface 
-icon:             turtlebot_rapps/panorama_bubble_icon.png
+launch:           panorama.launch
+public_interface: panorama.interface 
+icon:             panorama_bubble_icon.png
