@@ -1,0 +1,3 @@
+<launch>
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+</launch>

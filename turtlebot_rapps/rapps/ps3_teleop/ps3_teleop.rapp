@@ -1,6 +1,6 @@
 display:          PS3 Teleop
 description:      Control the TurtleBot with a PlayStation 3 Joystick.
 compatibility:    rocon:/turtlebot
-launch:           turtlebot_teleop/ps3_teleop.launch
-public_interface: turtlebot_rapps/ps3_teleop.interface
-icon:             turtlebot_rapps/ps3_bubble_icon.png
+launch:           ps3_teleop.launch
+public_interface: ps3_teleop.interface
+icon:             ps3_bubble_icon.png

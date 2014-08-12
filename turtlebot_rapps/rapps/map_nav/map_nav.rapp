@@ -1,6 +1,6 @@
 display:          Map Nav
 description:      Drive a turtlebot around a pre-made map from an Android device.
 compatibility:    rocon:/turtlebot
-launch:           turtlebot_rapps/map_nav.launch
-public_interface: turtlebot_rapps/map_nav.interface
-icon:             turtlebot_rapps/map_nav_bubble_icon.png
+launch:           map_nav.launch
+public_interface: map_nav.interface
+icon:             map_nav_bubble_icon.png
