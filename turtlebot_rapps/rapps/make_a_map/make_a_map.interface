@@ -1,17 +1,28 @@
 publishers:
-  - camera/rgb/image_color/compressed_throttle
-  - scan
-  - /tf
-  - tf_changes
-  - /tf_changes
-  - map
+  - name: camera/rgb/image_color/compressed_throttle
+    type: sensor_msgs/CompressedImage
+  - name: scan
+    type: sensor_msgs/LaserScan
+  - name: /tf
+    type: tf2_msgs/TFMessage
+  - name: tf_changes
+    type: tf2_msgs/TFMessage
+  - name: /tf_changes
+    type: tf2_msgs/TFMessage
+  - name: map
+    type: nav_msgs/OccupancyGrid
 # Non essentials, but useful for viewing with turtlebot_rviz_launchers/view_navigation.launch in the public master
-  - /mobile_base/sensors/bumper_pointcloud
-  - move_base/global_costmap/costmap
-  - move_base/local_costmap/costmap
+  - name: /mobile_base/sensors/bumper_pointcloud
+    type: sensor_msgs/PointCloud2
+  - name: move_base/global_costmap/costmap
+    type: nav_msgs/OccupancyGrid
+  - name: move_base/local_costmap/costmap
+    type: nav_msgs/OccupancyGrid
 subscribers: 
-  - android/virtual_joystick/cmd_vel
+  - name: android/virtual_joystick/cmd_vel
+    type: geometry_msgs/Twist
 services:
-  - save_map
+  - name: save_map
+    type: map_store/SaveMap
 action_clients: []
 action_servers: []
