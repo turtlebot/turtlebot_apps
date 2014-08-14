@@ -1,5 +1,7 @@
 publishers:
-  - turtlebot_panorama/panorama/compressed
+  - name: turtlebot_panorama/panorama/compressed
+    type: sensor_msgs/CompressedImage
 subscribers: []
 services:
-  - turtlebot_panorama/take_pano
+  - name: turtlebot_panorama/take_pano
+    type: turtlebot_msgs/TakePanorama

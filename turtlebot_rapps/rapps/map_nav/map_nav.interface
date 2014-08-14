@@ -1,19 +1,33 @@
 publishers:
-  - camera/rgb/image_color/compressed_throttle
-  - scan
-  - /tf
-  - tf_changes
-  - /tf_changes
-  - map
-  - amcl_pose
+  - name: camera/rgb/image_color/compressed_throttle
+    type: sensor_msgs/CompressedImage
+  - name: scan
+    type: sensor_msgs/LaserScan
+  - name: /tf
+    type: tf2_msgs/TFMessage
+  - name: tf_changes
+    type: tf2_msgs/TFMessage
+  - name: /tf_changes
+    type: tf2_msgs/TFMessage
+  - name: map
+    type: nav_msgs/OccupancyGrid
+  - name: amcl_pose
+    type: geometry_msgs/PoseWithCovarianceStamped
   - move_base/TrajectoryPlannerROS/global_plan
+    type: nav_msgs/Path
 subscribers: 
-  - android/virtual_joystick/cmd_vel
-  - initialpose
-  - move_base_simple/goal
-  - move_base/goal
+  - name: android/virtual_joystick/cmd_vel
+    type: geometry_msgs/Twist    
+  - name: initialpose
+    type: geometry_msgs/PoseWithCovarianceStamped
+  - name: move_base_simple/goal
+    type: geometry_msgs/PoseStamped 
+  - name: move_base/goal
+    type: move_base_msgs/MoveBaseActionGoal
 services:
-  - list_maps
-  - publish_map
+  - name: list_maps
+    type: map_store/ListMaps
+  - name: publish_map
+    type: map_store/PublishMap
 action_clients: []
 action_servers: []

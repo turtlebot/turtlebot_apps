@@ -1,9 +1,13 @@
 publishers: []
 subscribers: []
 services:
-  - delete_map
-  - list_maps
-  - publish_map
-  - rename_map
+  - name: delete_map
+    type: map_store/DeleteMap
+  - name: list_maps
+    type: map_store/ListMaps
+  - name: publish_map
+    type: map_store/PublishMap
+  - name: rename_map
+    type: map_store/RenameMap
 action_clients: []
 action_servers: []
