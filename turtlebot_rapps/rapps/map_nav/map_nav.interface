@@ -13,7 +13,7 @@ publishers:
     type: nav_msgs/OccupancyGrid
   - name: amcl_pose
     type: geometry_msgs/PoseWithCovarianceStamped
-  - move_base/TrajectoryPlannerROS/global_plan
+  - name: move_base/TrajectoryPlannerROS/global_plan
     type: nav_msgs/Path
 subscribers: 
   - name: android/virtual_joystick/cmd_vel
