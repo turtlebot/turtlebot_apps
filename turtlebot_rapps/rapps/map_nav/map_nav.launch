@@ -57,5 +57,8 @@
     <param name="overwrite"      value="false"/>
   </node>
 
-  <node pkg="map_store" type="map_manager" name="map_manager" output="screen"/>
+  <node pkg="world_canvas_server" type="annotations_server.py" name="world_canvas_server" args="true" output="screen">
+    <param name="start_map_manager" value="true"/>
+    <param name="auto_save_map" value="false"/>
+  </node> 
 </launch>
