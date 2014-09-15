@@ -15,6 +15,8 @@ catkin_package(
     CATKIN_DEPENDS tf roscpp sensor_msgs
 )
 
+catkin_add_env_hooks(25.turtlebot-navigation SHELLS sh DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/env-hooks)
+
 
 #############
 ## Install ##
