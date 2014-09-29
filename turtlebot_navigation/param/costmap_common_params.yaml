@@ -5,20 +5,6 @@ raytrace_range: 3.0
 # Obstacle Cost Shaping (http://wiki.ros.org/costmap_2d/hydro/inflation)
 robot_radius: 0.20  # distance a circular robot should be clear of the obstacle (kobuki: 0.18)
 # footprint: [[x0, y0], [x1, y1], ... [xn, yn]]  # if the robot is not circular
-#inflation_radius: 0.50  # max. distance from an obstacle at which costs are incurred for planning paths.
-#cost_scaling_factor: 5  # exponential rate at which the obstacle cost drops off (default: 10)
-
-# voxel map configuration; z-voxels 0 are filled by bumpers and 1 by laser scan (kinect)
-#map_type: voxel
-#origin_z: 0.0
-#z_resolution: 0.2
-#z_voxels: 2
-#publish_voxel_map: false
-
-#observation_sources: scan bump
-
-#scan: {data_type: LaserScan, topic: scan, marking: true, clearing: true, min_obstacle_height: 0.25, max_obstacle_height: 0.35}
-#bump: {data_type: PointCloud2, topic: mobile_base/sensors/bumper_pointcloud, marking: true, clearing: false, min_obstacle_height: 0.0, max_obstacle_height: 0.15}
 
 obstacle_layer:
   enabled:              true
@@ -49,7 +35,7 @@ obstacle_layer:
   # for debugging only, let's you see the entire voxel grid
   publish_voxel_map: false
 
-
+#cost_scaling_factor and inflation_radius were now moved to the inflation_layer ns
 inflation_layer:
   enabled:              true
   cost_scaling_factor:  5.0  # exponential rate at which the obstacle cost drops off (default: 10)
