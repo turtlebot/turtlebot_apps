@@ -3,6 +3,9 @@
   topic.
  -->
 <launch>
+  <arg name="scan_topic"        default="/make_a_map/scan"/>
+  <arg name="cmd_vel_topic"           default="/teleop/cmd_vel"/>
+  <arg name="compressed_image_topic"  default="/teleop/compressed_image"/>
   <!-- *********************** Teleoperation ********************** -->
   <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
@@ -18,7 +21,7 @@
   <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother"
         args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
     <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
-    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="android/virtual_joystick/cmd_vel"/>
+    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/>
 
     <!-- Robot velocity feedbacks; use the one configured as base default -->
@@ -30,15 +33,28 @@
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
     <arg name="odom_topic" value="/odom" />
   </include>
-  <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml"/>
+  <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml">
+    <arg name="scan_topic" value="$(arg scan_topic)"/> 
+  </include>
 
   <!-- Maps -->
   <param name="warehouse_host" value="localhost"/>
   <param name="warehouse_port" value="27018"/> <!-- 27017 is default, use a private one to avoid error 48 conflicts -->
+<!--
   <node  pkg="warehouse_ros" type="mongo_wrapper_ros.py" name="mongo">
     <param name="db_path" value="warehouse_data"/>
     <param name="overwrite" value="false"/>
   </node>
 
   <node pkg="map_store" type="map_saver" name="map_saver" output="screen"/>
+-->
+  <node pkg="robot_pose_publisher" name="robot_pose_publisher" type="robot_pose_publisher">
+    <param name="is_stamped" value="true"/>
+    <param name="base_frame" value="$(arg application_namespace)/base_footprint"/>
+  </node>
+  <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_color/compressed_throttle 5 $(arg compressed_image_topic)" required="true">
+    <param name="lazy" value="false"/>
+  </node>
+
+
 </launch>
