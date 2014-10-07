@@ -30,11 +30,12 @@
   </node>
 
   <!-- *************************** Navi *************************** -->
+<!--
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
     <arg name="odom_topic" value="/odom" />
   </include>
+-->
   <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml">
-    <arg name="scan_topic" value="$(arg scan_topic)"/> 
   </include>
 
   <!-- Maps -->
@@ -55,6 +56,10 @@
   <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_color/compressed_throttle 5 $(arg compressed_image_topic)" required="true">
     <param name="lazy" value="false"/>
   </node>
+  <node pkg="topic_tools" type="throttle" name="relay_scan" args="messages scan 5 $(arg scan_topic)" required="true">
+    <param name="lazy" value="false"/>
+  </node>
+
 
 
 </launch>
