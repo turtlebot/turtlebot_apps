@@ -50,7 +50,7 @@
 -->
   <node pkg="robot_pose_publisher" name="robot_pose_publisher" type="robot_pose_publisher">
     <param name="is_stamped" value="true"/>
-    <param name="base_frame" value="$(arg application_namespace)/base_footprint"/>
+    <param name="base_frame" value="base_footprint"/>
   </node>
   <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_color/compressed_throttle 5 $(arg compressed_image_topic)" required="true">
     <param name="lazy" value="false"/>
