@@ -59,7 +59,4 @@
   <node pkg="topic_tools" type="throttle" name="relay_scan" args="messages scan 5 $(arg scan_topic)" required="true">
     <param name="lazy" value="false"/>
   </node>
-
-
-
 </launch>
