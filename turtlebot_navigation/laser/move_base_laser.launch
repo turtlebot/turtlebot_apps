@@ -5,7 +5,6 @@
     <rosparam file="$(find turtlebot_navigation)/laser/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find turtlebot_navigation)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find turtlebot_navigation)/config/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find turtlebot_navigation)/config/base_local_planner_params.yaml" command="load" />
   </node>
 
 </launch>
