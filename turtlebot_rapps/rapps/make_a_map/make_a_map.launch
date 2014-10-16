@@ -16,7 +16,7 @@
   </include>
 
   <!-- Make a slower camera feed available. -->
-  <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_color/compressed 5"/>
+  <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_rect_color/compressed 5"/>
 
   <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother"
         args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
@@ -53,7 +53,7 @@
     <param name="is_stamped" value="true"/>
     <param name="base_frame" value="base_footprint"/>
   </node>
-  <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_color/compressed_throttle 5 $(arg compressed_image_topic)" required="true">
+  <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_rect_color/compressed_throttle 5 $(arg compressed_image_topic)" required="true">
     <param name="lazy" value="false"/>
   </node>
   <node pkg="topic_tools" type="throttle" name="relay_scan" args="messages scan 5 $(arg scan_topic)" required="true">
