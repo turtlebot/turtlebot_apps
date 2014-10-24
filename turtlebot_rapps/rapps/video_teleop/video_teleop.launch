@@ -3,30 +3,61 @@
     Right now, the android app is hard coded to look for /cmd_vel as the input
     topic.
    -->
-  <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
-    <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
-    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="/teleop/cmd_vel"/>
-    <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/>
+  <arg name="sim" default="false"/>
+  <arg name="application_namespace"/>
+  <group unless="$(arg sim)">
+    <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
+      <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
+      <remap from="teleop_velocity_smoother/raw_cmd_vel" to="/teleop/cmd_vel"/>
+      <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/>
 
-    <!-- Robot velocity feedbacks; use the one configured as base default -->
-    <remap from="teleop_velocity_smoother/odometry" to="/odom"/>
-    <remap from="teleop_velocity_smoother/robot_cmd_vel" to="/mobile_base/commands/velocity"/>
-  </node>
+      <!-- Robot velocity feedbacks; use the one configured as base default -->
+      <remap from="teleop_velocity_smoother/odometry" to="/odom"/>
+      <remap from="teleop_velocity_smoother/robot_cmd_vel" to="/mobile_base/commands/velocity"/>
+    </node>
 
-  <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
+    <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
-    <arg name="rgb_processing" value="true" />
-    <arg name="depth_registration" value="false" />
-    <arg name="depth_processing" value="false" />
-  </include>
+    <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+      <arg name="rgb_processing" value="true" />
+      <arg name="depth_registration" value="false" />
+      <arg name="depth_processing" value="false" />
+    </include>
 
-  <!-- Make a slower camera feed available. -->
-  <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
-        args="messages camera/rgb/image_color/compressed 5"/>
+    <!-- Make a slower camera feed available. -->
+    <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
+          args="messages camera/rgb/image_color/compressed 5"/>
 
-  <!-- Relay for image -->                                                           
-  <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_color/compressed_throttle 5 /teleop/compressed_image" required="true">
-    <param name="lazy" value="false"/>
-  </node>
+    <!-- Relay for image -->
+    <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_color/compressed_throttle 5 /teleop/compressed_image" required="true">
+      <param name="lazy" value="false"/>
+    </node>
+  </group>
+
+  <!-- for gazebo simulation -->
+  <group if="$(arg sim)">
+    <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother_manager" args="manager"/>
+    <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet teleop_velocity_smoother_manager">
+      <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
+      <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="cmd_vel_mux/input/teleop"/>
+
+      <!-- Robot velocity feedbacks; use the one configured as base default -->
+      <remap from="teleop_velocity_smoother/odometry" to="odom"/>
+      <remap from="teleop_velocity_smoother/robot_cmd_vel" to="mobile_base/commands/velocity"/>
+    </node>
+
+    <!-- Relay for image -->
+    <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
+    <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_raw/compressed 5 /teleop/compressed_image" required="true">
+      <param name="lazy" value="false"/>
+    </node>
+
+
+    <!-- relay in topic_tools package does not work with multimaster.. -->
+    <node pkg="rocon_python_utils" name="cmd_vel_relay" type="topic_relay" args="/teleop/cmd_vel teleop_velocity_smoother/raw_cmd_vel geometry_msgs/Twist">
+    </node>
+
+    <node pkg="concert_service_gazebo" name="image_relay" type="topic_relay" args="camera/rgb/image_raw/compressed /teleop/compressed_image sensor_msgs/CompressedImage">
+    </node>
+  </group>
 </launch>
