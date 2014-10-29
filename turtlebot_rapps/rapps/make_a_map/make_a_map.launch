@@ -8,8 +8,6 @@
   <arg name="scan_topic"        default="/make_a_map/scan"/>
   <arg name="cmd_vel_topic"           default="/teleop/cmd_vel"/>
   <arg name="compressed_image_topic"  default="/teleop/compressed_image"/>
-  <!-- *********************** Teleoperation ********************** -->
-  <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
 
   <group unless="$(arg sim)">
     <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
@@ -19,6 +17,8 @@
     </include>
 
     <!-- Make a slower camera feed available. -->
+    <!-- *********************** Teleoperation ********************** -->
+    <param name="camera/rgb/image_rect_color/compressed/jpeg_quality" value="22"/>
     <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_rect_color/compressed 5"/>
 
     <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother"
@@ -54,7 +54,8 @@
   <group if="$(arg sim)">
     <!-- *********************** Teleoperation ********************** -->
     <!-- Make a slower camera feed available. -->
-    <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_color/compressed 5"/>
+    <param name="camera/rgb/image_raw/compressed/jpeg_quality" value="22"/>
+    <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_raw/compressed 5"/>
 
     <!-- *************************** Navi *************************** -->
     <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml">

@@ -16,7 +16,7 @@
       <remap from="teleop_velocity_smoother/robot_cmd_vel" to="/mobile_base/commands/velocity"/>
     </node>
 
-    <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
+    <param name="camera/rgb/image_rect_color/compressed/jpeg_quality" value="22"/>
 
     <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
       <arg name="rgb_processing" value="true" />
@@ -26,10 +26,10 @@
 
     <!-- Make a slower camera feed available. -->
     <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
-          args="messages camera/rgb/image_color/compressed 5"/>
+          args="messages camera/rgb/image_rect_color/compressed 5"/>
 
     <!-- Relay for image -->
-    <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_color/compressed_throttle 5 /teleop/compressed_image" required="true">
+    <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_rect_color/compressed_throttle 5 /teleop/compressed_image" required="true">
       <param name="lazy" value="false"/>
     </node>
   </group>
@@ -46,8 +46,13 @@
       <remap from="teleop_velocity_smoother/robot_cmd_vel" to="mobile_base/commands/velocity"/>
     </node>
 
+    <!-- *********************** Teleoperation ********************** -->
+    <param name="camera/rgb/image_raw/compressed/jpeg_quality" value="22"/>
+    <!-- Make a slower camera feed available. -->
+    <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_raw/compressed 5"/>
+
+
     <!-- Relay for image -->
-    <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
     <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_raw/compressed 5 /teleop/compressed_image" required="true">
       <param name="lazy" value="false"/>
     </node>
