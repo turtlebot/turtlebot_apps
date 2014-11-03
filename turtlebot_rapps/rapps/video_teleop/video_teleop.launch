@@ -3,9 +3,9 @@
     Right now, the android app is hard coded to look for /cmd_vel as the input
     topic.
    -->
-  <arg name="sim" default="false"/>
   <arg name="application_namespace"/>
-  <group unless="$(arg sim)">
+  <arg name="simulation" default="false"/>
+  <group unless="$(arg simulation)">
     <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
       <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
       <remap from="teleop_velocity_smoother/raw_cmd_vel" to="/teleop/cmd_vel"/>
@@ -35,7 +35,7 @@
   </group>
 
   <!-- for gazebo simulation -->
-  <group if="$(arg sim)">
+  <group if="$(arg simulation)">
     <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother_manager" args="manager"/>
     <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet teleop_velocity_smoother_manager">
       <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
@@ -57,12 +57,11 @@
       <param name="lazy" value="false"/>
     </node>
 
-
     <!-- relay in topic_tools package does not work with multimaster.. -->
     <node pkg="rocon_python_utils" name="cmd_vel_relay" type="topic_relay" args="/teleop/cmd_vel teleop_velocity_smoother/raw_cmd_vel geometry_msgs/Twist">
     </node>
 
-    <node pkg="concert_service_gazebo" name="image_relay" type="topic_relay" args="camera/rgb/image_raw/compressed /teleop/compressed_image sensor_msgs/CompressedImage">
+    <node pkg="rocon_python_utils" name="image_relay" type="topic_relay" args="camera/rgb/image_raw/compressed /teleop/compressed_image sensor_msgs/CompressedImage">
     </node>
   </group>
 </launch>

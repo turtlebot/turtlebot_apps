@@ -4,12 +4,12 @@
  -->
 <launch>
   <arg name="application_namespace" />
-  <arg name="sim" default="false"/>
-  <arg name="scan_topic"        default="/make_a_map/scan"/>
+  <arg name="simulation"              default="false"/>
+  <arg name="scan_topic"              default="/make_a_map/scan"/>
   <arg name="cmd_vel_topic"           default="/teleop/cmd_vel"/>
   <arg name="compressed_image_topic"  default="/teleop/compressed_image"/>
 
-  <group unless="$(arg sim)">
+  <group unless="$(arg simulation)">
     <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
       <arg name="rgb_processing" value="true" />
       <arg name="depth_registration" value="false" />
@@ -51,7 +51,7 @@
       <param name="lazy" value="false"/>
     </node>
   </group>
-  <group if="$(arg sim)">
+  <group if="$(arg simulation)">
     <!-- *********************** Teleoperation ********************** -->
     <!-- Make a slower camera feed available. -->
     <param name="camera/rgb/image_raw/compressed/jpeg_quality" value="22"/>
