@@ -3,42 +3,74 @@
   topic.
  -->
 <launch>
-  <!-- *********************** Teleoperation ********************** -->
-  <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
+  <arg name="application_namespace" />
+  <arg name="simulation"              default="false"/>
+  <arg name="scan_topic"              default="/make_a_map/scan"/>
+  <arg name="cmd_vel_topic"           default="/teleop/cmd_vel"/>
+  <arg name="compressed_image_topic"  default="/teleop/compressed_image"/>
 
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
-    <arg name="rgb_processing" value="true" />
-    <arg name="depth_registration" value="false" />
-    <arg name="depth_processing" value="false" />
-  </include>
+  <group unless="$(arg simulation)">
+    <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+      <arg name="rgb_processing" value="true" />
+      <arg name="depth_registration" value="false" />
+      <arg name="depth_processing" value="false" />
+    </include>
 
-  <!-- Make a slower camera feed available. -->
-  <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_color/compressed 5"/>
+    <!-- Make a slower camera feed available. -->
+    <!-- *********************** Teleoperation ********************** -->
+    <param name="camera/rgb/image_rect_color/compressed/jpeg_quality" value="22"/>
+    <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_rect_color/compressed 5"/>
 
-  <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother"
-        args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
-    <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
-    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="android/virtual_joystick/cmd_vel"/>
-    <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/>
+    <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother"
+          args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
+      <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
+      <remap from="teleop_velocity_smoother/raw_cmd_vel" to="$(arg cmd_vel_topic)"/>
+      <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/>
 
-    <!-- Robot velocity feedbacks; use the one configured as base default -->
-    <remap from="teleop_velocity_smoother/odometry" to="/odom"/>
-    <remap from="teleop_velocity_smoother/robot_cmd_vel" to="/mobile_base/commands/velocity"/>
-  </node>
+      <!-- Robot velocity feedbacks; use the one configured as base default -->
+      <remap from="teleop_velocity_smoother/odometry" to="/odom"/>
+      <remap from="teleop_velocity_smoother/robot_cmd_vel" to="/mobile_base/commands/velocity"/>
+    </node>
 
-  <!-- *************************** Navi *************************** -->
-  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
-    <arg name="odom_topic" value="/odom" />
-  </include>
-  <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml"/>
+    <!-- *************************** Navi *************************** -->
+    <!--
+    <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+      <arg name="odom_topic" value="/odom" />
+    </include>
+    -->
+    <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml">
+    </include>
+    <node pkg="robot_pose_publisher" name="robot_pose_publisher" type="robot_pose_publisher">
+      <param name="is_stamped" value="true"/>
+      <param name="base_frame" value="base_footprint"/>
+    </node>
+    <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_rect_color/compressed_throttle 5 $(arg compressed_image_topic)" required="true">
+      <param name="lazy" value="false"/>
+    </node>
+    <node pkg="topic_tools" type="throttle" name="relay_scan" args="messages scan 5 $(arg scan_topic)" required="true">
+      <param name="lazy" value="false"/>
+    </node>
+  </group>
+  <group if="$(arg simulation)">
+    <!-- *********************** Teleoperation ********************** -->
+    <!-- Make a slower camera feed available. -->
+    <param name="camera/rgb/image_raw/compressed/jpeg_quality" value="22"/>
+    <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_raw/compressed 5"/>
 
-  <!-- Maps -->
-  <param name="warehouse_host" value="localhost"/>
-  <param name="warehouse_port" value="27018"/> <!-- 27017 is default, use a private one to avoid error 48 conflicts -->
-  <node  pkg="warehouse_ros" type="mongo_wrapper_ros.py" name="mongo">
-    <param name="db_path" value="warehouse_data"/>
-    <param name="overwrite" value="false"/>
-  </node>
+    <!-- *************************** Navi *************************** -->
+    <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml">
+      <arg name="base_frame" value="$(arg application_namespace)/base_footprint"/>
+      <arg name="odom_frame" value="$(arg application_namespace)/odom"/>
+    </include>
 
-  <node pkg="map_store" type="map_saver" name="map_saver" output="screen"/>
+    <node pkg="robot_pose_publisher" name="robot_pose_publisher" type="robot_pose_publisher">
+      <param name="is_stamped" value="true"/>
+      <param name="base_frame" value="$(arg application_namespace)/base_footprint"/>
+    </node>
+
+    <!-- relay in topic_tools package does not work with multimaster.. -->
+    <node pkg="rocon_python_utils" name="cmd_vel_relay" type="topic_relay" args="/teleop/cmd_vel cmd_vel_mux/input/teleop geometry_msgs/Twist">  </node>
+    <node pkg="rocon_python_utils" name="image_relay" type="topic_relay" args="camera/rgb/image_raw/compressed /teleop/compressed_image sensor_msgs/CompressedImage">  </node>
+    <node pkg="rocon_python_utils" name="scan_relay" type="topic_relay" args="scan /make_a_map/scan sensor_msgs/LaserScan">  </node>
+  </group>
 </launch>

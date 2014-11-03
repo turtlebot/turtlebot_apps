@@ -2,5 +2,8 @@
   The turtlebot people (or whatever) follower nodelet.   
  -->
 <launch>
-  <include file="$(find turtlebot_follower)/launch/follower.launch"/>
+  <arg name="simulation" default="false"/>
+  <include file="$(find turtlebot_follower)/launch/follower.launch">
+    <arg name="simulation"  value="$(arg simulation)"/>
+  </include>
 </launch>
