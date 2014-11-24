@@ -26,8 +26,8 @@ subscribers:
     type: move_base_msgs/MoveBaseActionGoal
 services:
   - name: list_maps
-    type: map_store/ListMaps
+    type: world_canvas_msgs/ListMaps
   - name: publish_map
-    type: map_store/PublishMap
+    type: world_canvas_msgs/PublishMap
 action_clients: []
 action_servers: []

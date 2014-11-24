@@ -2,12 +2,12 @@ publishers: []
 subscribers: []
 services:
   - name: delete_map
-    type: map_store/DeleteMap
+    type: world_canvas_msgs/DeleteMap
   - name: list_maps
-    type: map_store/ListMaps
+    type: world_canvas_msgs/ListMaps
   - name: publish_map
-    type: map_store/PublishMap
+    type: world_canvas_msgs/PublishMap
   - name: rename_map
-    type: map_store/RenameMap
+    type: world_canvas_msgs/RenameMap
 action_clients: []
 action_servers: []

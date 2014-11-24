@@ -17,6 +17,6 @@ subscribers:
     type: geometry_msgs/Twist
 services:
   - name: save_map
-    type: map_store/SaveMap
+    type: world_canvas_msgs/SaveMap
 action_clients: []
 action_servers: []
