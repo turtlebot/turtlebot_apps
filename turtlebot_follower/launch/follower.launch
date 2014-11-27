@@ -3,7 +3,7 @@
  -->
 <launch>
   <arg name="simulation" default="false"/>
-  <group unless="$(arg simulation)"/> <!-- Real robot -->
+  <group unless="$(arg simulation)"> <!-- Real robot -->
     <include file="$(find turtlebot_follower)/launch/includes/velocity_smoother.launch.xml"/>
     <include file="$(find turtlebot_follower)/launch/includes/safety_controller.launch.xml"/>
 
