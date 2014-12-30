@@ -2,6 +2,9 @@
 Changelog for package turtlebot_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.3.0 (2014-12-30)
 ------------------
 * base_frame and odom_frame are configurable

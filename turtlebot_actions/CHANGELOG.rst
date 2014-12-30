@@ -2,6 +2,9 @@
 Changelog for package turtlebot_actions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.3.0 (2014-12-30)
 ------------------
 * Change build commands to fix break caused by Eigen package moving to cmake_modules

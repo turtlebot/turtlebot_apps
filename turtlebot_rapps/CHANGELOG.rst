@@ -2,6 +2,9 @@
 Changelog
 =========
 
+Forthcoming
+-----------
+
 2.3.0 (2014-12-30)
 ------------------
 * uncomment move_base `#129 <https://github.com/turtlebot/turtlebot_apps/issues/129>`_
