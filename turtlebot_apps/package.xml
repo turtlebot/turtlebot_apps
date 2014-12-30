@@ -25,7 +25,6 @@
   <run_depend>turtlebot_follower</run_depend>
   <run_depend>turtlebot_navigation</run_depend>
   <run_depend>turtlebot_panorama</run_depend>
-  <run_depend>turtlebot_teleop</run_depend>
 
   <export>
     <metapackage/> 
