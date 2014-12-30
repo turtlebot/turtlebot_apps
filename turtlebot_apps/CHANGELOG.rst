@@ -2,8 +2,8 @@
 Changelog for package turtlebot_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.1 (2014-12-30)
+------------------
 * remove turtlebot_telop from meta package
 * Contributors: Jihoon Lee
 
