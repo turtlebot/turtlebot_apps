@@ -2,8 +2,8 @@
 Changelog for package turtlebot_follower
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.0 (2014-12-30)
+------------------
 * remove inappropriate / fixes `#127 <https://github.com/turtlebot/turtlebot_apps/issues/127>`_
 * sim to simulation param
 * follower in simulation

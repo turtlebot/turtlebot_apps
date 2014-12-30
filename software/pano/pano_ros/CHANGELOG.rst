@@ -2,8 +2,8 @@
 Changelog for package pano_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.0 (2014-12-30)
+------------------
 * Small changes for readibility
 * Upgrade turtlebot Panorama for indigo
 * API reference fix for capture_server

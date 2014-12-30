@@ -2,8 +2,8 @@
 Changelog for package pano_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.0 (2014-12-30)
+------------------
 * Small changes for readibility
 * Remove unneccessary debug import
 * Fixed description typo
