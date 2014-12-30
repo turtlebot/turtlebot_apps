@@ -2,6 +2,11 @@
 Changelog for package turtlebot_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* turtlebot_core_apps -> turtlebot_rapps, `#86 <https://github.com/turtlebot/turtlebot_apps/issues/86>`_
+* Contributors: Daniel Stonier
+
 2.2.4 (2013-10-14)
 ------------------
 

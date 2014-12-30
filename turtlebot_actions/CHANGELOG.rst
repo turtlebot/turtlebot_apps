@@ -2,6 +2,13 @@
 Changelog for package turtlebot_actions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Change build commands to fix break caused by Eigen package moving to cmake_modules
+* find eigen with cmake_modules, fixes `#88 <https://github.com/turtlebot/turtlebot_apps/issues/88>`_.
+* update matrix types for image_geometry api change, `#87 <https://github.com/turtlebot/turtlebot_apps/issues/87>`_.
+* Contributors: Daniel Stonier, Paul Bouchier
+
 2.2.4 (2013-10-14)
 ------------------
 

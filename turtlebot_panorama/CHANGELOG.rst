@@ -2,6 +2,12 @@
 Changelog for package turtlebot_panorama
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Change build commands to fix break caused by Eigen package moving to cmake_modules
+* find eigen with cmake_modules, fixes `#88 <https://github.com/turtlebot/turtlebot_apps/issues/88>`_.
+* Contributors: Daniel Stonier, Paul Bouchier
+
 2.2.4 (2013-10-14)
 ------------------
 * Place catkin_package before target generation; if not, the later is not generated

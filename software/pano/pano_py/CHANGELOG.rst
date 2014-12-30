@@ -2,6 +2,14 @@
 Changelog for package pano_py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Small changes for readibility
+* Remove unneccessary debug import
+* Fixed description typo
+* Upgrade turtlebot Panorama for indigo
+* Contributors: kentsommer
+
 2.2.4 (2013-10-14)
 ------------------
 
