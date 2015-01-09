@@ -19,6 +19,7 @@
   <run_depend>turtlebot_navigation</run_depend>
   <run_depend>turtlebot_panorama</run_depend>
   <run_depend>turtlebot_teleop</run_depend>
+  <run_depend>robot_pose_publisher</run_depend>
 
   <!-- for navigation apps -->
   <run_depend>warehouse_ros</run_depend>
