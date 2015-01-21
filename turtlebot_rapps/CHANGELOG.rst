@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Forthcoming
+-----------
+* add robot_pose_publisher as run depend closes `#131 <https://github.com/turtlebot/turtlebot_apps/issues/131>`_
+* Contributors: Jihoon Lee
+
 2.3.1 (2014-12-30)
 ------------------
 
