@@ -26,10 +26,10 @@
 
     <!-- Make a slower camera feed available. -->
     <node pkg="topic_tools" type="throttle" name="camera_throttle" output="screen"
-          args="messages camera/rgb/image_rect_color/compressed 5"/>
+          args="messages camera/rgb/image_rect_color 5"/>
 
     <!-- Relay for image -->
-    <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_rect_color/compressed_throttle 5 /teleop/compressed_image" required="true">
+    <node pkg="topic_tools" type="throttle" name="relay_throttle_image" args="messages camera/rgb/image_rect_color_throttle 5 /teleop/image" required="true">
       <param name="lazy" value="false"/>
     </node>
   </group>
@@ -61,7 +61,7 @@
     <node pkg="rocon_python_utils" name="cmd_vel_relay" type="topic_relay" args="/teleop/cmd_vel teleop_velocity_smoother/raw_cmd_vel geometry_msgs/Twist">
     </node>
 
-    <node pkg="rocon_python_utils" name="image_relay" type="topic_relay" args="camera/rgb/image_raw/compressed /teleop/compressed_image sensor_msgs/CompressedImage">
+    <node pkg="rocon_python_utils" name="image_relay" type="topic_relay" args="camera/rgb/image_raw /teleop/image sensor_msgs/Image">
     </node>
   </group>
 </launch>
