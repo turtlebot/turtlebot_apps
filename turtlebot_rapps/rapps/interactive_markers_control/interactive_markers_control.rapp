@@ -1,0 +1,6 @@
+display:          Interactive Markers Control
+description:      Control turtlebit using interactive markers
+compatibility:    rocon:/turtlebot
+launch:           interactive_markers_control.launch
+public_interface: interactive_markers_control.interface
+#icon:             interactive_markers_control.png
