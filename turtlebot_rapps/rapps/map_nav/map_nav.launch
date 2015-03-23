@@ -3,7 +3,7 @@
   topic.
  -->
 <launch>
-  <arg name="scan_topic"              default="/make_a_map/scan"/>
+  <arg name="scan_topic"              default="scan"/>
   <arg name="cmd_vel_topic"           default="/teleop/cmd_vel"/>
   <arg name="compressed_image_topic"  default="/teleop/compressed_image"/>
   
