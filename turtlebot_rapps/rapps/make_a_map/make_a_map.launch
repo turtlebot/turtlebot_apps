@@ -8,6 +8,7 @@
   <arg name="scan_topic"              default="/make_a_map/scan"/>
   <arg name="cmd_vel_topic"           default="/teleop/cmd_vel"/>
   <arg name="compressed_image_topic"  default="/teleop/compressed_image"/>
+  <arg name="debug" default="false"/>
 
   <group unless="$(arg simulation)">
     <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
@@ -48,6 +49,11 @@
     <node pkg="topic_tools" type="throttle" name="relay_scan" args="messages scan 5 $(arg scan_topic)" required="true">
       <param name="lazy" value="false"/>
     </node>
+    
+    <node pkg="world_canvas_server" type="world_canvas_server" name="world_canvas_server" args="$(arg debug)" output="screen">
+      <param name="start_map_manager" value="true"/>
+      <param name="auto_save_map" value="false"/>
+    </node> 
   </group>
   <group if="$(arg simulation)">
     <!-- *********************** Teleoperation ********************** -->
@@ -70,5 +76,10 @@
     <node pkg="rocon_python_utils" name="cmd_vel_relay" type="topic_relay" args="/teleop/cmd_vel cmd_vel_mux/input/teleop geometry_msgs/Twist">  </node>
     <node pkg="rocon_python_utils" name="image_relay" type="topic_relay" args="camera/rgb/image_raw/compressed /teleop/compressed_image sensor_msgs/CompressedImage">  </node>
     <node pkg="rocon_python_utils" name="scan_relay" type="topic_relay" args="scan /make_a_map/scan sensor_msgs/LaserScan">  </node>
+    
+    <node pkg="world_canvas_server" type="world_canvas_server" name="world_canvas_server" args="$(arg debug)" output="screen">
+      <param name="start_map_manager" value="true"/>
+      <param name="auto_save_map" value="false"/>
+    </node>
   </group>
 </launch>
