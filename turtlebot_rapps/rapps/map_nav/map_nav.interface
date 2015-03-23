@@ -1,5 +1,5 @@
 publishers:
-  - name: camera/rgb/image_color/compressed_throttle
+  - name: /teleop/compressed_image
     type: sensor_msgs/CompressedImage
   - name: scan
     type: sensor_msgs/LaserScan
@@ -16,7 +16,7 @@ publishers:
   - name: move_base/TrajectoryPlannerROS/global_plan
     type: nav_msgs/Path
 subscribers: 
-  - name: android/virtual_joystick/cmd_vel
+  - name: /teleop/cmd_vel
     type: geometry_msgs/Twist    
   - name: initialpose
     type: geometry_msgs/PoseWithCovarianceStamped

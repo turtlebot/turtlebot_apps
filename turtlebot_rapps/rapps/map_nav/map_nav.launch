@@ -3,9 +3,10 @@
   topic.
  -->
 <launch>
-  <!-- *********************** Teleoperation ********************** -->
-  <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
-
+  <arg name="scan_topic"              default="scan"/>
+  <arg name="cmd_vel_topic"           default="/teleop/cmd_vel"/>
+  <arg name="compressed_image_topic"  default="/teleop/compressed_image"/>
+  
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
     <arg name="rgb_processing" value="true" />
     <arg name="depth_registration" value="false" />
@@ -13,12 +14,14 @@
   </include>
 
   <!-- Make a slower camera feed available. -->
-  <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_color/compressed 5"/>
+  <!-- *********************** Teleoperation ********************** -->
+  <param name="camera/rgb/image_color/compressed/jpeg_quality" value="22"/>
+  <node pkg="topic_tools" type="throttle" name="camera_throttle" args="messages camera/rgb/image_rect_color/compressed 5"/>
 
   <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother"
         args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
     <rosparam file="$(find turtlebot_bringup)/param/defaults/smoother.yaml" command="load"/>
-    <remap from="teleop_velocity_smoother/raw_cmd_vel"    to="android/virtual_joystick/cmd_vel"/>
+    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="/cmd_vel_mux/input/teleop"/>
 
     <!-- Robot velocity feedbacks; use the one configured as base default -->
@@ -45,9 +48,16 @@
   <include file="$(find turtlebot_navigation)/launch/includes/amcl.launch.xml">
     <arg name="use_map_topic" value ="true"/>
   </include>
+ 
+  <node pkg="topic_tools" type="throttle" name="relay_compressed_throttle_image" args="messages camera/rgb/image_rect_color/compressed_throttle 5 $(arg compressed_image_topic)" required="true">
+    <param name="lazy" value="false"/>
+  </node>
+  <node pkg="topic_tools" type="throttle" name="relay_scan" args="messages scan 5 $(arg scan_topic)" required="true">
+    <param name="lazy" value="false"/>
+  </node>
 
   <!-- Maps -->
-  <arg name="map_file" default=" $(env TURTLEBOT_MAP_FILE)" /> 
+  <arg name="map_file" default=" $(env TURTLEBOT_MAP_FILE)" />
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
 <!-- 27017 is default, use a private one to avoid error 48 conflicts -->
@@ -60,4 +70,11 @@
   </node>
 -->
 <!--  <node pkg="map_store" type="map_manager" name="map_manager" output="screen"/>-->
+
+  <!-- World Canvas -->
+  <arg name="debug" default="false"/>
+  <node pkg="world_canvas_server" type="world_canvas_server" name="world_canvas_server" args="$(arg debug)" output="screen">
+    <param name="start_map_manager" value="true"/>
+    <param name="auto_save_map" value="false"/>
+  </node> 
 </launch>
