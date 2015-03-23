@@ -2,8 +2,8 @@
 Changelog
 =========
 
-Forthcoming
------------
+2.3.3 (2015-03-23)
+------------------
 * change default topic name of scan
 * update map nav to apply world canvas and map navigation android app
 * update make_a_map to apply world canvas
