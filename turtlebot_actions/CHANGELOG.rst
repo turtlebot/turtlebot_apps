@@ -2,6 +2,9 @@
 Changelog for package turtlebot_actions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.3.2 (2015-01-21)
 ------------------
 
