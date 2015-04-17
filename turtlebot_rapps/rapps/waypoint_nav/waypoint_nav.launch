@@ -1,0 +1,77 @@
+<!--
+  Waypoint Navigation
+ -->
+<launch>
+  <arg name="application_namespace" />
+  <arg name="simulation" default="false"/>
+
+  <group unless="$(arg simulation)">
+    <!-- 3D Sensor Configuration -->
+    <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+      <!-- We only need RGB images and pseudo laser scan -->
+      <arg name="depth_registration"              value="false"/>
+      <arg name="rgb_processing"                  value="true" />
+      <arg name="ir_processing"                   value="false"/>
+      <arg name="depth_processing"                value="false"/>
+      <arg name="depth_registered_processing"     value="false"/>
+      <arg name="disparity_processing"            value="false"/>
+      <arg name="disparity_registered_processing" value="false"/>
+      <arg name="scan_processing"                 value="true" />
+    </include>
+
+    <!--
+    **********************************
+      Software Configuration
+    **********************************
+    -->
+    <arg name="initial_pose_x" value="2.0"/>
+    <arg name="initial_pose_y" value="2.0"/>
+    <arg name="initial_pose_a" value="0.0"/>
+
+    <arg name="global_frame"                default="map"/>
+    <arg name="base_frame"                  default="base_footprint"/>
+    <arg name="odom_frame"                  default="odom"/>
+
+    <arg name="location_list_topic"         default="waypoints"/>
+    <arg name="navigator_action"            default="navigator"/>
+    <arg name="map_topic"                   default="map"/> <!-- remove it later -->
+
+    <arg name="move_base_param_path"        value="$(find turtlebot_navigation)/param"/>
+    <arg name="move_base_custom_param"      value="$(find turtlebot_rapps)/rapps/waypoint_nav/custom_params.yaml"/>
+
+    <!-- Semantic Navigator -->
+    <include file="$(find yocs_navigator)/launch/navigator.launch">
+      <arg name="location_list_topic"   value="$(arg location_list_topic)"/>
+      <arg name="navigator_action"      value="$(arg navigator_action)"/>
+      <arg name="start_move_base"       value="true"/>
+
+      <arg name="move_base_param_path" value="$(arg move_base_param_path)"/>
+      <arg name="custom_param_file"    value="$(arg move_base_custom_param)"/>
+    </include>
+
+    <!-- AMCL -->
+    <include file="$(find turtlebot_navigation)/launch/includes/amcl.launch.xml">
+      <arg name="use_map_topic"   value="true"/>
+      <arg name="initial_pose_x"  value="$(arg initial_pose_x)"/>
+      <arg name="initial_pose_y"  value="$(arg initial_pose_y)"/>
+      <arg name="initial_pose_a"  value="$(arg initial_pose_a)"/>
+    </include>
+
+    <node pkg="robot_pose_publisher" name="robot_pose_publisher" type="robot_pose_publisher">
+      <param name="is_stamped" value="true"/>
+      <param name="base_frame" value="base_footprint"/>
+    </node>
+
+    <!-- Relaying topics to use as public interface -->
+    <node pkg="topic_tools" type="relay" name="relay_current_goal" args="move_base/current_goal current_goal" required="true">
+      <param name="lazy" value="false"/>
+    </node>
+    <node pkg="topic_tools" type="relay" name="relay_path" args="move_base/NavfnROS/plan path_plan" required="true">
+      <param name="lazy" value="false"/>
+    </node>
+
+  </group>
+  <group if="$(arg simulation)">
+    <!-- Not implemented -->
+  </group>
+</launch>

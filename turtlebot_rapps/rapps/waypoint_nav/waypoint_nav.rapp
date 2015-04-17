@@ -1,0 +1,6 @@
+display:          Waypoint Navigation
+description:      TurtleBot navigates around a set of waypoints 
+compatibility:    rocon:/turtlebot
+launch:           waypoint_nav.launch
+parent_name:      rocon_apps/waypoint_nav
+#icon:            location_nav.png
