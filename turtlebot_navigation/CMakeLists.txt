@@ -4,18 +4,22 @@ project(turtlebot_navigation)
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS tf roscpp sensor_msgs)
 
-include_directories(${catkin_INCLUDE_DIRS})
-
-# Add_executables
-add_executable(laser_footprint_filter src/laser_footprint_filter.cpp)
-target_link_libraries(laser_footprint_filter ${catkin_LIBRARIES})
-
 # What other packages will need to use this package
 catkin_package(
     CATKIN_DEPENDS tf roscpp sensor_msgs
 )
 
 catkin_add_env_hooks(25.turtlebot-navigation SHELLS sh DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/env-hooks)
+
+
+###########
+## Build ##
+###########
+include_directories(${catkin_INCLUDE_DIRS})
+
+# Add_executables
+add_executable(laser_footprint_filter src/laser_footprint_filter.cpp)
+target_link_libraries(laser_footprint_filter ${catkin_LIBRARIES})
 
 
 #############
