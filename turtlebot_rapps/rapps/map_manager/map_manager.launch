@@ -10,4 +10,11 @@
   </node>
 -->
 <!--  <node pkg="map_store" type="map_manager" name="map_manager" output="screen"/>-->
+
+  <!-- World Canvas -->
+  <arg name="debug" default="false"/>
+  <node pkg="world_canvas_server" type="world_canvas_server" name="world_canvas_server" args="$(arg debug)" output="screen">
+    <param name="start_map_manager" value="true"/>
+    <param name="auto_save_map" value="false"/>
+  </node>
 </launch>
