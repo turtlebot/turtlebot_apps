@@ -2,5 +2,5 @@ display:          Make A Map
 description:      Make a map by driving a TurtleBot from an Android device.
 compatibility:    rocon:/turtlebot
 launch:           make_a_map.launch
-public_interface: make_a_map.interface
 icon:             make_a_map_bubble_icon.png
+parent_name:      rocon_apps/make_a_map
