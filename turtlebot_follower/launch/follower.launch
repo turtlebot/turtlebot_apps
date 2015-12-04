@@ -53,4 +53,6 @@
     <param name="max_z" value="1.2" />
     <param name="goal_z" value="0.6" />
   </node>
+  <!-- Launch the script which will toggle turtlebot following on and off based on a joystick button. default: on -->
+  <node name="switch" pkg="turtlebot_follower" type="switch.py"/>
 </launch>
