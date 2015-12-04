@@ -1,0 +1,6 @@
+<launch>
+<include file="$(find turtlebot_joystick_follower)/launch/minimal.launch.xml"/>
+<include file="$(find turtlebot_teleop)/launch/logitech.launch"/>
+<include file="$(find turtlebot_follower)/launch/follower.launch"/>
+<include file="$(find turtlebot_joystick_follower)/launch/switch.launch.xml"/>
+</launch>
