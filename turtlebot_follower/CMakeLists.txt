@@ -51,10 +51,6 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 ## Mark all other required files for installation
-install(DIRECTORY sim
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
