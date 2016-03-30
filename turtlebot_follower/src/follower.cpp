@@ -39,10 +39,11 @@
 #include "dynamic_reconfigure/server.h"
 #include "turtlebot_follower/FollowerConfig.h"
 
+#include <depth_image_proc/depth_traits.h>
+
 
 namespace turtlebot_follower
 {
-typedef pcl::PointCloud<pcl::PointXYZ> PointCloud;
 
 //* The turtlebot follower nodelet.
 /**
@@ -110,7 +111,7 @@ private:
     cmdpub_ = private_nh.advertise<geometry_msgs::Twist> ("cmd_vel", 1);
     markerpub_ = private_nh.advertise<visualization_msgs::Marker>("marker",1);
     bboxpub_ = private_nh.advertise<visualization_msgs::Marker>("bbox",1);
-    sub_= nh.subscribe<PointCloud>("depth/points", 1, &TurtlebotFollower::cloudcb, this);
+    sub_= nh.subscribe<sensor_msgs::Image>("depth/image_rect", 1, &TurtlebotFollower::imagecb, this);
 
     switch_srv_ = private_nh.advertiseService("change_state", &TurtlebotFollower::changeModeSrvCb, this);
 
@@ -139,7 +140,7 @@ private:
    * Publishes cmd_vel messages with the goal from the cloud.
    * @param cloud The point cloud message.
    */
-  void cloudcb(const PointCloud::ConstPtr&  cloud)
+  void imagecb(const sensor_msgs::ImageConstPtr& depth_msg)
   {
     //X,Y,Z of the centroid
     float x = 0.0;
@@ -147,23 +148,32 @@ private:
     float z = 1e6;
     //Number of points observed
     unsigned int n = 0;
+
+    int min_x = 0;
+    int max_x = 640;
+    float mean_x = (float)(min_x + max_x)/2;
+    int min_y = 200;
+    int max_y = 280;
+    float mean_y = (float)(min_y + max_y)/2;
+    float radians_per_pixel = 75.0/57.0/640.0;
+
     //Iterate through all the points in the region and find the average of the position
-    BOOST_FOREACH (const pcl::PointXYZ& pt, cloud->points)
+    const float* depth_row = reinterpret_cast<const float*>(&depth_msg->data[0]);
+    int row_step = depth_msg->step / sizeof(float);
+    for (int v = 0; v < (int)depth_msg->height; ++v, depth_row += row_step)
     {
-      //First, ensure that the point's position is valid. This must be done in a seperate
-      //if because we do not want to perform comparison on a nan value.
-      if (!std::isnan(x) && !std::isnan(y) && !std::isnan(z))
-      {
-        //Test to ensure the point is within the aceptable box.
-        if (-pt.y > min_y_ && -pt.y < max_y_ && pt.x < max_x_ && pt.x > min_x_ && pt.z < max_z_)
-        {
-          //Add the point to the totals
-          x += pt.x;
-          y += pt.y;
-          z = std::min(z, pt.z);
-          n++;
-        }
-      }
+     for (int u = 0; u < (int)depth_msg->width; ++u)
+     {
+       float depth = depth_image_proc::DepthTraits<float>::toMeters(depth_row[u]);
+       if (!depth_image_proc::DepthTraits<float>::valid(depth)) continue;
+       if (v > min_y && v < max_y && u > min_x && u < max_x && depth < max_z_)
+       {
+         x += sin(radians_per_pixel * ((float)u - mean_x)) * depth;
+         y += (float)v - mean_y;
+         z = std::min(z, depth);
+         n++;
+       }
+     }
     }
 
     //If there are points, find the centroid and calculate the command goal.
