@@ -31,18 +31,18 @@
 #include <pluginlib/class_list_macros.h>
 #include <nodelet/nodelet.h>
 #include <geometry_msgs/Twist.h>
-#include <pcl_ros/point_cloud.h>
-#include <pcl/point_types.h>
+#include <sensor_msgs/Image.h>
 #include <visualization_msgs/Marker.h>
 #include <turtlebot_msgs/SetFollowState.h>
 
 #include "dynamic_reconfigure/server.h"
 #include "turtlebot_follower/FollowerConfig.h"
 
+#include <depth_image_proc/depth_traits.h>
+
 
 namespace turtlebot_follower
 {
-typedef pcl::PointCloud<pcl::PointXYZ> PointCloud;
 
 //* The turtlebot follower nodelet.
 /**
@@ -110,7 +110,7 @@ private:
     cmdpub_ = private_nh.advertise<geometry_msgs::Twist> ("cmd_vel", 1);
     markerpub_ = private_nh.advertise<visualization_msgs::Marker>("marker",1);
     bboxpub_ = private_nh.advertise<visualization_msgs::Marker>("bbox",1);
-    sub_= nh.subscribe<PointCloud>("depth/points", 1, &TurtlebotFollower::cloudcb, this);
+    sub_= nh.subscribe<sensor_msgs::Image>("depth/image_rect", 1, &TurtlebotFollower::imagecb, this);
 
     switch_srv_ = private_nh.advertiseService("change_state", &TurtlebotFollower::changeModeSrvCb, this);
 
@@ -134,36 +134,57 @@ private:
 
   /*!
    * @brief Callback for point clouds.
-   * Callback for point clouds. Uses PCL to find the centroid
-   * of the points in a box in the center of the point cloud.
-   * Publishes cmd_vel messages with the goal from the cloud.
+   * Callback for depth images. It finds the centroid
+   * of the points in a box in the center of the image. 
+   * Publishes cmd_vel messages with the goal from the image.
    * @param cloud The point cloud message.
    */
-  void cloudcb(const PointCloud::ConstPtr&  cloud)
+  void imagecb(const sensor_msgs::ImageConstPtr& depth_msg)
   {
+
+    // Precompute the sin function for each row and column
+    uint32_t image_width = depth_msg->width;
+    float x_radians_per_pixel = 60.0/57.0/image_width;
+    float sin_pixel_x[image_width];
+    for (int x = 0; x < image_width; ++x) {
+      sin_pixel_x[x] = sin((x - image_width/ 2.0)  * x_radians_per_pixel);
+    }
+
+    uint32_t image_height = depth_msg->height;
+    float y_radians_per_pixel = 45.0/57.0/image_width;
+    float sin_pixel_y[image_height];
+    for (int y = 0; y < image_height; ++y) {
+      // Sign opposite x for y up values
+      sin_pixel_y[y] = sin((image_height/ 2.0 - y)  * y_radians_per_pixel);
+    }
+
     //X,Y,Z of the centroid
     float x = 0.0;
     float y = 0.0;
     float z = 1e6;
     //Number of points observed
     unsigned int n = 0;
+
     //Iterate through all the points in the region and find the average of the position
-    BOOST_FOREACH (const pcl::PointXYZ& pt, cloud->points)
+    const float* depth_row = reinterpret_cast<const float*>(&depth_msg->data[0]);
+    int row_step = depth_msg->step / sizeof(float);
+    for (int v = 0; v < (int)depth_msg->height; ++v, depth_row += row_step)
     {
-      //First, ensure that the point's position is valid. This must be done in a seperate
-      //if because we do not want to perform comparison on a nan value.
-      if (!std::isnan(x) && !std::isnan(y) && !std::isnan(z))
-      {
-        //Test to ensure the point is within the aceptable box.
-        if (-pt.y > min_y_ && -pt.y < max_y_ && pt.x < max_x_ && pt.x > min_x_ && pt.z < max_z_)
-        {
-          //Add the point to the totals
-          x += pt.x;
-          y += pt.y;
-          z = std::min(z, pt.z);
-          n++;
-        }
-      }
+     for (int u = 0; u < (int)depth_msg->width; ++u)
+     {
+       float depth = depth_image_proc::DepthTraits<float>::toMeters(depth_row[u]);
+       if (!depth_image_proc::DepthTraits<float>::valid(depth) || depth > max_z_) continue;
+       float y_val = sin_pixel_y[v] * depth;
+       float x_val = sin_pixel_x[u] * depth;
+       if ( y_val > min_y_ && y_val < max_y_ &&
+            x_val > min_x_ && x_val < max_x_)
+       {
+         x += x_val;
+         y += y_val;
+         z = std::min(z, depth); //approximate depth as forward.
+         n++;
+       }
+     }
     }
 
     //If there are points, find the centroid and calculate the command goal.
@@ -173,7 +194,7 @@ private:
       x /= n;
       y /= n;
       if(z > max_z_){
-        ROS_DEBUG("No valid points detected, stopping the robot");
+        ROS_INFO_THROTTLE(1, "Centroid too far away %f, stopping the robot\n%s", z);
         if (enabled_)
         {
           cmdpub_.publish(geometry_msgs::TwistPtr(new geometry_msgs::Twist()));
@@ -181,7 +202,7 @@ private:
         return;
       }
 
-      ROS_DEBUG("Centroid at %f %f %f with %d points", x, y, z, n);
+      ROS_INFO_THROTTLE(1, "Centroid at %f %f %f with %d points", x, y, z, n);
       publishMarker(x, y, z);
 
       if (enabled_)
@@ -194,7 +215,7 @@ private:
     }
     else
     {
-      ROS_DEBUG("No points detected, stopping the robot");
+      ROS_INFO_THROTTLE(1, "Not enough points(%d) detected, stopping the robot", n);
       publishMarker(x, y, z);
 
       if (enabled_)
