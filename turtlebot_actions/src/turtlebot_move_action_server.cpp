@@ -39,7 +39,7 @@
 class MoveActionServer
 {
 private:
-    
+
   ros::NodeHandle nh_;
   actionlib::SimpleActionServer<turtlebot_actions::TurtlebotMoveAction> as_;
   std::string action_name_;
@@ -47,19 +47,20 @@ private:
   turtlebot_actions::TurtlebotMoveFeedback     feedback_;
   turtlebot_actions::TurtlebotMoveResult       result_;
   turtlebot_actions::TurtlebotMoveGoalConstPtr goal_;
-  
+
   ros::Subscriber       sub_;
   ros::Publisher        cmd_vel_pub_;
   tf::TransformListener listener_;
-  
+
   // Parameters
   std::string base_frame;
   std::string odom_frame;
   double turn_rate;
   double forward_rate;
-  
+  bool vel_ctrl;
+
 public:
-  MoveActionServer(const std::string name) : 
+  MoveActionServer(const std::string name) :
     nh_("~"), as_(nh_, name, false), action_name_(name)
   {
     // Get parameters
@@ -67,13 +68,14 @@ public:
     nh_.param<std::string>("odom_frame", odom_frame, "odom");
     nh_.param<double>("turn_rate", turn_rate, 0.75);
     nh_.param<double>("forward_rate", forward_rate, 0.25);
-    
+    nh_.param<bool>("vel_ctrl", vel_ctrl, false);
+
     //register the goal and feeback callbacks
     as_.registerGoalCallback(boost::bind(&MoveActionServer::goalCB, this));
     as_.registerPreemptCallback(boost::bind(&MoveActionServer::preemptCB, this));
-    
+
     as_.start();
-    
+
     cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
   }
 
@@ -82,19 +84,23 @@ public:
     // accept the new goal
     feedback_.forward_distance = 0.0;
     feedback_.turn_distance = 0.0;
-    
+
     result_.forward_distance = 0.0;
     result_.turn_distance = 0.0;
-    
+
     goal_ = as_.acceptNewGoal();
-    
-    if (!turnOdom(goal_->turn_distance))
-    { 
+
+    float vel_rate = 1;
+    if (vel_ctrl)
+      vel_rate = goal_->vel_rate;
+
+    if (!turnOdom(goal_->turn_distance, vel_rate))
+    {
       as_.setAborted(result_);
       return;
     }
-    
-    if (driveForwardOdom(goal_->forward_distance))
+
+    if (driveForwardOdom(goal_->forward_distance, vel_rate))
       as_.setSucceeded(result_);
     else
       as_.setAborted(result_);
@@ -107,24 +113,24 @@ public:
     as_.setPreempted();
   }
 
-  bool driveForwardOdom(double distance)
+  bool driveForwardOdom(double distance, float vel_rate)
   {
     // If the distance to travel is negligble, don't even try.
     if (fabs(distance) < 0.01)
       return true;
-    
+
     //we will record transforms here
     tf::StampedTransform start_transform;
     tf::StampedTransform current_transform;
-  
+
     try
     {
       //wait for the listener to get the first message
-      listener_.waitForTransform(base_frame, odom_frame, 
+      listener_.waitForTransform(base_frame, odom_frame,
                                  ros::Time::now(), ros::Duration(1.0));
-      
+
       //record the starting transform from the odometry to the base frame
-      listener_.lookupTransform(base_frame, odom_frame, 
+      listener_.lookupTransform(base_frame, odom_frame,
                                 ros::Time(0), start_transform);
     }
     catch (tf::TransformException ex)
@@ -132,27 +138,27 @@ public:
       ROS_ERROR("%s",ex.what());
       return false;
     }
-    
+
     //we will be sending commands of type "twist"
     geometry_msgs::Twist base_cmd;
     //the command will be to go forward at 0.25 m/s
     base_cmd.linear.y = base_cmd.angular.z = 0;
-    base_cmd.linear.x = forward_rate;
-    
+    base_cmd.linear.x = forward_rate * vel_rate;
+
     if (distance < 0)
-      base_cmd.linear.x = -base_cmd.linear.x;
-    
+      base_cmd.linear.x = -base_cmd.linear.x * vel_rate;
+
     ros::Rate rate(25.0);
     bool done = false;
     while (!done && nh_.ok() && as_.isActive())
     {
       //send the drive command
       cmd_vel_pub_.publish(base_cmd);
-      rate.sleep(); 
+      rate.sleep();
       //get the current transform
       try
       {
-        listener_.lookupTransform(base_frame, odom_frame, 
+        listener_.lookupTransform(base_frame, odom_frame,
                                   ros::Time(0), current_transform);
       }
       catch (tf::TransformException ex)
@@ -161,10 +167,10 @@ public:
         break;
       }
       //see how far we've traveled
-      tf::Transform relative_transform = 
+      tf::Transform relative_transform =
         start_transform.inverse() * current_transform;
       double dist_moved = relative_transform.getOrigin().length();
-      
+
       // Update feedback and result.
       feedback_.forward_distance = dist_moved;
       result_.forward_distance = dist_moved;
@@ -183,12 +189,12 @@ public:
     return false;
   }
 
-  bool turnOdom(double radians)
+  bool turnOdom(double radians, float vel_rate)
   {
     // If the distance to travel is negligble, don't even try.
     if (fabs(radians) < 0.01)
       return true;
-  
+
     while(radians < -M_PI) radians += 2*M_PI;
     while(radians > M_PI) radians -= 2*M_PI;
 
@@ -199,11 +205,11 @@ public:
     try
     {
       //wait for the listener to get the first message
-      listener_.waitForTransform(base_frame, odom_frame, 
+      listener_.waitForTransform(base_frame, odom_frame,
                                  ros::Time::now(), ros::Duration(1.0));
 
       //record the starting transform from the odometry to the base frame
-      listener_.lookupTransform(base_frame, odom_frame, 
+      listener_.lookupTransform(base_frame, odom_frame,
                                 ros::Time(0), start_transform);
     }
     catch (tf::TransformException ex)
@@ -211,18 +217,19 @@ public:
       ROS_ERROR("%s",ex.what());
       return false;
     }
-    
+
     //we will be sending commands of type "twist"
     geometry_msgs::Twist base_cmd;
     //the command will be to turn at 0.75 rad/s
     base_cmd.linear.x = base_cmd.linear.y = 0.0;
-    base_cmd.angular.z = turn_rate;
+
+    base_cmd.angular.z = turn_rate * vel_rate;
     if (radians < 0)
-      base_cmd.angular.z = -turn_rate;
-    
+      base_cmd.angular.z = -turn_rate * vel_rate;
+
     //the axis we want to be rotating by
     tf::Vector3 desired_turn_axis(0,0,1);
-    
+
     ros::Rate rate(25.0);
     bool done = false;
     while (!done && nh_.ok() && as_.isActive())
@@ -233,7 +240,7 @@ public:
       //get the current transform
       try
       {
-        listener_.lookupTransform(base_frame, odom_frame, 
+        listener_.lookupTransform(base_frame, odom_frame,
                                   ros::Time(0), current_transform);
       }
       catch (tf::TransformException ex)
@@ -241,20 +248,20 @@ public:
         ROS_ERROR("%s",ex.what());
         break;
       }
-      tf::Transform relative_transform = 
+      tf::Transform relative_transform =
         start_transform.inverse() * current_transform;
-      tf::Vector3 actual_turn_axis = 
+      tf::Vector3 actual_turn_axis =
         relative_transform.getRotation().getAxis();
       double angle_turned = relative_transform.getRotation().getAngle();
-      
+
       // Update feedback and result.
       feedback_.turn_distance = angle_turned;
       result_.turn_distance = angle_turned;
       as_.publishFeedback(feedback_);
-      
+
       if ( fabs(angle_turned) < 1.0e-2) continue;
 
-      //if ( actual_turn_axis.dot( desired_turn_axis ) < 0 ) 
+      //if ( actual_turn_axis.dot( desired_turn_axis ) < 0 )
       //  angle_turned = 2 * M_PI - angle_turned;
 
       if (fabs(angle_turned) > fabs(radians)) done = true;
@@ -275,4 +282,3 @@ int main(int argc, char** argv)
 
   return 0;
 }
-

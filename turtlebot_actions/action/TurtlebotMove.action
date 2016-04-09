@@ -1,6 +1,7 @@
 #goal definition
 float32 turn_distance     # in radians, ccw = +, cw = -
 float32 forward_distance  # in meters, forward = +, backward = -
+float32 vel_rate          # Scale, between 0.1 to 1. Enable the vel_control mode in the turtblebot_move_action_server
 ---
 #result definition
 float32 turn_distance
