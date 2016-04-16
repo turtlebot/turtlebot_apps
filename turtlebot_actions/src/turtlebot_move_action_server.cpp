@@ -106,7 +106,7 @@ public:
     as_.setPreempted();
   }
 
-  bool driveForwardOdom(double distance, float velocity)
+  bool driveForwardOdom(double distance, double velocity)
   {
     // If the distance to travel is negligble, don't even try.
     if (fabs(distance) < 0.01)
