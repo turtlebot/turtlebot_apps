@@ -15,7 +15,8 @@ from actionlib_msgs.msg import *
 import actionlib
 
 '''
-  Very simple move action test - commands the robot to turn 45 degrees and travel 0.5 metres forward.
+  Very simple move action test - commands the robot to turn 45 degrees and travel 0.5 meters forward with
+  a 0.3 meters per second velocity.
 '''
 
 def main():
@@ -31,7 +32,8 @@ def main():
   rospy.loginfo("Calling the action server...")
   action_goal = TurtlebotMoveGoal()
   action_goal.turn_distance = -math.pi/4.0
-  action_goal.forward_distance = 0.5 # metres
+  action_goal.forward_distance = 0.5 # meters
+  action_goal.velocity = 0.3 # meters per second
 
   if action_client.send_goal_and_wait(action_goal, rospy.Duration(50.0), rospy.Duration(50.0)) == GoalStatus.SUCCEEDED:
     rospy.loginfo('Call to action server succeeded')

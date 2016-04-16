@@ -56,7 +56,6 @@ private:
   std::string base_frame;
   std::string odom_frame;
   double turn_rate;
-  double forward_rate;
   bool vel_ctrl;
 
 public:
@@ -67,8 +66,6 @@ public:
     nh_.param<std::string>("base_frame", base_frame, "base_link");
     nh_.param<std::string>("odom_frame", odom_frame, "odom");
     nh_.param<double>("turn_rate", turn_rate, 0.75);
-    nh_.param<double>("forward_rate", forward_rate, 0.25);
-    nh_.param<bool>("vel_ctrl", vel_ctrl, false);
 
     //register the goal and feeback callbacks
     as_.registerGoalCallback(boost::bind(&MoveActionServer::goalCB, this));
@@ -90,17 +87,13 @@ public:
 
     goal_ = as_.acceptNewGoal();
 
-    float vel_rate = 1;
-    if (vel_ctrl)
-      vel_rate = goal_->vel_rate;
-
-    if (!turnOdom(goal_->turn_distance, vel_rate))
+    if (!turnOdom(goal_->turn_distance))
     {
       as_.setAborted(result_);
       return;
     }
 
-    if (driveForwardOdom(goal_->forward_distance, vel_rate))
+    if (driveForwardOdom(goal_->forward_distance, goal_->velocity))
       as_.setSucceeded(result_);
     else
       as_.setAborted(result_);
@@ -113,7 +106,7 @@ public:
     as_.setPreempted();
   }
 
-  bool driveForwardOdom(double distance, float vel_rate)
+  bool driveForwardOdom(double distance, float velocity)
   {
     // If the distance to travel is negligble, don't even try.
     if (fabs(distance) < 0.01)
@@ -141,12 +134,12 @@ public:
 
     //we will be sending commands of type "twist"
     geometry_msgs::Twist base_cmd;
-    //the command will be to go forward at 0.25 m/s
+    //the command will be to go forward at the specified velocity
     base_cmd.linear.y = base_cmd.angular.z = 0;
-    base_cmd.linear.x = forward_rate * vel_rate;
+    base_cmd.linear.x = velocity;
 
     if (distance < 0)
-      base_cmd.linear.x = -base_cmd.linear.x * vel_rate;
+      base_cmd.linear.x = -base_cmd.linear.x;
 
     ros::Rate rate(25.0);
     bool done = false;
@@ -189,7 +182,7 @@ public:
     return false;
   }
 
-  bool turnOdom(double radians, float vel_rate)
+  bool turnOdom(double radians)
   {
     // If the distance to travel is negligble, don't even try.
     if (fabs(radians) < 0.01)
@@ -223,9 +216,9 @@ public:
     //the command will be to turn at 0.75 rad/s
     base_cmd.linear.x = base_cmd.linear.y = 0.0;
 
-    base_cmd.angular.z = turn_rate * vel_rate;
+    base_cmd.angular.z = turn_rate;
     if (radians < 0)
-      base_cmd.angular.z = -turn_rate * vel_rate;
+      base_cmd.angular.z = -turn_rate;
 
     //the axis we want to be rotating by
     tf::Vector3 desired_turn_axis(0,0,1);

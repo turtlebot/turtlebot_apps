@@ -1,3 +1,0 @@
-<launch>
-  <node pkg="turtlebot_actions" type="test_move_vel_ctrl.py" name="test_move"/>
-</launch>
