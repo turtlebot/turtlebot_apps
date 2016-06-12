@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>turtlebot_samples</name>
+  <version>2.3.3</version>
+  <description>Collection of miscellaneous samples of Turtlebot that may not be big enough to be a package.</description>
+
+  <maintainer email="iisaito@kinugarage.com">Isaac I. Y. Saito</maintainer>
+  <author email="iiysaito@opensource-robotics.tokyo.jp">Isaac I. Y. Saito</author>
+
+  <license>BSD</license>
+  <url type="website">http://wiki.ros.org/turtlebot_samples</url>
+  <url type="repository">https://github.com/turtlebot/turtlebot_apps</url>
+  <url type="bugtracker">https://github.com/turtlebot/turtlebot_apps/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>frontier_exploration</run_depend>
+  <run_depend>turtlebot_navigation</run_depend>
+  <test_depend>rostest</test_depend>
+
+  <export/>
+
+</package>
