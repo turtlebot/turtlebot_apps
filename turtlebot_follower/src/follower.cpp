@@ -31,8 +31,7 @@
 #include <pluginlib/class_list_macros.h>
 #include <nodelet/nodelet.h>
 #include <geometry_msgs/Twist.h>
-#include <pcl_ros/point_cloud.h>
-#include <pcl/point_types.h>
+#include <sensor_msgs/Image.h>
 #include <visualization_msgs/Marker.h>
 #include <turtlebot_msgs/SetFollowState.h>
 
@@ -135,9 +134,9 @@ private:
 
   /*!
    * @brief Callback for point clouds.
-   * Callback for point clouds. Uses PCL to find the centroid
-   * of the points in a box in the center of the point cloud.
-   * Publishes cmd_vel messages with the goal from the cloud.
+   * Callback for depth images. It finds the centroid
+   * of the points in a box in the center of the image. 
+   * Publishes cmd_vel messages with the goal from the image.
    * @param cloud The point cloud message.
    */
   void imagecb(const sensor_msgs::ImageConstPtr& depth_msg)
