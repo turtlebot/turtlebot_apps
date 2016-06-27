@@ -141,20 +141,28 @@ private:
    */
   void imagecb(const sensor_msgs::ImageConstPtr& depth_msg)
   {
+
+    // Precompute the sin function for each row and column
+    uint32_t image_width = depth_msg->width;
+    float x_radians_per_pixel = 60.0/57.0/image_width;
+    float sin_pixel_x[image_width];
+    for (int x = 0; x < image_width; ++x) {
+      sin_pixel_x[x] = sin(x * x_radians_per_pixel - image_width/ 2.0);
+    }
+
+    uint32_t image_height = depth_msg->height;
+    float y_radians_per_pixel = 45.0/57.0/image_width;
+    float sin_pixel_y[image_height];
+    for (int y = 0; y < image_height; ++y) {
+      sin_pixel_y[y] = sin(y * y_radians_per_pixel - image_width/ 2.0);
+    }
+
     //X,Y,Z of the centroid
     float x = 0.0;
     float y = 0.0;
     float z = 1e6;
     //Number of points observed
     unsigned int n = 0;
-
-    int min_x = 0;
-    int max_x = 640;
-    float mean_x = (float)(min_x + max_x)/2;
-    int min_y = 200;
-    int max_y = 280;
-    float mean_y = (float)(min_y + max_y)/2;
-    float radians_per_pixel = 75.0/57.0/640.0;
 
     //Iterate through all the points in the region and find the average of the position
     const float* depth_row = reinterpret_cast<const float*>(&depth_msg->data[0]);
@@ -164,12 +172,15 @@ private:
      for (int u = 0; u < (int)depth_msg->width; ++u)
      {
        float depth = depth_image_proc::DepthTraits<float>::toMeters(depth_row[u]);
-       if (!depth_image_proc::DepthTraits<float>::valid(depth)) continue;
-       if (v > min_y && v < max_y && u > min_x && u < max_x && depth < max_z_)
+       if (!depth_image_proc::DepthTraits<float>::valid(depth) || depth > max_z_) continue;
+       float y_val = sin_pixel_y[v] * depth;
+       float x_val = sin_pixel_x[v] * depth;
+       if ( y_val > min_y_ && y_val < max_y_ &&
+            x_val > min_x_ && x_val < max_x_)
        {
-         x += sin(radians_per_pixel * ((float)u - mean_x)) * depth;
-         y += (float)v - mean_y;
-         z = std::min(z, depth);
+         x += x_val;
+         y += y_val;
+         z = std::min(z, depth); //approximate depth as forward.
          n++;
        }
      }
