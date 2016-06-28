@@ -83,7 +83,7 @@ public:
 		maxTotalKeypoints(max_total_keypoints), gridRows(_gridRows), gridCols(
 				_gridCols), detectors_(gridCols * gridRows) {
 		int maxPerCell = maxTotalKeypoints / (gridRows * gridCols);
-		for (int i = 0; i < (int) detectors_.size(); ++i) {
+		for (int i = 0; i < (int) (detectors_.size()); ++i) {
 			detectors_[i] = new cv::DynamicAdaptedFeatureDetector(new Adjuster(adjuster),maxPerCell
 					* 0.8, maxPerCell * 1.2,escape_iters_per_cell);
 		}
@@ -98,7 +98,7 @@ protected:
 	int maxTotalKeypoints;
 	int gridRows;
 	int gridCols;
-	std::vector<cv::Ptr<FeatureDetector> > detectors_;
+	std::vector<cv::Ptr<cv::FeatureDetector> > detectors_;
 };
 
 }
