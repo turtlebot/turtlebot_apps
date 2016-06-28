@@ -17,7 +17,7 @@
   <run_depend>turtlebot_bringup</run_depend>
   <run_depend>turtlebot_follower</run_depend>
   <run_depend>turtlebot_navigation</run_depend>
-  <run_depend>turtlebot_panorama</run_depend>
+  <!--run_depend>turtlebot_panorama</run_depend-->
   <run_depend>turtlebot_teleop</run_depend>
   <run_depend>robot_pose_publisher</run_depend>
 
@@ -46,7 +46,7 @@
     <rocon_app>rapps/ps3_teleop/ps3_teleop.rapp</rocon_app>
 
     <rocon_app>rapps/auto_docking/auto_docking.rapp</rocon_app>
-    <rocon_app>rapps/panorama/panorama.rapp</rocon_app>
+    <!--rocon_app>rapps/panorama/panorama.rapp</rocon_app-->
     <rocon_app>rapps/follower/follower.rapp</rocon_app>
     <rocon_app>rapps/3dsensor/3dsensor.rapp</rocon_app>
   </export>
