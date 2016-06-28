@@ -19,6 +19,7 @@
   <run_depend>turtlebot_navigation</run_depend>
   <run_depend>turtlebot_panorama</run_depend>
   <run_depend>turtlebot_teleop</run_depend>
+  <run_depend>turtlebot_interactive_markers</run_depend>
   <run_depend>robot_pose_publisher</run_depend>
 
   <!-- for navigation apps -->
@@ -49,6 +50,7 @@
     <rocon_app>rapps/panorama/panorama.rapp</rocon_app>
     <rocon_app>rapps/follower/follower.rapp</rocon_app>
     <rocon_app>rapps/3dsensor/3dsensor.rapp</rocon_app>
+    <rocon_app>rapps/interactive_markers_control/interactive_markers_control.rapp</rocon_app>
   </export>
 
 </package>

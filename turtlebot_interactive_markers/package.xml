@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>turtlebot_interactive_markers</name>
+  <version>2.3.2</version>
+  <description>Interactive control for the TurtleBot using RViz and interactive markers</description>
+  <maintainer email="stonier@yujinrobot.com">Daniel Stonier</maintainer>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/turtlebot_interactive_markers</url>
+  <url type="repository">https://github.com/turtlebot/turtlebot_apps</url>
+  <url type="bugtracker">https://github.com/turtlebot/turtlebot_apps/issues</url>
+  <author>Helen Oleynikova</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roscpp</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>interactive_markers</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <run_depend>interactive_markers</run_depend>
+  <run_depend>turtlebot_bringup</run_depend>
+</package>
