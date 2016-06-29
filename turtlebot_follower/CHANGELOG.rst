@@ -2,8 +2,8 @@
 Changelog for package turtlebot_follower
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.6 (2016-06-29)
+------------------
 * add dependency on depth_image_proc
 * Contributors: Tully Foote
 
