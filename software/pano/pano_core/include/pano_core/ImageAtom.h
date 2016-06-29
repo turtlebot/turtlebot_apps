@@ -106,7 +106,7 @@ public:
     */
   cv::Ptr<ImageAtom> ptrToSelf(){
       cv::Ptr<ImageAtom> ptr(this);
-      ptr.addref();
+      ptr->addref();
       return ptr;
     }
   enum
