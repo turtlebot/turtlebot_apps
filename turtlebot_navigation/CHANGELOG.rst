@@ -2,8 +2,8 @@
 Changelog for package turtlebot_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.4 (2016-06-28)
+------------------
 * Update CMakeLists.txt
   catkin_package() must be called before add_executable().
 * Contributors: Jihoon Lee, commaster90

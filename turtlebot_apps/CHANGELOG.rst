@@ -2,8 +2,8 @@
 Changelog for package turtlebot_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.4 (2016-06-28)
+------------------
 * disabling turtlebot_panorama due to it not compiling
 * Contributors: Tully Foote
 

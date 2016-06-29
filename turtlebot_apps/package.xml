@@ -1,6 +1,6 @@
 <package>
   <name>turtlebot_apps</name>
-  <version>2.3.3</version>
+  <version>2.3.4</version>
   <description>
       turtlebot_apps is a group of simple demos and exmaples to run on your TurtleBot to help you get started with ROS and TurtleBot.
   </description>

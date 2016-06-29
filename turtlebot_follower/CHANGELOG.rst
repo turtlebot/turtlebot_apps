@@ -2,8 +2,8 @@
 Changelog for package turtlebot_follower
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.4 (2016-06-28)
+------------------
 * Switch to use depth/image_rect instead of depth/points for efficiency.
   It takes ~ 1/4th the cpu power to do this version.
   This has the added benefit of not requiring PCL as a dependency.
