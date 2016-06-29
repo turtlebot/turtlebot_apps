@@ -2,6 +2,14 @@
 Changelog
 =========
 
+Forthcoming
+-----------
+* disabling turtlebot_panorama due to it not compiling
+* use rocon_apps/make_a_map as parent closes `#139 <https://github.com/turtlebot/turtlebot_apps/issues/139>`_
+* Update map_manager to apply world canvas.
+* add waypoint_nav rapp
+* Contributors: Jihoon Lee, Patrick Chin, Tully Foote
+
 2.3.3 (2015-03-23)
 ------------------
 * change default topic name of scan

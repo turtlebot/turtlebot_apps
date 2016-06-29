@@ -2,6 +2,12 @@
 Changelog for package turtlebot_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update CMakeLists.txt
+  catkin_package() must be called before add_executable().
+* Contributors: Jihoon Lee, commaster90
+
 2.3.3 (2015-03-23)
 ------------------
 * use env instead arg for map closes `#134 <https://github.com/turtlebot/turtlebot_apps/issues/134>`_

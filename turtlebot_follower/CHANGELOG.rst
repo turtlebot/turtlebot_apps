@@ -2,6 +2,21 @@
 Changelog for package turtlebot_follower
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Switch to use depth/image_rect instead of depth/points for efficiency.
+  It takes ~ 1/4th the cpu power to do this version.
+  This has the added benefit of not requiring PCL as a dependency.
+* Add support for joystick override of follower
+  This allows joystick button 5 to toggle follower on and off.
+  It simply adds another input to the mux which sends zero
+  velocity with a slightly higher priority than the follower.
+* the sim directory no longer exists
+  It was implicitly removed in `#142 <https://github.com/turtlebot/turtlebot_apps/issues/142>`_
+* Added arguments in launch file
+* Add simulation launch in turtlebot_follower
+* Contributors: Jihoon Lee, Nadya Ampilogova, Tully Foote
+
 2.3.3 (2015-03-23)
 ------------------
 

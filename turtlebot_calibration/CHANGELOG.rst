@@ -2,6 +2,9 @@
 Changelog for package turtlebot_calibration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.3.3 (2015-03-23)
 ------------------
 
