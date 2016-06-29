@@ -2,8 +2,8 @@
 Changelog for package turtlebot_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.5 (2016-06-28)
+------------------
 * removing unnecessary dependencies
 * Contributors: Tully Foote
 
