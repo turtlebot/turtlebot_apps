@@ -2,6 +2,11 @@
 Changelog for package turtlebot_apps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* removing unnecessary dependencies
+* Contributors: Tully Foote
+
 2.3.4 (2016-06-28)
 ------------------
 * disabling turtlebot_panorama due to it not compiling

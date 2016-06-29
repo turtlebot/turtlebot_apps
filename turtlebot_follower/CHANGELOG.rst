@@ -2,6 +2,9 @@
 Changelog for package turtlebot_follower
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.3.4 (2016-06-28)
 ------------------
 * Switch to use depth/image_rect instead of depth/points for efficiency.

@@ -2,6 +2,9 @@
 Changelog for package turtlebot_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.3.4 (2016-06-28)
 ------------------
 * Update CMakeLists.txt
