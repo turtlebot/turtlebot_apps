@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(turtlebot_follower)
 
 ## Find catkin macros and libraries
-find_package(catkin REQUIRED COMPONENTS nodelet roscpp visualization_msgs turtlebot_msgs dynamic_reconfigure)
+find_package(catkin REQUIRED COMPONENTS nodelet roscpp visualization_msgs turtlebot_msgs depth_image_proc dynamic_reconfigure)
 find_package(Boost REQUIRED)
 
 generate_dynamic_reconfigure_options(cfg/Follower.cfg)
@@ -10,7 +10,7 @@ generate_dynamic_reconfigure_options(cfg/Follower.cfg)
 catkin_package(
   INCLUDE_DIRS
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS nodelet roscpp visualization_msgs turtlebot_msgs dynamic_reconfigure
+  CATKIN_DEPENDS nodelet roscpp visualization_msgs turtlebot_msgs depth_image_proc dynamic_reconfigure
 )
 
 ###########
@@ -40,7 +40,7 @@ target_link_libraries(${PROJECT_NAME}
 #############
 
 ## Mark executables and/or libraries for installation
-install(TARGETS ${PROJECT_NAME} 
+install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
