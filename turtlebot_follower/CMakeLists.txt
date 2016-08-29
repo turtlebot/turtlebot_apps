@@ -27,8 +27,11 @@ include_directories(
 ## Declare a cpp library
 add_library(${PROJECT_NAME} src/follower.cpp)
 
-add_dependencies(${PROJECT_NAME} turtlebot_msgs_gencpp)
-add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME}
+  ${catkin_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_gencfg
+  ${turtlebot_msgs_EXPORTED_TARGETS}
+)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}
