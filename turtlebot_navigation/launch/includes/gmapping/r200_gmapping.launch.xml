@@ -4,7 +4,7 @@
   <arg name="base_frame"  default="base_footprint"/>
   <arg name="odom_frame"  default="odom"/>
 
-  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+  <node pkg="nodelet" type="nodelet" name="slam_gmapping" args="load SlamGMappingNodelet camera/camera_nodelet_manager" output="screen">
     <param name="base_frame" value="$(arg base_frame)"/>
     <param name="odom_frame" value="$(arg odom_frame)"/>
     <param name="map_update_interval" value="5.0"/>
@@ -39,6 +39,9 @@
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <remap from="scan" to="$(arg scan_topic)"/>
+    
+    <remap from="camera/scan" to="$(arg scan_topic)"/>
+    <remap from="camera/map" to="map"/>
+    <remap from="camera/map_metadata" to="map_metadata"/>
   </node>
 </launch>
