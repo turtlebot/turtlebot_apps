@@ -2,8 +2,8 @@
 Changelog for package turtlebot_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.7 (2016-11-01)
+------------------
 * Parameterize AMCL and GMapping launch files for individual cameras.
   Changed amcl_demo.launch and gmapping_demo.launch to use the
   TURTLEBOT_3D_SENSOR environment variable to choose which version of

@@ -1,6 +1,6 @@
 <package>
   <name>turtlebot_actions</name>
-  <version>2.3.6</version>
+  <version>2.3.7</version>
   <description>
       turtlebot_actions provides several basic actionlib actions for the TurtleBot.
   </description>
