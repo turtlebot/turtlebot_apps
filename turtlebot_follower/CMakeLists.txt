@@ -5,7 +5,10 @@ project(turtlebot_follower)
 find_package(catkin REQUIRED COMPONENTS nodelet roscpp visualization_msgs turtlebot_msgs depth_image_proc dynamic_reconfigure)
 find_package(Boost REQUIRED)
 
-generate_dynamic_reconfigure_options(cfg/Follower.cfg)
+generate_dynamic_reconfigure_options(
+  cfg/Follower.cfg
+  cfg/Centroid.cfg
+)
 
 catkin_package(
   INCLUDE_DIRS
@@ -25,7 +28,7 @@ include_directories(
 )
 
 ## Declare a cpp library
-add_library(${PROJECT_NAME} src/follower.cpp)
+add_library(${PROJECT_NAME} src/follower.cpp src/centroid.cpp)
 
 add_dependencies(${PROJECT_NAME}
   ${catkin_EXPORTED_TARGETS}
