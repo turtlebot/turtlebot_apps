@@ -21,7 +21,7 @@
   </group>
   <group if="$(arg simulation)">
     <include file="$(find turtlebot_follower)/launch/includes/velocity_smoother.launch.xml">
-      <arg name="nodelet_manager"  value="/follower_nodelet_manager"/>
+      <arg name="nodelet_manager"  value="follower_nodelet_manager"/>
       <arg name="navigation_topic" value="cmd_vel_mux/input/navi"/>
     </include>
   </group>
