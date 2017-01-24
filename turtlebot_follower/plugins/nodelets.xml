@@ -1,7 +1,12 @@
 <library path="lib/libturtlebot_follower">
   <class name="turtlebot_follower/TurtlebotFollower" type="turtlebot_follower::TurtlebotFollower" base_class_type="nodelet::Nodelet">
     <description>
-      The turtlebot people follower node.
+      The turtlebot people and object follower nodelet.
+    </description>
+  </class>
+  <class name="turtlebot_follower/Centroid" type="turtlebot_follower::Centroid" base_class_type="nodelet::Nodelet">
+    <description>
+      The centroid calculation nodelet used by Turtlebot Follower.
     </description>
   </class>
 </library> 

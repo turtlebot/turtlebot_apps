@@ -1,0 +1,34 @@
+<!--
+  The turtlebot people (or whatever) follower nodelet.
+ -->
+<launch>
+  <arg name="simulation"    default="false"/>
+  <group unless="$(arg simulation)"> <!-- Real robot -->
+      <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+      <arg name="rgb_processing"                  value="true"/>  <!-- only required if we use android client -->
+      <arg name="depth_processing"                value="true"/>
+      <arg name="depth_registered_processing"     value="false"/>
+      <arg name="depth_registration"              value="false"/>
+      <arg name="disparity_processing"            value="false"/>
+      <arg name="disparity_registered_processing" value="false"/>
+      <arg name="scan_processing"                 value="false"/>
+    </include>
+  </group>
+  <group if="$(arg simulation)">
+    <!-- Load nodelet manager for compatibility -->
+    <node pkg="nodelet" type="nodelet" ns="camera" name="camera_nodelet_manager" args="manager"/>
+  </group>
+
+  <!--  Real robot: Load centroid goal generator into the 3d sensor's nodelet manager to avoid pointcloud serializing -->
+  <!--  Simulation: Load centroid goal generator into nodelet manager for compatibility -->
+  <node pkg="nodelet" type="nodelet" name="turtlebot_follower_centroid"
+        args="load turtlebot_follower/Centroid camera/camera_nodelet_manager">
+    <remap from="turtlebot_follower_centroid/goal" to="turtlebot_follower/goal"/>
+    <remap from="depth/points" to="camera/depth/points"/>
+    <param name="min_x" value="-0.35" />
+    <param name="max_x" value="0.35" />
+    <param name="min_y" value="0.1" />
+    <param name="max_y" value="0.5" />
+    <param name="max_z" value="1.2" />
+  </node>
+</launch>
