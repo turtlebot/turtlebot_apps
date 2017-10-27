@@ -194,7 +194,7 @@ private:
       x /= n;
       y /= n;
       if(z > max_z_){
-        ROS_INFO_THROTTLE(1, "Centroid too far away %f, stopping the robot\n", z);
+        ROS_INFO_THROTTLE(1, "Centroid too far away %f, stopping the robot", z);
         if (enabled_)
         {
           cmdpub_.publish(geometry_msgs::TwistPtr(new geometry_msgs::Twist()));
