@@ -314,6 +314,6 @@ private:
   ros::Publisher bboxpub_;
 };
 
-PLUGINLIB_DECLARE_CLASS(turtlebot_follower, TurtlebotFollower, turtlebot_follower::TurtlebotFollower, nodelet::Nodelet);
+PLUGINLIB_EXPORT_CLASS(turtlebot_follower::TurtlebotFollower, nodelet::Nodelet)
 
 }
