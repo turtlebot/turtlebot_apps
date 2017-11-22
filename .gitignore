@@ -1,3 +1,4 @@
+.settings/
 build/
 msg_gen/
 srv_gen/
